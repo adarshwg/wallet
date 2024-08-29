@@ -33,9 +33,9 @@ class Wallet(TransactionManager):
         db_operations.update_user_wallet_balance(self.username, amount)
 
 
-w1 = Wallet('Ishika')
+w1 = Wallet('Aman')
+w1.update_amount(2000,'Nitesh','Adarsh','misc')
+print(w1.get_last_n_transactions(10))
+# print(w1.get_top_n_transactions(10))
 print(w1.get_balance())
-w1.update_amount(48000,'Diya','Ishika','misc')
-print(w1.get_balance())
-print(TransactionManager.get_top_n_transactions(10))
-print(db_operations.get_current_month_transactions())
+print(w1.get_transactions_by_month(8,'2024'))

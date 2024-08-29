@@ -26,13 +26,14 @@ class TransactionManager:
         result_list = [result for result in fetched_results]
         return result_list
 
-    def get_current_month_transactions(self):
-        pass
-        #todo 2
+    @classmethod
+    def get_current_month_transactions(cls):
+        return db_operations.get_current_month_transactions()
+
+    @staticmethod
+    def get_transactions_by_month(month: int, year: int):
+        return db_operations.get_transaction_by_month(month, year)
 
     def spend_analysis(self):
         pass
         #todo 3
-
-
-

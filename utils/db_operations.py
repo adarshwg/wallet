@@ -1,6 +1,7 @@
 import sqlite3
 from wallet_empty import sad_song_player
 from datetime import datetime
+
 conn = sqlite3.connect('database.sqlite')
 cursor = conn.cursor()
 
@@ -10,9 +11,9 @@ id integer primary key,
 amount integer,
 receiver text,
 sender text,
-category text,
+month integer,
 year integer,
-month integer
+category text
 )
 """)
 
@@ -69,9 +70,9 @@ def update_user_wallet_balance(username: str, amount: int):
     conn.commit()
 
 
-def insert(amount: int, sender: str, receiver: str, year: int, month: int, category: str = 'misc') -> None:
+def insert(amount: int, receiver: str, sender: str, year: int, month: int, category: str = 'misc') -> None:
     cursor.execute('insert into transactions values (null,?,?,?,?,?,?)',
-                   (amount, sender, receiver, year, month, category))
+                   (amount, receiver, sender, month, year, category))
     print('inserted the data!!!!')
     conn.commit()
 
@@ -98,7 +99,13 @@ def get_last_n_transactions(requested_transactions):
     return res
 
 
-def get_current_month_transactions() :
-    cursor.execute('select * from transactions where month=?', (datetime.now().date().month,))
+def get_transaction_by_month(month, year):
+    cursor.execute('select * from transactions where month=? and year=? ', (month,year))
     res = cursor.fetchall()
     return res
+
+
+def get_current_month_transactions():
+    current_datetime = datetime.now().date()
+    return get_transaction_by_month(current_datetime.month,current_datetime.year)
+
