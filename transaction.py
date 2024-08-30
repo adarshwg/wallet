@@ -28,7 +28,8 @@ class Transaction:
 
     @staticmethod
     def get_transaction_by_id(transaction_id):
-        return db_operations.get_transaction(transaction_id)
+        transaction = db_operations.get_transaction(transaction_id)
+        return transaction
     # def __getitem__(self, item):    #todo 1
     #     return self.
 

@@ -1,5 +1,5 @@
 import sqlite3
-from wallet_empty import sad_song_player
+# from wallet_empty import sad_song_player
 from datetime import datetime
 
 conn = sqlite3.connect('database.sqlite')
@@ -29,7 +29,6 @@ def create_table_wallets():
     conn.commit()
 
 
-
 def create_table_user():
     cursor.execute('create table if not exists user  '
                    '(username text not null,'
@@ -53,16 +52,6 @@ class WalletEmptyError(Exception):
 
 class InvalidPasswordError(Exception):
     pass
-
-
-
-
-
-#todo remove this function
-def check_all_users():
-    cursor.execute('select * from user')
-    conn.commit()
-    return cursor.fetchall()
 
 
 def check_if_user_exists(username):
@@ -89,10 +78,8 @@ def get_hashed_user_password(username):
 
 
 def create_user_wallet(username: str):
-    print('here to create user wallet! -----')
     create_table_wallets()
     cursor.execute('insert into wallets values (?,0)', (username,))
-    print(f'inserted into the db {username}')
     conn.commit()
 
 
@@ -120,20 +107,19 @@ def update_user_wallet_balance(username: str, amount: int):
         # sad_song_player.player()
         raise WalletEmptyError('User wallet is empty!!')
     cursor.execute('update wallets set amount= ? where username= ?', (current_amount + amount, username))
-    print('updated the user amount in the wallet', current_amount + amount, username)
     conn.commit()
 
 
 def insert(amount: int, receiver: str, sender: str, year: int, month: int, category: str = 'misc') -> None:
     cursor.execute('insert into transactions values (null,?,?,?,?,?,?)',
                    (amount, receiver, sender, month, year, category))
-    print('inserted the data!!!!')
     conn.commit()
 
 
 def get_transaction(transaction_id):
-    cursor.execute(f'select * from transactions where id={int(transaction_id)}')
-    return cursor.fetchall()
+    cursor.execute('select * from transactions where id= ?',(transaction_id,))
+    transaction = cursor.fetchall()
+    return transaction
 
 
 def get_current_transaction_id():
@@ -141,13 +127,13 @@ def get_current_transaction_id():
     return res.fetchall()[0][0]
 
 
-def get_top_n_transactions(requested_transactions):
+def get_top_n_transactions(requested_transactions=10):
     cursor.execute('select * from transactions order by amount desc limit ?', (requested_transactions,))
     res = cursor.fetchall()
     return res
 
 
-def get_last_n_transactions(requested_transactions):
+def get_last_n_transactions(requested_transactions=10):
     cursor.execute('select * from transactions order by id desc limit ?', (requested_transactions,))
     res = cursor.fetchall()
     return res

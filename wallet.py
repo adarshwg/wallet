@@ -15,6 +15,13 @@ class Wallet(TransactionManager):
         db_operations.create_user_wallet(username)
         self.current_balance = 0
 
+    def __repr__(self):
+        return (f'----------------------\n'
+                f'Username : {self.username}\n'
+                f'Current Balance : {self.current_balance}\n'
+                f'----------------------\n'
+                )
+
     def get_balance(self):
         return db_operations.get_user_balance_from_wallet(self.username)
 
@@ -27,12 +34,8 @@ class Wallet(TransactionManager):
 
     def __send_amount(self, amount):
         self.current_balance -= amount
-        print(self.current_balance, amount)
         db_operations.update_user_wallet_balance(self.username, -amount)
 
     def __receive_amount(self, amount):
-        print(self.current_balance,type(self.current_balance))
-        print(amount,type(amount))
         self.current_balance += amount
         db_operations.update_user_wallet_balance(self.username, amount)
-

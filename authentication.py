@@ -16,7 +16,7 @@ class Authentication:
 
     @staticmethod
     def check_username_format(username):
-        pattern = r'([a-zA-Z]*)([0-8]*)'
+        pattern = r'^(?=.*[0-9])(?=.*[a-z])(?!.* ).{5,}$'
         result = re.match(pattern, username)
         if result.group():
             return result.group() == username
@@ -25,7 +25,7 @@ class Authentication:
 
     @staticmethod
     def check_password_format(password):
-        pattern = r'^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*\W)(?!.* ).{8,}$'
+        pattern = r'^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*\W)(?!.* ).{5,}$'
         result = re.match(pattern, password)
         if result:
             return result.group() == password
@@ -46,9 +46,7 @@ class Authentication:
     def match_password(username, entered_password):
         # entered_password_bytes = entered_password.encode('utf-8')
         user_password = db_operations.get_hashed_user_password(username)
-        print('user pass is ', user_password)
         result = bcrypt.checkpw(entered_password, user_password)
-        print('result is ', result)
         return result
 
     @staticmethod
@@ -58,7 +56,6 @@ class Authentication:
             raise db_operations.UserNotFoundError('User not found !!')
         else:
             if Authentication.match_password(username, entered_password):
-                #todo user password matched
                 return 1
             else:
                 raise db_operations.InvalidPasswordError('Invalid password entered !')

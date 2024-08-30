@@ -81,10 +81,40 @@
 # a = (set(li1).intersection(set(li2)))
 # print(len(a))
 
-from authentication import Authentication
-import bcrypt
-user_pass = 'Ad123@'
-hashed_pass = Authentication.hash_password(user_pass)
+# from authentication import Authentication
+# import bcrypt
+# user_pass = 'Ad123@'
+# hashed_pass = Authentication.hash_password(user_pass)
+#
+# entered_pass = 'Ad123@'
+# print(bcrypt.checkpw(entered_pass.encode('utf-8'),hashed_pass))
 
-entered_pass = 'Ad123@'
-print(bcrypt.checkpw(entered_pass.encode('utf-8'),hashed_pass))
+# from utils import db_operations
+# print(db_operations.get_transaction(1))
+# import re
+# def check_username_format(username):
+#
+#     result = re.match(pattern, username)
+#     if result.group():
+#         return result.group() == username
+#     else:
+#         return False
+#
+# print(check_username_format('ad9306'))
+
+# def transaction_printer(result):
+#     for transaction in result:
+#         amount, sender, receiver, category, transaction_id = tuple([transaction[i]
+#                                                                     for i in range(len(transaction))])
+#     transaction_repr = (f'--------------------------\n'
+#                         f'Amount : {amount}\n'
+#                         f'Sender : {sender}\n'
+#                         f'Receiver : {receiver}\n'
+#                         f'Category : {category}\n'
+#                         f'Transaction_ID : {transaction_id}\n'
+#                         f'------------------------------\n'
+#                         )
+#     print(transaction_repr, 'sdsd')
+#
+#
+# transaction_printer([(1, 2, 3, 4, 5), (1, 2, 3, 4, 5)])

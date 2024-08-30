@@ -12,7 +12,7 @@ class TransactionManager:
 
     @staticmethod
     def get_transaction_by_id(transaction_id):
-        Transaction.get_transaction_by_id(transaction_id)
+        return Transaction.get_transaction_by_id(transaction_id)
 
     @staticmethod
     def get_last_n_transactions(number=10):
