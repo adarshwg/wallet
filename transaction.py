@@ -10,7 +10,6 @@ class Transaction:
         self.day = current_datetime.day
         db_operations.insert(amount, sender, receiver, self.year, self.month, category)
         self.transaction_id = db_operations.get_current_transaction_id()
-        # db_operations.update_user_wallet_balance(sender, amount)
         self.amount = amount
         self.receiver = receiver
         self.sender = sender

@@ -34,5 +34,57 @@
 # print(t)
 # print(TransactionManager.get_top_transactions())
 
-from datetime import datetime
-print(datetime.now())
+# from datetime import datetime
+# print(datetime.now())
+
+# import re
+# pattern = '^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*\w)(?!.* ).{8,}$'
+# result = re.match(pattern,'adarsh13@')
+# print(result.group())
+#
+# from utils import db_operations
+# db_operations.create_user('adarsh1123','Adarsh@123')
+# print(db_operations.check_if_user_exists('adarsh1123'))
+#
+# print(db_operations.check_all_users())
+
+# import bcrypt
+#
+# # example password
+# password = 'passwordabc'
+#
+# # converting password to array of bytes
+# bytes = password.encode('utf-8')
+#
+# # generating the salt
+# salt = bcrypt.gensalt()
+
+# Hashing the password
+# hash = bcrypt.hashpw(bytes, salt)
+#
+# # Taking user entered password
+# userPassword = 'passwordabc'
+#
+# # encoding user password
+# userBytes = userPassword.encode('utf-8')
+# hash2 = bcrypt.hashpw(userBytes, salt)
+# # checking password
+# result = bcrypt.checkpw(hash2, hash)
+#
+# print(result)
+
+# from utils import db_operations
+# print(db_operations.get_last_n_transactions(10))
+
+# li1 = [1, 2, 3]
+# li2 = [4, 5, 6, 7]
+# a = (set(li1).intersection(set(li2)))
+# print(len(a))
+
+from authentication import Authentication
+import bcrypt
+user_pass = 'Ad123@'
+hashed_pass = Authentication.hash_password(user_pass)
+
+entered_pass = 'Ad123@'
+print(bcrypt.checkpw(entered_pass.encode('utf-8'),hashed_pass))

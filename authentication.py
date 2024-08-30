@@ -1,10 +1,64 @@
-class Authentication :
+from utils import db_operations
+import bcrypt
+import re
+
+
+class Authentication:
     def __init__(self):
-        pass
-    @staticmethod
-    def login(self, username, password):
         pass
 
     @staticmethod
+    def hash_password(password):
+        byte_arr = password.encode('utf-8')
+        salt = bcrypt.gensalt()
+        hashed_pass = bcrypt.hashpw(byte_arr, salt)
+        return hashed_pass
+
+    @staticmethod
+    def check_username_format(username):
+        pattern = r'([a-zA-Z]*)([0-8]*)'
+        result = re.match(pattern, username)
+        if result.group():
+            return result.group() == username
+        else:
+            return False
+
+    @staticmethod
+    def check_password_format(password):
+        pattern = r'^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*\W)(?!.* ).{8,}$'
+        result = re.match(pattern, password)
+        if result:
+            return result.group() == password
+        else:
+            return False
+
     def signup(self, username, password):
-        pass
+        user_exists = db_operations.check_if_user_exists(username)
+
+        if user_exists:
+            print('User already exists!!!')
+        else:
+            password = self.hash_password(password)
+            db_operations.create_user(username, password)
+            print(f'user with username {username} created!!')
+
+    @staticmethod
+    def match_password(username, entered_password):
+        # entered_password_bytes = entered_password.encode('utf-8')
+        user_password = db_operations.get_hashed_user_password(username)
+        print('user pass is ', user_password)
+        result = bcrypt.checkpw(entered_password, user_password)
+        print('result is ', result)
+        return result
+
+    @staticmethod
+    def login(username, entered_password):
+        user_exists = db_operations.check_if_user_exists(username)
+        if not user_exists:
+            raise db_operations.UserNotFoundError('User not found !!')
+        else:
+            if Authentication.match_password(username, entered_password):
+                #todo user password matched
+                return 1
+            else:
+                raise db_operations.InvalidPasswordError('Invalid password entered !')

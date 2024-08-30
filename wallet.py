@@ -6,6 +6,7 @@ class Wallet(TransactionManager):
     def __init__(self, username):
         self.username = username
         db_operations.create_table_wallets()
+        db_operations.create_table_transactions()
         if db_operations.check_if_user_wallet_exists(self.username):
             self.current_balance = db_operations.get_user_balance_from_wallet(self.username)
             return
@@ -26,16 +27,12 @@ class Wallet(TransactionManager):
 
     def __send_amount(self, amount):
         self.current_balance -= amount
+        print(self.current_balance, amount)
         db_operations.update_user_wallet_balance(self.username, -amount)
 
     def __receive_amount(self, amount):
+        print(self.current_balance,type(self.current_balance))
+        print(amount,type(amount))
         self.current_balance += amount
         db_operations.update_user_wallet_balance(self.username, amount)
 
-
-w1 = Wallet('Aman')
-w1.update_amount(2000,'Nitesh','Adarsh','misc')
-print(w1.get_last_n_transactions(10))
-# print(w1.get_top_n_transactions(10))
-print(w1.get_balance())
-print(w1.get_transactions_by_month(8,'2024'))
