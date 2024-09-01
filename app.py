@@ -69,10 +69,15 @@ def wallet_functionalities():
             get_transaction_by_id()
         elif wallet_input == '4':
             number = input('Enter the number of transactions (default :10) :')
+            if not number :
+                number = 10
             print(new_user.wallet.get_last_n_transactions(number))
         elif wallet_input == '5':
-            number = int(input('Enter the number of transactions (default :10) :'))
+            number = input('Enter the number of transactions (default :10) :')
+            if not number :
+                number = 10
             print(new_user.wallet.get_top_n_transactions(number))
+
         elif wallet_input == '6':
             print(new_user.wallet.get_current_month_transactions())
         elif wallet_input == '7':
