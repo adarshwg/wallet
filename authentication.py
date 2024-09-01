@@ -1,6 +1,7 @@
 from utils import db_operations
 import bcrypt
 import re
+from Errors import UserNotFoundError, WalletEmptyError, InvalidPasswordError
 
 
 class Authentication:
@@ -18,9 +19,10 @@ class Authentication:
     def check_username_format(username):
         pattern = r'^(?=.*[0-9])(?=.*[a-z])(?!.* ).{5,}$'
         result = re.match(pattern, username)
-        if result.group():
-            return result.group() == username
-        else:
+        try :
+            if result.group():
+                return result.group() == username
+        except AttributeError:
             return False
 
     @staticmethod
@@ -53,9 +55,13 @@ class Authentication:
     def login(username, entered_password):
         user_exists = db_operations.check_if_user_exists(username)
         if not user_exists:
-            raise db_operations.UserNotFoundError('User not found !!')
+            raise UserNotFoundError('User not found !!')
         else:
             if Authentication.match_password(username, entered_password):
                 return 1
             else:
-                raise db_operations.InvalidPasswordError('Invalid password entered !')
+                raise InvalidPasswordError('Invalid password entered !')
+
+    @staticmethod
+    def check_if_username_exists(username):
+        return db_operations.check_if_user_exists(username)

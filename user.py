@@ -15,11 +15,12 @@ class User:
         db_operations.create_user(username,self.hashed_password)
         self.wallet = Wallet(username)
 
-    @property
-    def login(self):
-        authorized = Authentication.login(self.username, self.password.encode('utf-8'))
+    @staticmethod
+    def login(username,password):
+        authorized = Authentication.login(username, password.encode('utf-8'))
         if authorized:
-            self.wallet = Wallet(self.username)
+            new_user = User(username,password)
+            new_user.wallet = Wallet(new_user.username)
             return True
         else:
             return False

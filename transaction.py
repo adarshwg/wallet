@@ -27,6 +27,6 @@ class Transaction:
         return transaction_repr
 
     @staticmethod
-    def get_transaction_by_id(transaction_id):
-        transaction = db_operations.get_transaction(transaction_id)
+    def get_transaction_by_id(transaction_id,username):
+        transaction = db_operations.get_transaction(transaction_id,username)
         return transaction

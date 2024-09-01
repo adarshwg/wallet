@@ -1,5 +1,6 @@
 from user import User
 from authentication import Authentication
+from Errors import UserNotFoundError, InvalidPasswordError, WalletEmptyError
 
 auth_message = """
 Choose an option :
@@ -17,11 +18,12 @@ Choose an option :
 6. Get current month transactions
 7. Get transactions by month 
 8. See wallet
+9. Exit
 """
 
 
-def get_transaction_by_id(transaction_id):
-    result = new_user.wallet.get_transaction_by_id(transaction_id)
+def get_transaction_by_id(transaction_id,new_user):
+    result = new_user.wallet.get_transaction_by_id(transaction_id,new_user.username)
     for transaction in result:
         transaction_id, amount, sender, receiver, month, year, category = tuple([transaction[i]
                                                                                  for i in range(len(transaction))])
@@ -37,6 +39,7 @@ def get_transaction_by_id(transaction_id):
                             )
         print(transaction_repr)
 
+
 def get_new_transaction_values():
     amount = int(input('Enter the amount involved : '))
     sender = input('Enter the sender : ')
@@ -50,7 +53,7 @@ def get_new_transaction_values():
     }
 
 
-def wallet_functionalities():
+def wallet_functionalities(new_user):
     while True:
         wallet_input = input(wallet_message)
         if wallet_input == '1':
@@ -66,70 +69,88 @@ def wallet_functionalities():
             print('Transaction has been added successfully !')
         elif wallet_input == '3':
             transaction_id = int(input('Enter the transaction id : '))
-            get_transaction_by_id(transaction_id)
+            get_transaction_by_id(transaction_id,new_user)
         elif wallet_input == '4':
             number = input('Enter the number of transactions (default :10) :')
             if not number:
                 number = 10
-            list_of_transactions = new_user.wallet.get_last_n_transactions(number)
+            list_of_transactions = new_user.wallet.get_last_n_transactions(new_user.username,number)
             for transaction in list_of_transactions:
-                get_transaction_by_id(transaction[0])
+                get_transaction_by_id(transaction[0],new_user)
 
         elif wallet_input == '5':
             number = input('Enter the number of transactions (default :10) :')
             if not number:
                 number = 10
-            list_of_top_transactions = new_user.wallet.get_top_n_transactions(number)
+            list_of_top_transactions = new_user.wallet.get_top_n_transactions(new_user.username,number)
             for transaction in list_of_top_transactions:
-                get_transaction_by_id(transaction[0])
+                get_transaction_by_id(transaction[0],new_user)
 
         elif wallet_input == '6':
-            current_month_transactions = new_user.wallet.get_current_month_transactions()
+            current_month_transactions = new_user.wallet.get_current_month_transactions(new_user.username)
             for transaction in current_month_transactions:
-                get_transaction_by_id(transaction[0])
+                get_transaction_by_id(transaction[0],new_user)
         elif wallet_input == '7':
             month = int(input('Enter the month in number : '))
             year = input('Enter the year : ')
-            selected_month_transactions = new_user.wallet.get_transactions_by_month(month, year)
+            selected_month_transactions = new_user.wallet.get_transactions_by_month(month, year, new_user.username)
             for transaction in selected_month_transactions:
-                get_transaction_by_id(transaction[0])
+                get_transaction_by_id(transaction[0],new_user)
 
         elif wallet_input == '8':
             print(new_user.wallet)
+        elif wallet_input == '9' :
+            return
         else:
+            print('Please enter valid input from the options !')
             continue
         call_again = input('Do you wish to continue ?\n y/n : ')
         if call_again.lower() == 'y':
-            wallet_functionalities()
+            wallet_functionalities(new_user)
         else:
             return
 
 
-while True:
+def login_function():
+    username = input('Enter your username : ')
+    password = input('Enter your password : ')
+    username_check = Authentication.check_username_format(username)
+    password_check = Authentication.check_password_format(password)
+    if not username_check or not password_check:
+        print('Enter valid username and password format!!')
+        return
+    try:
+        if User.login(username,password):
+            Authentication.check_if_username_exists(username)
+            user_object = User(username,password)
+            wallet_functionalities(user_object)
+    except UserNotFoundError :
+        print('User was not found!')
+
+    except InvalidPasswordError:
+        print('Invalid password entered !!\n')
+        continued = input('Do you wish to try again?\n y/n : ')
+        if continued.lower() == 'n':
+            return
+        else:
+            login_function()
+
+
+def caller_function() :
     user_input = input(auth_message)
     if user_input == '1':
-        username = input('Enter your username : ')
-        password = input('Enter your password : ')
-        username_check = Authentication.check_username_format(username)
-        password_check = Authentication.check_password_format(password)
-        if not username_check or not password_check:
-            print('Enter valid username and password !!')
-        new_user = User(username, password)
-        if new_user.login:
-            wallet_functionalities()
-
-        else:
-            print('Invalid password entered !!\n')
-            continued = input('Do you wish to try again?\n y/n : ')
-            if continued.lower() == 'n':
-                break
+        login_function()
     elif user_input == '2':
         username = input('Enter your username :')
         password = input('Enter your password :')
         new_user = User(username, password)
+        wallet_functionalities(new_user)
 
+
+while True:
+    caller_function()
     continued = input('Do you wish to continue ?\n y/n : ')
     if continued.lower() == 'y':
-        wallet_functionalities()
+        caller_function()
     else:
         break
