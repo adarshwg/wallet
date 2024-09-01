@@ -20,23 +20,22 @@ Choose an option :
 """
 
 
-def get_transaction_by_id():
-    transaction_id = int(input('Enter the transaction id : '))
+def get_transaction_by_id(transaction_id):
     result = new_user.wallet.get_transaction_by_id(transaction_id)
     for transaction in result:
-        amount, sender, receiver, category, transaction_id = tuple([transaction[i]
-                                                                    for i in range(5)])
-
-    transaction_repr = (f'--------------------------\n'
-                        f'Amount : {amount}\n'
-                        f'Sender : {sender}\n'
-                        f'Receiver : {receiver}\n'
-                        f'Category : {category}\n'
-                        f'Transaction_ID : {transaction_id}\n'
-                        f'------------------------------\n'
-                        )
-    print(transaction_repr)
-
+        transaction_id, amount, sender, receiver, month, year, category = tuple([transaction[i]
+                                                                                 for i in range(len(transaction))])
+        transaction_repr = (f'-------------Transaction------------- \n'
+                            f'Amount : {amount}\n'
+                            f'Sender : {sender}\n'
+                            f'Receiver : {receiver}\n'
+                            f'Month : {month}\n'
+                            f'Year : {year}\n'
+                            f'Category : {category}\n'
+                            f'Transaction_ID : {transaction_id}\n'
+                            f'------------------------------\n'
+                            )
+        print(transaction_repr)
 
 def get_new_transaction_values():
     amount = int(input('Enter the amount involved : '))
@@ -66,24 +65,35 @@ def wallet_functionalities():
             )
             print('Transaction has been added successfully !')
         elif wallet_input == '3':
-            get_transaction_by_id()
+            transaction_id = int(input('Enter the transaction id : '))
+            get_transaction_by_id(transaction_id)
         elif wallet_input == '4':
             number = input('Enter the number of transactions (default :10) :')
-            if not number :
+            if not number:
                 number = 10
-            print(new_user.wallet.get_last_n_transactions(number))
+            list_of_transactions = new_user.wallet.get_last_n_transactions(number)
+            for transaction in list_of_transactions:
+                get_transaction_by_id(transaction[0])
+
         elif wallet_input == '5':
             number = input('Enter the number of transactions (default :10) :')
-            if not number :
+            if not number:
                 number = 10
-            print(new_user.wallet.get_top_n_transactions(number))
+            list_of_top_transactions = new_user.wallet.get_top_n_transactions(number)
+            for transaction in list_of_top_transactions:
+                get_transaction_by_id(transaction[0])
 
         elif wallet_input == '6':
-            print(new_user.wallet.get_current_month_transactions())
+            current_month_transactions = new_user.wallet.get_current_month_transactions()
+            for transaction in current_month_transactions:
+                get_transaction_by_id(transaction[0])
         elif wallet_input == '7':
             month = int(input('Enter the month in number : '))
             year = input('Enter the year : ')
-            print(new_user.wallet.get_transactions_by_month(month, year))
+            selected_month_transactions = new_user.wallet.get_transactions_by_month(month, year)
+            for transaction in selected_month_transactions:
+                get_transaction_by_id(transaction[0])
+
         elif wallet_input == '8':
             print(new_user.wallet)
         else:
