@@ -145,12 +145,17 @@ def caller_function() :
         password = input('Enter your password :')
         new_user = User(username, password)
         wallet_functionalities(new_user)
-
+    elif user_input == '3' :
+        return 0
 
 while True:
-    caller_function()
+    call_end = caller_function()
+    if call_end :
+        break
     continued = input('Do you wish to continue ?\n y/n : ')
     if continued.lower() == 'y':
-        caller_function()
+        call_end = caller_function()
+        if call_end :
+            break
     else:
         break
