@@ -20,8 +20,9 @@ class Authentication:
         pattern = r'^(?=.*[0-9])(?=.*[a-z])(?!.* ).{5,}$'
         result = re.match(pattern, username)
         try :
-            if result.group():
-                return result.group() == username
+            matched_string = result.group()
+            if matched_string :
+                return matched_string == username
         except AttributeError:
             return False
 
@@ -35,19 +36,8 @@ class Authentication:
         else:
             return False
 
-    def signup(self, username, password):
-        user_exists = db_operations.check_if_user_exists(username)
-
-        if user_exists:
-            print('User already exists!!!')
-        else:
-            password = self.hash_password(password)
-            db_operations.create_user(username, password)
-            print(f'user with username {username} created!!')
-
     @staticmethod
     def match_password(username, entered_password):
-        # entered_password_bytes = entered_password.encode('utf-8')
         user_password = db_operations.get_hashed_user_password(username)
         result = bcrypt.checkpw(entered_password, user_password)
         return result

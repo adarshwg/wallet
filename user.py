@@ -6,7 +6,6 @@ from utils import db_operations
 class User:
     def __init__(self, username, password):
         self.username = username
-        self.password = password
         self.hashed_password = Authentication.hash_password(password)
         db_operations.create_user(username,self.hashed_password)
         self.wallet = Wallet(username)
