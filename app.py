@@ -60,13 +60,17 @@ def wallet_functionalities(new_user):
             print('User balance is :', new_user.get_user_balance())
         elif wallet_input == '2':
             new_transaction = get_new_transaction_values()
-            new_user.update_amount(
-                new_transaction['amount'],
-                new_transaction['sender'],
-                new_transaction['receiver'],
-                new_transaction['category']
-            )
-            print('Transaction has been added successfully !')
+            try :
+                new_user.update_amount(
+                    new_transaction['amount'],
+                    new_transaction['sender'],
+                    new_transaction['receiver'],
+                    new_transaction['category']
+                )
+                print('Transaction has been added successfully !')
+            except WalletEmptyError:
+                print('User wallet is empty :(')
+
         elif wallet_input == '3':
             transaction_id = int(input('Enter the transaction id : '))
             get_transaction_by_id(transaction_id,new_user)
