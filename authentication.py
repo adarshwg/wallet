@@ -31,6 +31,7 @@ class Authentication:
         result = re.match(pattern, password)
         if result:
             return result.group() == password
+
         else:
             return False
 

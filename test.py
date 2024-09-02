@@ -118,3 +118,5 @@
 #
 #
 # transaction_printer([(1, 2, 3, 4, 5), (1, 2, 3, 4, 5)])
+from authentication import Authentication
+print(Authentication.check_password_format('hello@123A'))

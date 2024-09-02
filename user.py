@@ -3,10 +3,6 @@ from wallet import Wallet
 from utils import db_operations
 
 
-class NotAuthenticatedError(Exception):
-    pass
-
-
 class User:
     def __init__(self, username, password):
         self.username = username
@@ -25,18 +21,10 @@ class User:
         else:
             return False
 
-    # def get_user_wallet(self):
-    #     if self.login == 1:
-    #         return self.wallet
-    #     else:
-    #         raise NotAuthenticatedError('User not authenticated!')
-
     def update_amount(self, amount, sender, receiver, category):
-        # if self.login == 1:
         self.wallet.update_amount(amount, sender, receiver, category)
 
     def get_user_balance(self):
-        # if self.login == 1:
         return self.wallet.get_balance()
 
 
