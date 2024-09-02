@@ -9,6 +9,7 @@ from Errors import UserNotFoundError, InvalidPasswordError
 
 
 class TestAuthentication(unittest.TestCase):
+
     @patch('authentication.bcrypt.hashpw')
     def test_hash_password(self, mock_hashpw):
         password = 'Secure'
@@ -92,11 +93,12 @@ class TestAuthentication(unittest.TestCase):
     @patch('authentication.Authentication.match_password')
     def test_login_invalid_user(self, mock_match_password):
         mock_match_password.return_value = False
-        result = Authentication.match_password('ad123', 'Ad123@')
-        assert result != 1
+        with self.assertRaises(InvalidPasswordError):
+            Authentication.login('ad123', 'Ad123@')
+        mock_match_password.assert_called_once_with('ad123', 'Ad123@')
 
     @patch('authentication.db_operations.check_if_user_exists')
-    def test_check_if_username_exists(self,mock_check_user_exist):
+    def test_check_if_username_exists(self, mock_check_user_exist):
         mock_check_user_exist.return_value = True
         result = authentication.Authentication.check_if_username_exists('ad123')
         self.assertTrue(result)
