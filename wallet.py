@@ -28,14 +28,14 @@ class Wallet(TransactionManager):
     def update_amount(self, amount, sender, receiver, category):
         Wallet.create_transaction(amount, sender, receiver, category)
         if sender == self.username:
-            self.__send_amount(amount)
+            self.send_amount(amount)
         else:
-            self.__receive_amount(amount)
+            self.receive_amount(amount)
 
-    def __send_amount(self, amount):
+    def send_amount(self, amount):
         self.current_balance -= amount
         db_operations.update_user_wallet_balance(self.username, -amount)
 
-    def __receive_amount(self, amount):
+    def receive_amount(self, amount):
         self.current_balance += amount
         db_operations.update_user_wallet_balance(self.username, amount)
