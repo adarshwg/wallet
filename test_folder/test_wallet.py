@@ -55,5 +55,3 @@ class TestWallet(unittest.TestCase):
         mocked_update_wallet_balance.return_value = mocked_update_wallet_balance_return
         self.wallet_obj.receive_amount(10000)
         mocked_update_wallet_balance.assert_called_once_with('ad123', 10000)
-
-    

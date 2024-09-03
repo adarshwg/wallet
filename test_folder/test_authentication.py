@@ -85,14 +85,18 @@ class TestAuthentication(unittest.TestCase):
         mock_check_user_exists.assert_called_once_with('ad123')
 
     @patch('authentication.Authentication.match_password')
-    def test_login_valid_user(self, mock_match_password):
+    @patch('authentication.db_operations.check_if_user_exists')
+    def test_login_valid_user(self, mock_check_user_exists, mock_match_password):
         mock_match_password.return_value = True
+        mock_check_user_exists.return_value = True
         result = Authentication.match_password('ad123', 'Ad123@')
         assert result == 1
 
     @patch('authentication.Authentication.match_password')
-    def test_login_invalid_user(self, mock_match_password):
+    @patch('authentication.db_operations.check_if_user_exists')
+    def test_login_invalid_user(self, mock_check_user_exists,mock_match_password):
         mock_match_password.return_value = False
+        mock_check_user_exists.return_value = True
         with self.assertRaises(InvalidPasswordError):
             Authentication.login('ad123', 'Ad123@')
         mock_match_password.assert_called_once_with('ad123', 'Ad123@')
