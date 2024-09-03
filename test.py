@@ -14,6 +14,9 @@
 # res = requests.get(endpoint,{'authorization':})
 # print(res.status_code)
 # print(res.text)
+import unittest
+from unittest.mock import patch, MagicMock
+
 
 # from utils import db_operations
 #
@@ -118,5 +121,27 @@
 #
 #
 # transaction_printer([(1, 2, 3, 4, 5), (1, 2, 3, 4, 5)])
-from authentication import Authentication
-print(Authentication.check_password_format('hello@123A'))
+
+
+class Add:
+    def __init__(self):
+        self.number = 0
+        print('Hello world')
+
+    def create_add(self):
+        ad = Add()
+        return ad.number + 10
+
+
+class TestAdd(unittest.TestCase):
+    @classmethod
+    def setUpClass(cls):
+        cls.add_object = Add()
+
+    @patch('test.Add.__init__', return_value=None)
+    def test_create_add(self):
+        instance = Add()
+        instance.number = 100
+        instance.create_add = 20000
+        result = instance.create_add
+        self.assertEqual(result,20000)

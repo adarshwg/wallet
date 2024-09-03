@@ -103,3 +103,7 @@ class TestAuthentication(unittest.TestCase):
         result = authentication.Authentication.check_if_username_exists('ad123')
         self.assertTrue(result)
         mock_check_user_exist.assert_called_once_with('ad123')
+
+
+if __name__ == '__main__':
+    unittest.main()
