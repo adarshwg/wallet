@@ -1,12 +1,10 @@
 from transaction_manager import TransactionManager
 from utils import db_operations
-
+from Errors import WalletEmptyError
 
 class Wallet(TransactionManager):
     def __init__(self, username):
         self.username = username
-        db_operations.create_table_wallets()
-        db_operations.create_table_transactions()
         if db_operations.check_if_user_wallet_exists(self.username):
             self.current_balance = db_operations.get_user_balance_from_wallet(self.username)
             return
@@ -26,6 +24,8 @@ class Wallet(TransactionManager):
         return db_operations.get_user_balance_from_wallet(self.username)
 
     def update_amount(self, amount, sender, receiver, category):
+        if self.get_balance() == 0:
+            raise WalletEmptyError('User Wallet is empty !!')
         Wallet.create_transaction(amount, sender, receiver, category)
         if sender == self.username:
             self.send_amount(amount)
