@@ -1,7 +1,7 @@
 import unittest
 from unittest.mock import patch, MagicMock
 import utils.db_operations
-from Errors import UserNotFoundException,WalletEmptyException
+from Errors import UserNotFoundException, WalletEmptyException
 
 
 class TestDBOperations(unittest.TestCase):
@@ -112,26 +112,27 @@ class TestDBOperations(unittest.TestCase):
         mock_get_user_wallet_balance.return_value = 1000
         mock_cursor.execute.return_value = None
         mock_conn.commit.return_value = None
-        utils.db_operations.update_user_wallet_balance('ad123',100000)
+        utils.db_operations.update_user_wallet_balance('ad123', 100000)
         mock_cursor.execute.assert_called_once_with('update wallets set'
                                                     ' amount= ? where username= ?',
                                                     (1000 + 100000, 'ad123'))
         mock_conn.commit.assert_called_once()
 
     @patch('utils.db_operations.get_user_balance_from_wallet')
-    def test_update_user_wallet_balance_invalid(self,mock_get_wallet_balance):
+    def test_update_user_wallet_balance_invalid(self, mock_get_wallet_balance):
         mock_get_wallet_balance.return_value = 0
         with self.assertRaises(WalletEmptyException):
-            utils.db_operations.update_user_wallet_balance('ad123',-10000)
+            utils.db_operations.update_user_wallet_balance('ad123', -10000)
         mock_get_wallet_balance.assert_called_once_with('ad123')
 
     @patch('utils.db_operations.conn')
     @patch('utils.db_operations.cursor')
-    def test_insert(self,mock_cursor,mock_conn):
+    def test_insert(self, mock_cursor, mock_conn):
         mock_cursor.execute.return_value = None
         mock_conn.commit.return_value = None
-        utils.db_operations.insert('a','b','c','d','e','f')
-        mock_cursor.execute.assert_called_once_with('insert into transactions values (null,?,?,?,?,?,?)',('a','b','c','d','e','f'))
+        utils.db_operations.insert('a', 'b', 'c', 'd', 'e', 'f')
+        mock_cursor.execute.assert_called_once_with('insert into transactions values (null,?,?,?,?,?,?)',
+                                                    ('a', 'b', 'c', 'd', 'e', 'f'))
         mock_conn.commit.assert_called_once()
 
     @patch('utils.db_operations.conn')
@@ -145,39 +146,41 @@ class TestDBOperations(unittest.TestCase):
         mock_conn.commit.assert_called_once()
 
     @patch('utils.db_operations.cursor')
-    def test_get_transaction(self,mock_cursor):
+    def test_get_transaction(self, mock_cursor):
         mock_cursor.execute.return_value = None
-        mock_cursor.fetchall.return_value = [(1,'a','b','c')]
-        result = utils.db_operations.get_transaction(1,'a')
-        assert result == [(1,'a','b','c')]
-        mock_cursor.execute.assert_called_once_with('select * from transactions where id= ? and (sender=? or receiver=?)',
-                   (1,'a','a'))
+        mock_cursor.fetchall.return_value = [(1, 'a', 'b', 'c')]
+        result = utils.db_operations.get_transaction(1, 'a')
+        assert result == [(1, 'a', 'b', 'c')]
+        mock_cursor.execute.assert_called_once_with(
+            'select * from transactions where id= ? and (sender=? or receiver=?)',
+            (1, 'a', 'a'))
         mock_cursor.fetchall.assert_called_once()
 
     @patch('utils.db_operations.cursor')
-    def test_get_current_transaction_id(self,mock_cursor):
+    def test_get_current_transaction_id(self, mock_cursor):
         mock_cursor.execute.return_value = None
-        mock_cursor.fetchall.return_value = [[(1,'a','8','2024')]]
+        mock_cursor.fetchall.return_value = [[(1, 'a', '8', '2024')]]
         result = utils.db_operations.get_current_transaction_id()
-        assert result == (1,'a','8','2024')
+        assert result == (1, 'a', '8', '2024')
         mock_cursor.execute.assert_called_once_with('select max(id) from transactions')
         mock_cursor.fetchall.assert_called_once()
 
     @patch('utils.db_operations.cursor')
-    def test_get_top_n_transactions_default(self,mock_cursor):
+    def test_get_top_n_transactions_default(self, mock_cursor):
         mock_cursor.execute.return_value = None
-        mock_cursor.fetchall.return_value = [(1,'a','b','c')]
+        mock_cursor.fetchall.return_value = [(1, 'a', 'b', 'c')]
         result = utils.db_operations.get_top_n_transactions('ad123')
-        assert result == [(1,'a','b','c')]
-        mock_cursor.execute.assert_called_once_with('select * from transactions where (sender=? or receiver=?) order by amount desc limit ?',
-                   ('ad123', 'ad123', 10,))
+        assert result == [(1, 'a', 'b', 'c')]
+        mock_cursor.execute.assert_called_once_with(
+            'select * from transactions where (sender=? or receiver=?) order by amount desc limit ?',
+            ('ad123', 'ad123', 10,))
         mock_cursor.fetchall.assert_called_once()
 
     @patch('utils.db_operations.cursor')
     def test_get_top_n_transactions_with_n(self, mock_cursor):
         mock_cursor.execute.return_value = None
         mock_cursor.fetchall.return_value = [(1, 'a', 'b', 'c')]
-        result = utils.db_operations.get_top_n_transactions('ad123',100)
+        result = utils.db_operations.get_top_n_transactions('ad123', 100)
         assert result == [(1, 'a', 'b', 'c')]
         mock_cursor.execute.assert_called_once_with(
             'select * from transactions where (sender=? or receiver=?) order by amount desc limit ?',
@@ -199,11 +202,9 @@ class TestDBOperations(unittest.TestCase):
     def test_get_transaction_by_month(self, mock_cursor):
         mock_cursor.execute.return_value = None
         mock_cursor.fetchall.return_value = [(1, 'a', 'b', 'c')]
-        result = utils.db_operations.get_transaction_by_month(1,2023,'ad123')
+        result = utils.db_operations.get_transaction_by_month(1, 2023, 'ad123')
         assert result == [(1, 'a', 'b', 'c')]
-        mock_cursor.execute.assert_called_once_with('select * from transactions where month=? and year=? and (sender=? or receiver = ?)',
-                   (1, 2023, 'ad123', 'ad123'))
+        mock_cursor.execute.assert_called_once_with(
+            'select * from transactions where month=? and year=? and (sender=? or receiver = ?)',
+            (1, 2023, 'ad123', 'ad123'))
         mock_cursor.fetchall.assert_called_once()
-
-
-

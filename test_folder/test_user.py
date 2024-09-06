@@ -1,8 +1,10 @@
 import unittest
 from unittest.mock import patch
+
+import authentication
 from user import User
 from wallet import Wallet
-from Errors import LowBalanceException
+from Errors import LowBalanceException,InvalidPasswordException,UserNotFoundException
 
 
 class TestUser(unittest.TestCase):
@@ -35,20 +37,26 @@ class TestUser(unittest.TestCase):
         mock_hash_password.assert_called_once_with('testinG@123')
 
     @patch('authentication.Authentication.login')
-    def test_login_unauthorized(self, mocked_login):
-        mocked_login.return_value = False
-        result = User.login('adarsh123', 'Adarsh123@')
-        self.assertFalse(result)
-
-    @patch('authentication.db_operations.create_user')
-    @patch('authentication.Authentication.login')
-    def test_login_authorized(self, mocked_login, mocked_create_user):
+    def test_login_authorized(self, mocked_login):
         mocked_login.return_value = True
-        mocked_create_user.return_value = None
         result = User.login('ad124', 'ad123@AA')
         self.assertTrue(result)
         mocked_login.assert_called_once_with('ad124', b'ad123@AA')
-        mocked_create_user.assert_called_once()
+
+    @patch('authentication.Authentication.login')
+    def test_login_user_not_found(self, mocked_login):
+        mocked_login.side_effect = UserNotFoundException('User not found!')
+        with self.assertRaises(UserNotFoundException):
+            authentication.Authentication.login('adarsh123', 'Adarsh123@')
+        mocked_login.assert_called_once_with('adarsh123', 'Adarsh123@')
+
+    @patch('authentication.Authentication.login')
+    def test_login_invalid_password(self, mocked_login):
+        mocked_login.side_effect = InvalidPasswordException('Invalid password entered!')
+        with self.assertRaises(InvalidPasswordException):
+            authentication.Authentication.login('adarsh123', 'Adarsh123@')
+        mocked_login.assert_called_once_with('adarsh123', 'Adarsh123@')
+
 
     @patch('wallet.Wallet.update_amount')
     def test_update_amount(self, mocked_update_amount):

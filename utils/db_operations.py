@@ -7,6 +7,8 @@ def check_if_user_exists(username):
     conn.commit()
     return cursor.fetchall() != []
 
+def delete_user():
+    cursor.execute('drop table user')
 
 def create_user(username, password):
     if check_if_user_exists(username):
@@ -16,7 +18,7 @@ def create_user(username, password):
 
 
 def get_hashed_user_password(username):
-    if not check_if_user_exists(username) :
+    if not check_if_user_exists(username):
         raise UserNotFoundException
     cursor.execute('select password from user where username=?', (username,))
     conn.commit()

@@ -19,10 +19,10 @@ wallet_message = """
 Choose an option :
 1. See wallet
 2. Get transaction by id
-3. Get last n transactions 
+3. Get last n transactions
 4. Get top n transactions
 5. Get current month transactions
-6. Get transactions by month 
+6. Get transactions by month
 7. Sent Amount
 8. Received Amount
 9. Exit
@@ -65,6 +65,15 @@ def get_new_transaction_values():
     }
 
 
+def get_transaction_dictionary(amount, sender, receiver, category):
+    return {
+        'amount': amount,
+        'sender': sender,
+        'receiver': receiver,
+        'category': category
+    }
+
+
 def send_amount(new_user):
     while True:
         amount = input_handler.int_handler('Enter the amount involved : ')
@@ -73,12 +82,7 @@ def send_amount(new_user):
     sender = new_user.username
     receiver = input('Enter the receiver : ')
     category = input('Enter the category : ')
-    return {
-        'amount': amount,
-        'sender': sender,
-        'receiver': receiver,
-        'category': category
-    }
+    return get_transaction_dictionary(amount,sender,receiver,category)
 
 
 def receive_amount(new_user):
@@ -102,12 +106,7 @@ def receive_amount(new_user):
             break
         else:
             print('Only alphabets are allowed! ')
-    return {
-        'amount': amount,
-        'sender': sender,
-        'receiver': receiver,
-        'category': category
-    }
+    return get_transaction_dictionary(amount,sender,receiver,category)
 
 
 def add_transaction(new_user, new_transaction):
@@ -120,6 +119,7 @@ def add_transaction(new_user, new_transaction):
     )
     if is_added:
         print('Transaction has been added successfully !')
+
 
 def wallet_functionalities(new_user):
     wallet_input = input(wallet_message)
