@@ -1,9 +1,5 @@
 from utils.connection import conn, cursor
-from Errors import UserNotFoundError, InvalidPasswordError, WalletEmptyError
-from datetime import datetime
-from utils.create_tables import create_all_tables
-
-create_all_tables()
+from Errors import UserNotFoundException, InvalidPasswordException, WalletEmptyException
 
 
 def check_if_user_exists(username):
@@ -20,13 +16,12 @@ def create_user(username, password):
 
 
 def get_hashed_user_password(username):
+    if not check_if_user_exists(username) :
+        raise UserNotFoundException
     cursor.execute('select password from user where username=?', (username,))
     conn.commit()
     hashed_password_list = cursor.fetchall()
-    if hashed_password_list:
-        return hashed_password_list[0][0]
-    else:
-        raise UserNotFoundError
+    return hashed_password_list[0][0]
 
 
 def create_user_wallet(username: str):
@@ -40,11 +35,11 @@ def get_user_balance_from_wallet(username: str):
     if res:
         return res[0][0]
     else:
-        raise UserNotFoundError('User not found!')
+        raise UserNotFoundException('User not found!')
 
 
 def check_if_user_wallet_exists(username: str):
-    cursor.execute('select amount from wallets where username=?', (username,))
+    cursor.execute('select * from wallets where username=?', (username,))
     res = cursor.fetchall()
     if res:
         return True
@@ -55,12 +50,14 @@ def check_if_user_wallet_exists(username: str):
 def update_user_wallet_balance(username: str, amount: int):
     current_amount = get_user_balance_from_wallet(username)
     if amount < 0 and current_amount + amount < 0:
-        raise WalletEmptyError('User wallet is empty!!')
+        raise WalletEmptyException('Not enough balance in the wallet!!')
     cursor.execute('update wallets set amount= ? where username= ?', (current_amount + amount, username))
     conn.commit()
 
 
-def insert(amount: int, receiver: str, sender: str, year: int, month: int, category: str = 'misc') -> None:
+def insert(amount: int, receiver: str, sender: str, month: int, year: int, category: str = 'misc') -> None:
+    if not category:
+        category = 'misc'
     cursor.execute('insert into transactions values (null,?,?,?,?,?,?)',
                    (amount, receiver, sender, month, year, category))
     conn.commit()
@@ -74,8 +71,8 @@ def get_transaction(transaction_id, username):
 
 
 def get_current_transaction_id():
-    res = cursor.execute('select max(id) from transactions')
-    return res.fetchall()[0][0]
+    cursor.execute('select max(id) from transactions')
+    return cursor.fetchall()[0][0]
 
 
 def get_top_n_transactions(username, requested_transactions=10):
@@ -97,8 +94,3 @@ def get_transaction_by_month(month, year, username):
                    (month, year, username, username))
     res = cursor.fetchall()
     return res
-
-
-# def get_current_month_transactions(username):
-#     current_datetime = datetime.now().date()
-#     return get_transaction_by_month(current_datetime.month, current_datetime.year, username)

@@ -1,11 +1,9 @@
 import re
 import unittest
 from unittest.mock import patch, MagicMock
-import pytest
-
 import authentication
 from authentication import Authentication
-from Errors import UserNotFoundError, InvalidPasswordError
+from Errors import UserNotFoundException, InvalidPasswordException
 
 
 class TestAuthentication(unittest.TestCase):
@@ -80,7 +78,7 @@ class TestAuthentication(unittest.TestCase):
     @patch('authentication.db_operations.check_if_user_exists')
     def test_login_user_not_exists(self, mock_check_user_exists):
         mock_check_user_exists.return_value = False
-        with self.assertRaises(UserNotFoundError):
+        with self.assertRaises(UserNotFoundException):
             Authentication.login('ad123', 'Ad123@')
         mock_check_user_exists.assert_called_once_with('ad123')
 
@@ -97,7 +95,7 @@ class TestAuthentication(unittest.TestCase):
     def test_login_invalid_user(self, mock_check_user_exists,mock_match_password):
         mock_match_password.return_value = False
         mock_check_user_exists.return_value = True
-        with self.assertRaises(InvalidPasswordError):
+        with self.assertRaises(InvalidPasswordException):
             Authentication.login('ad123', 'Ad123@')
         mock_match_password.assert_called_once_with('ad123', 'Ad123@')
 

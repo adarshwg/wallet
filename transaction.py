@@ -8,7 +8,7 @@ class Transaction:
         self.year = current_datetime.year
         self.month = current_datetime.month
         self.day = current_datetime.day
-        db_operations.insert(amount, sender, receiver, self.year, self.month, category)
+        db_operations.insert(amount, sender, receiver, self.month, self.year, category)
         self.transaction_id = db_operations.get_current_transaction_id()
         self.amount = amount
         self.receiver = receiver
@@ -29,4 +29,6 @@ class Transaction:
     @staticmethod
     def get_transaction_by_id(transaction_id, username):
         transaction = db_operations.get_transaction(transaction_id, username)
+        if not transaction :
+            print('No transaction with this ID!')
         return transaction

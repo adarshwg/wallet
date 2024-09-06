@@ -1,7 +1,7 @@
 from utils import db_operations
 import bcrypt
 import re
-from Errors import UserNotFoundError, WalletEmptyError, InvalidPasswordError
+from Errors import UserNotFoundException, WalletEmptyException, InvalidPasswordException
 
 
 class Authentication:
@@ -46,12 +46,12 @@ class Authentication:
     def login(username, entered_password):
         user_exists = db_operations.check_if_user_exists(username)
         if not user_exists:
-            raise UserNotFoundError('User not found !!')
+            raise UserNotFoundException('User not found !!')
         else:
             if Authentication.match_password(username, entered_password):
                 return 1
             else:
-                raise InvalidPasswordError('Invalid password entered !')
+                raise InvalidPasswordException('Invalid password entered !')
 
     @staticmethod
     def check_if_username_exists(username):

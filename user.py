@@ -1,7 +1,7 @@
 from authentication import Authentication
 from wallet import Wallet
 from utils import db_operations
-
+from Errors import LowBalanceException
 
 class User:
     def __init__(self, username, password):
@@ -21,7 +21,12 @@ class User:
             return False
 
     def update_amount(self, amount, sender, receiver, category):
-        self.wallet.update_amount(amount, sender, receiver, category)
+        try:
+            self.wallet.update_amount(amount, sender, receiver, category)
+        except LowBalanceException:
+            print('User Balance is low for the transaction !!')
+            return 0
+
 
     def get_user_balance(self):
         return self.wallet.get_balance()

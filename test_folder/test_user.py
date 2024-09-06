@@ -1,32 +1,38 @@
 import unittest
-from unittest.mock import patch, MagicMock
+from unittest.mock import patch
 from user import User
 from wallet import Wallet
+from Errors import LowBalanceException
 
 
 class TestUser(unittest.TestCase):
     @classmethod
-    @patch('wallet.db_operations.create_user_wallet')
-    @patch('wallet.db_operations.create_table_wallets')
-    @patch('wallet.db_operations.create_table_transactions')
     @patch('wallet.db_operations.check_if_user_wallet_exists')
     @patch('wallet.db_operations.get_user_balance_from_wallet')
     def setUpClass(cls,
                    mocked_get_balance,
-                   mocked_wallet_exist,
-                   mocked_create_table_transactions,
-                   mocked_create_table_wallets,
-                   mocked_create_user_wallet
+                   mocked_wallet_exist
                    ):
         mocked_get_balance.return_value = 100
         mocked_wallet_exist.return_type = True
-        mocked_create_table_transactions.return_type = None
-        mocked_create_table_wallets.return_type = None
-        mocked_create_user_wallet.return_type = None
         cls.current_balance = 100
         cls.username = 'adarsh'
         cls.wallet_obj = Wallet('Aman')
         cls.user_obj = User('add123', 'add123@')
+
+    @patch('wallet.Wallet.__init__')
+    @patch('authentication.Authentication.hash_password')
+    @patch('utils.db_operations.create_user')
+    def test__init__(self,mock_create_user, mock_hash_password,mock_wallet):
+        mock_hash_password.return_value = b'password'
+        mock_create_user.return_value = None
+        mock_wallet.return_value = None
+        obj1 = User('testuser123','testinG@123')
+        assert obj1.hashed_password == b'password'
+        assert obj1.username == 'testuser123'
+        mock_wallet.assert_called_once_with('testuser123')
+        mock_create_user.assert_called_once_with('testuser123',b'password')
+        mock_hash_password.assert_called_once_with('testinG@123')
 
     @patch('authentication.Authentication.login')
     def test_login_unauthorized(self, mocked_login):
@@ -48,6 +54,13 @@ class TestUser(unittest.TestCase):
     def test_update_amount(self, mocked_update_amount):
         mocked_update_amount.return_value = None
         self.wallet_obj.update_amount(200, 'ad123', 'nikhil123', 'misc')
+        mocked_update_amount.assert_called_once_with(200, 'ad123', 'nikhil123', 'misc')
+
+    @patch('wallet.Wallet.update_amount')
+    def test_update_amount_low_balance(self, mocked_update_amount):
+        mocked_update_amount.side_effect = LowBalanceException('Low')
+        with self.assertRaises(LowBalanceException):
+            self.wallet_obj.update_amount(200, 'ad123', 'nikhil123', 'misc')
         mocked_update_amount.assert_called_once_with(200, 'ad123', 'nikhil123', 'misc')
 
     @patch('user.Wallet.get_balance')

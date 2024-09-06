@@ -1,10 +1,22 @@
-class UserNotFoundError(Exception):
+class UserNotFoundException(Exception):
     pass
 
 
-class WalletEmptyError(Exception):
+class WalletEmptyException(Exception):
     pass
 
 
-class InvalidPasswordError(Exception):
+class InvalidPasswordException(Exception):
+    pass
+
+
+class NotAuthorizedException(Exception):
+    pass
+
+
+class SelfTransferException(Exception):
+    pass
+
+
+class LowBalanceException(Exception):
     pass

@@ -1,6 +1,7 @@
 from transaction_manager import TransactionManager
 from utils import db_operations
-from Errors import WalletEmptyError
+from Errors import WalletEmptyException, NotAuthorizedException, SelfTransferException, LowBalanceException
+
 
 class Wallet(TransactionManager):
     def __init__(self, username):
@@ -24,13 +25,19 @@ class Wallet(TransactionManager):
         return db_operations.get_user_balance_from_wallet(self.username)
 
     def update_amount(self, amount, sender, receiver, category):
-        if self.get_balance() == 0:
-            raise WalletEmptyError('User Wallet is empty !!')
-        Wallet.create_transaction(amount, sender, receiver, category)
+        if sender == receiver:
+            raise SelfTransferException('Cannot transfer to the same account wallet! ')
+        if sender != self.username and receiver != self.username:
+            raise NotAuthorizedException('Can only add your own transactions!')
         if sender == self.username:
+            if self.get_balance() <= 0:
+                raise WalletEmptyException('User wallet is empty!!')
+            elif self.get_balance() < amount:
+                raise LowBalanceException('Your wallet balance is low for the transaction! ')
             self.send_amount(amount)
-        else:
+        elif receiver == self.username:
             self.receive_amount(amount)
+        Wallet.create_transaction(amount, sender, receiver, category)
 
     def send_amount(self, amount):
         self.current_balance -= amount
