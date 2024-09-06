@@ -4,7 +4,7 @@ from Errors import (UserNotFoundException, InvalidPasswordException, WalletEmpty
                     NotAuthorizedException, SelfTransferException, LowBalanceException)
 from utils.create_tables import create_all_tables
 from utils import input_handler
-import getpass
+# import getpass
 from datetime import datetime
 from utils.connection import conn
 
@@ -111,24 +111,15 @@ def receive_amount(new_user):
 
 
 def add_transaction(new_user, new_transaction):
-    try:
-        is_added = new_user.update_amount(
-            new_transaction['amount'],
-            new_transaction['sender'],
-            new_transaction['receiver'],
-            new_transaction['category']
-        )
-        if is_added:
-            print('Transaction has been added successfully !')
-    except WalletEmptyException:
-        print('User wallet is empty :(')
-    except NotAuthorizedException:
-        print('User can only add transactions involving them !')
-    except SelfTransferException:
-        print('Cannot transfer to your own wallet! ')
-    except LowBalanceException:
-        print('User balance is low for the transaction! ')
-
+    # try:
+    is_added = new_user.update_amount(
+        new_transaction['amount'],
+        new_transaction['sender'],
+        new_transaction['receiver'],
+        new_transaction['category']
+    )
+    if is_added:
+        print('Transaction has been added successfully !')
 
 def wallet_functionalities(new_user):
     wallet_input = input(wallet_message)
@@ -198,31 +189,29 @@ def wallet_functionalities(new_user):
 
 def login_function():
     username = input('Enter your username : ')
-    password = getpass.getpass(prompt='Enter Password: ')
+    # password = getpass.getpass(prompt='Enter Password: ')
+    password = input('Enter your password : ')
     username_check = Authentication.check_username_format(username)
     password_check = Authentication.check_password_format(password)
     if not username_check or not password_check:
         print('Enter valid username and password format!!')
         return
-    try:
-        if User.login(username, password):
-            user_object = User(username, password)
-            call_result = wallet_functionalities(user_object)
 
-            while True:
-                if call_result == 1:
-                    break
-                continue_in_wallet = input('Do you wish to continue? y/n :\n')
-                if continue_in_wallet.lower() == 'y':
-                    call_result = wallet_functionalities(user_object)
-                elif continue_in_wallet.lower() == 'n':
-                    break
-                else:
-                    print('Enter y/n only :')
-    except UserNotFoundException:
-        print('User was not found!')
-    except InvalidPasswordException:
-        print('Invalid password entered !!\n')
+    value = User.login(username, password)
+    if not value:
+        return
+    user_object = User(username, password)
+    call_result = wallet_functionalities(user_object)
+    while True:
+        if call_result == 1:
+            break
+        continue_in_wallet = input('Do you wish to continue? y/n :\n')
+        if continue_in_wallet.lower() == 'y':
+            call_result = wallet_functionalities(user_object)
+        elif continue_in_wallet.lower() == 'n':
+            break
+        else:
+            print('Enter y/n only :')
 
 
 def signup_function():

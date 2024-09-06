@@ -1,7 +1,7 @@
 from authentication import Authentication
 from wallet import Wallet
 from utils import db_operations
-from Errors import LowBalanceException
+from Errors import LowBalanceException,UserNotFoundException,InvalidPasswordException
 
 class User:
     def __init__(self, username, password):
@@ -12,13 +12,20 @@ class User:
 
     @staticmethod
     def login(username,password):
-        authorized = Authentication.login(username, password.encode('utf-8'))
+        try:
+            authorized = Authentication.login(username, password.encode('utf-8'))
+        except UserNotFoundException:
+            print('User was not found!')
+            return 0
+        except InvalidPasswordException:
+            print('Invalid password has been entered! ')
+            return 0
         if authorized:
             new_user = User(username,password)
             new_user.wallet = Wallet(new_user.username)
-            return True
+            return 1
         else:
-            return False
+            return 0
 
     def update_amount(self, amount, sender, receiver, category):
         try:
