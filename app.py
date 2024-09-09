@@ -79,8 +79,15 @@ def send_amount(new_user):
         amount = input_handler.int_handler('Enter the amount involved : ')
         if amount != -1:
             break
+
     sender = new_user.username
-    receiver = input('Enter the receiver : ')
+    while True:
+        receiver = input('Enter the receiver : ')
+        if Authentication.check_username_format(receiver):
+            break
+        else:
+            print('Username can contain only alpha_nums(minimum one alphabet!)')
+            continue
     category = input('Enter the category : ')
     return get_transaction_dictionary(amount,sender,receiver,category)
 
@@ -135,6 +142,7 @@ def wallet_functionalities(new_user):
         while True:
             number = input('Enter the number of transactions (default :10) :')
             if number.isnumeric() or not number:
+                print('Enter valid number ! ')
                 break
         if not number:
             number = 10
@@ -145,6 +153,7 @@ def wallet_functionalities(new_user):
         while True:
             number = input('Enter the number of transactions (default :10) :')
             if number.isnumeric() or not number:
+                print('Enter valid number ! ')
                 break
         if not number:
             number = 10

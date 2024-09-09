@@ -1,7 +1,7 @@
 from authentication import Authentication
 from wallet import Wallet
 from utils import db_operations
-from Errors import LowBalanceException, UserNotFoundException, InvalidPasswordException
+from Errors import LowBalanceException, UserNotFoundException, InvalidPasswordException,WalletEmptyException
 
 class User:
     def __init__(self, username, password):
@@ -31,6 +31,10 @@ class User:
         except LowBalanceException:
             print('User Balance is low for the transaction !!')
             return 0
+        except WalletEmptyException:
+            print('User wallet is empty! Please top-up')
+            return 0
+
 
     def get_user_balance(self):
         return self.wallet.get_balance()
