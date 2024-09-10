@@ -16,10 +16,17 @@ class TransactionManager:
 
     @staticmethod
     def get_transaction_by_id(transaction_id, username):
-        return Transaction.get_transaction_by_id(transaction_id, username)
+        try:
+            return Transaction.get_transaction_by_id(transaction_id, username)
+        except OverflowError:
+            print('Tooo large value!!!')
+            return None
 
     @staticmethod
     def get_last_n_transactions(username, number=10):
+        if not isinstance(number,int):
+            print('Please enter valid integer !!')
+            return None
         fetched_results = db_operations.get_last_n_transactions(username, number)
         result_list = [result for result in fetched_results]
         if not result_list:
@@ -28,6 +35,9 @@ class TransactionManager:
 
     @staticmethod
     def get_top_n_transactions(username, number=10):
+        if not isinstance(number,int):
+            print('Please enter valid integer !!')
+            return None
         fetched_results = db_operations.get_top_n_transactions(username, number)
         result_list = [result for result in fetched_results]
         if not result_list:
@@ -48,6 +58,3 @@ class TransactionManager:
         return (TransactionManager.get_transactions_by_month
                 (current_datetime.month, current_datetime.year, username))
 
-    def spend_analysis(self):
-        pass
-        #todo 3

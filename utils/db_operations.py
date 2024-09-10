@@ -78,6 +78,8 @@ def get_current_transaction_id():
 
 
 def get_top_n_transactions(username, requested_transactions=10):
+    # if not isinstance(requested_transactions,int):
+    #     requested_transactions = 10
     cursor.execute('select * from transactions where (sender=? or receiver=?) order by amount desc limit ?',
                    (username, username, requested_transactions,))
     res = cursor.fetchall()
@@ -85,6 +87,8 @@ def get_top_n_transactions(username, requested_transactions=10):
 
 
 def get_last_n_transactions(username, requested_transactions=10):
+    # if not isinstance(requested_transactions,int):
+    #     requested_transactions = 10
     cursor.execute('select * from transactions where (sender=? or receiver=?) order by id desc limit ?',
                    (username, username, requested_transactions))
     res = cursor.fetchall()

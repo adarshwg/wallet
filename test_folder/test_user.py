@@ -1,13 +1,13 @@
 import unittest
 from unittest.mock import patch
-
+import user
 import authentication
 from user import User
 from wallet import Wallet
-from Errors import LowBalanceException,InvalidPasswordException,UserNotFoundException
+from Errors import LowBalanceException,InvalidPasswordException,UserNotFoundException,WalletEmptyException
 
 
-class TestUser(unittest.TestCase):
+class TestUser(unittest.TestCase)   :
     @classmethod
     @patch('wallet.db_operations.check_if_user_wallet_exists')
     @patch('wallet.db_operations.get_user_balance_from_wallet')
@@ -44,18 +44,25 @@ class TestUser(unittest.TestCase):
         mocked_login.assert_called_once_with('ad124', b'ad123@AA')
 
     @patch('authentication.Authentication.login')
-    def test_login_user_not_found(self, mocked_login):
-        mocked_login.side_effect = UserNotFoundException('User not found!')
-        with self.assertRaises(UserNotFoundException):
-            authentication.Authentication.login('adarsh123', 'Adarsh123@')
-        mocked_login.assert_called_once_with('adarsh123', 'Adarsh123@')
+    def test_login_unauthorized(self, mocked_login):
+        mocked_login.return_value = False
+        result = User.login('ad124', 'ad123@AA')
+        self.assertFalse(result)
+        mocked_login.assert_called_once_with('ad124', b'ad123@AA')
+
+    @patch('authentication.Authentication.login')
+    def test_login_user_not_found(self,mocked_login):
+        mocked_login.side_effect = UserNotFoundException
+        result = User.login('add123','add123@')
+        assert result == 0
+        mocked_login.assert_called_once_with('add123',b'add123@')
 
     @patch('authentication.Authentication.login')
     def test_login_invalid_password(self, mocked_login):
-        mocked_login.side_effect = InvalidPasswordException('Invalid password entered!')
-        with self.assertRaises(InvalidPasswordException):
-            authentication.Authentication.login('adarsh123', 'Adarsh123@')
-        mocked_login.assert_called_once_with('adarsh123', 'Adarsh123@')
+        mocked_login.side_effect = InvalidPasswordException
+        result = User.login('adarsh123', 'Adarsh123@')
+        assert result == 0
+        mocked_login.assert_called_once_with('adarsh123', b'Adarsh123@')
 
 
     @patch('wallet.Wallet.update_amount')
@@ -67,9 +74,24 @@ class TestUser(unittest.TestCase):
     @patch('wallet.Wallet.update_amount')
     def test_update_amount_low_balance(self, mocked_update_amount):
         mocked_update_amount.side_effect = LowBalanceException('Low')
-        with self.assertRaises(LowBalanceException):
-            self.wallet_obj.update_amount(200, 'ad123', 'nikhil123', 'misc')
+        result = self.user_obj.update_amount(200, 'ad123', 'nikhil123', 'misc')
+        assert result == 0
         mocked_update_amount.assert_called_once_with(200, 'ad123', 'nikhil123', 'misc')
+
+    @patch('wallet.Wallet.update_amount')
+    def test_update_amount_wallet_empty(self, mocked_update_amount):
+        mocked_update_amount.side_effect = WalletEmptyException('Low')
+        result = self.user_obj.update_amount(200, 'ad123', 'nikhil123', 'misc')
+        assert result == 0
+        mocked_update_amount.assert_called_once_with(200, 'ad123', 'nikhil123', 'misc')
+
+    @patch('wallet.Wallet.update_amount')
+    def test_update_amount_overflow(self, mocked_update_amount):
+        mocked_update_amount.side_effect = OverflowError('Low')
+        result = self.user_obj.update_amount(200, 'ad123', 'nikhil123', 'misc')
+        assert result == 0
+        mocked_update_amount.assert_called_once_with(200, 'ad123', 'nikhil123', 'misc')
+
 
     @patch('user.Wallet.get_balance')
     def test_get_user_balance(self, mocked_get_balance):

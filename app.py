@@ -33,6 +33,8 @@ create_all_tables()
 
 def get_transaction_by_id(transaction_id, new_user):
     result = new_user.wallet.get_transaction_by_id(transaction_id, new_user.username)
+    if not result:
+        return
     for transaction in result:
         transaction_id, amount, sender, receiver, month, year, category = tuple([transaction[i]
                                                                                  for i in range(len(transaction))])
@@ -47,22 +49,6 @@ def get_transaction_by_id(transaction_id, new_user):
                             f'-----------------------------------------------------\n'
                             )
         print(transaction_repr)
-
-
-def get_new_transaction_values():
-    while True:
-        amount = input_handler.int_handler('Enter the amount involved : ')
-        if amount != -1:
-            break
-    sender = input('Enter the sender : ')
-    receiver = input('Enter the receiver : ')
-    category = input('Enter the category : ')
-    return {
-        'amount': amount,
-        'sender': sender,
-        'receiver': receiver,
-        'category': category
-    }
 
 
 def get_transaction_dictionary(amount, sender, receiver, category):
@@ -82,14 +68,14 @@ def send_amount(new_user):
 
     sender = new_user.username
     while True:
-        receiver = input('Enter the receiver : ')
-        if Authentication.check_username_format(receiver):
+        receiver = input_handler.username_handler('Enter the receiver : ')
+        if receiver:
             break
         else:
             print('Username can contain only alpha_nums(minimum one alphabet!)')
             continue
     category = input('Enter the category : ')
-    return get_transaction_dictionary(amount,sender,receiver,category)
+    return get_transaction_dictionary(amount, sender, receiver, category)
 
 
 def receive_amount(new_user):
@@ -100,20 +86,15 @@ def receive_amount(new_user):
 
     receiver = new_user.username
     while True:
-        sender = input('Enter the sender : ')
-        if Authentication.check_username_format(sender):
+        sender = input_handler.username_handler('Enter the sender : ')
+        if sender:
             break
         else:
             print('Username can contain only alpha_nums(minimum one alphabet!)')
             continue
 
-    while True:
-        category = input('Enter the category : ')
-        if category.isalpha():
-            break
-        else:
-            print('Only alphabets are allowed! ')
-    return get_transaction_dictionary(amount,sender,receiver,category)
+    category = input('Enter the category : ')
+    return get_transaction_dictionary(amount, sender, receiver, category)
 
 
 def add_transaction(new_user, new_transaction):
@@ -140,30 +121,39 @@ def wallet_functionalities(new_user):
         get_transaction_by_id(transaction_id, new_user)
     elif wallet_input == '3':
         while True:
-            number = input('Enter the number of transactions (default :10) :')
-            if number.isnumeric() or not number:
-                print('Enter valid number ! ')
+            number = input_handler.int_handler('Enter the number of transactions (default :10) :')
+            if number != -1:
                 break
+            else:
+                print('Enter positive number only !')
         if not number:
             number = 10
         list_of_transactions = new_user.wallet.get_last_n_transactions(new_user.username, number)
+        if not list_of_transactions:
+            return
         for transaction in list_of_transactions:
             get_transaction_by_id(transaction[0], new_user)
+        print(f'Found {len(list_of_transactions)} matching transactions !\n')
     elif wallet_input == '4':
         while True:
-            number = input('Enter the number of transactions (default :10) :')
-            if number.isnumeric() or not number:
-                print('Enter valid number ! ')
+            number = input_handler.int_handler('Enter the number of transactions (default :10) :')
+            if number != -1:
                 break
+            else:
+                print('Enter positive number only !')
         if not number:
             number = 10
         list_of_top_transactions = new_user.wallet.get_top_n_transactions(new_user.username, number)
+        if not list_of_top_transactions:
+            return
         for transaction in list_of_top_transactions:
             get_transaction_by_id(transaction[0], new_user)
+        print(f'Found {len(list_of_top_transactions)} matching transactions !\n')
     elif wallet_input == '5':
         current_month_transactions = new_user.wallet.get_current_month_transactions(new_user.username)
         for transaction in current_month_transactions:
             get_transaction_by_id(transaction[0], new_user)
+        print(f'Found {len(current_month_transactions)} matching transactions !\n')
     elif wallet_input == '6':
         curr_month = datetime.now().date().month
         curr_year = datetime.now().date().year
@@ -182,6 +172,8 @@ def wallet_functionalities(new_user):
             else:
                 print('Enter valid year !')
         selected_month_transactions = new_user.wallet.get_transactions_by_month(month, year, new_user.username)
+        if not selected_month_transactions:
+            return
         for transaction in selected_month_transactions:
             get_transaction_by_id(transaction[0], new_user)
     elif wallet_input == '7':
@@ -214,7 +206,7 @@ def login_function():
     while True:
         if call_result == 1:
             break
-        continue_in_wallet = input('Do you wish to continue? y/n :\n')
+        continue_in_wallet = input_handler.string_handler('Do you wish to continue? y/n :\n')
         if continue_in_wallet.lower() == 'y':
             call_result = wallet_functionalities(user_object)
         elif continue_in_wallet.lower() == 'n':
@@ -239,7 +231,7 @@ def signup_function():
     while True:
         if call_result == 1:
             break
-        continue_in_wallet = input('Do you wish to continue? y/n :\n')
+        continue_in_wallet = input_handler.string_handler('Do you wish to continue? y/n :\n')
         if continue_in_wallet.lower() == 'y':
             call_result = wallet_functionalities(new_user)
         elif continue_in_wallet.lower() == 'n':
@@ -259,9 +251,12 @@ def caller_function():
     elif user_input == '3':
         conn.close()
         return 1
+    else:
+        print('Please enter valid choice! ')
 
 
-while True:
-    call_value = caller_function()
-    if call_value == 1:
-        break
+if __name__ == '__main__':
+    while True:
+        call_value = caller_function()
+        if call_value == 1:
+            break
