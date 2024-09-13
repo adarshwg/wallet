@@ -9,7 +9,7 @@ from Errors import UserNotFoundException, InvalidPasswordException
 class TestAuthentication(unittest.TestCase):
     def test__init__(self):
         auth = Authentication()
-        assert isinstance(auth,Authentication)
+        assert isinstance(auth, Authentication)
 
     @patch('authentication.bcrypt.hashpw')
     def test_hash_password(self, mock_hashpw):
@@ -44,6 +44,7 @@ class TestAuthentication(unittest.TestCase):
         mock_re_match.return_value = mock_match_obj
         result = Authentication.check_username_format('adarsh123')
         self.assertFalse(result)
+
     @patch('authentication.re.match')
     def test_check_password_format(self, mock_re_match):
         mock_re_object = MagicMock()
@@ -102,7 +103,7 @@ class TestAuthentication(unittest.TestCase):
 
     @patch('authentication.Authentication.match_password')
     @patch('authentication.db_operations.check_if_user_exists')
-    def test_login_invalid_user(self, mock_check_user_exists,mock_match_password):
+    def test_login_invalid_user(self, mock_check_user_exists, mock_match_password):
         mock_match_password.return_value = False
         mock_check_user_exists.return_value = True
         with self.assertRaises(InvalidPasswordException):

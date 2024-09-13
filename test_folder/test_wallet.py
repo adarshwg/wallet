@@ -10,6 +10,7 @@ class TestWallet(unittest.TestCase):
     @classmethod
     def setUpClass(cls):
         cls.wallet_obj = Wallet('ad123')
+        cls.wallet_obj.receive_amount(1000000)
 
     @patch('wallet.db_operations.get_user_balance_from_wallet')
     @patch('wallet.db_operations.check_if_user_wallet_exists')
