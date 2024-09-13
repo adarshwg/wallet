@@ -151,6 +151,8 @@ def wallet_functionalities(new_user):
         print(f'Found {len(list_of_top_transactions)} matching transactions !\n')
     elif wallet_input == '5':
         current_month_transactions = new_user.wallet.get_current_month_transactions(new_user.username)
+        if not current_month_transactions:
+            return
         for transaction in current_month_transactions:
             get_transaction_by_id(transaction[0], new_user)
         print(f'Found {len(current_month_transactions)} matching transactions !\n')
