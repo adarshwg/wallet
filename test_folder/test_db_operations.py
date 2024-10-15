@@ -1,7 +1,7 @@
 import unittest
 from unittest.mock import patch, MagicMock
 import utils.db_operations
-from Errors import UserNotFoundException, WalletEmptyException
+from Exceptions import UserNotFoundException, WalletEmptyException
 
 
 class TestDBOperations(unittest.TestCase):

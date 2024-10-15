@@ -20,3 +20,15 @@ class SelfTransferException(Exception):
 
 class LowBalanceException(Exception):
     pass
+
+
+class InvalidAmountException(Exception):
+    pass
+
+
+class InvalidDateException(Exception):
+    pass
+
+
+class NoRecordsException(Exception):
+    pass

@@ -4,7 +4,7 @@ import user
 import authentication
 from user import User
 from wallet import Wallet
-from Errors import LowBalanceException,InvalidPasswordException,UserNotFoundException,WalletEmptyException
+from Exceptions import LowBalanceException,InvalidPasswordException,UserNotFoundException,WalletEmptyException
 
 
 class TestUser(unittest.TestCase)   :

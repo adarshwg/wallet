@@ -1,7 +1,7 @@
 from utils import db_operations
 import bcrypt
 import re
-from Errors import UserNotFoundException, WalletEmptyException, InvalidPasswordException
+from Exceptions import UserNotFoundException, InvalidPasswordException
 
 
 class Authentication:
@@ -19,9 +19,9 @@ class Authentication:
     def check_username_format(username):
         pattern = r'^(?=.*[0-9])(?=.*[a-z])(?!.* ).{5,}$'
         result = re.match(pattern, username)
-        try :
+        try:
             matched_string = result.group()
-            if matched_string :
+            if matched_string:
                 return matched_string == username
         except AttributeError:
             return False

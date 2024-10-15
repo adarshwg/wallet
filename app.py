@@ -1,7 +1,7 @@
 from user import User
 from authentication import Authentication
-from Errors import (UserNotFoundException, InvalidPasswordException, WalletEmptyException,
-                    NotAuthorizedException, SelfTransferException, LowBalanceException)
+from Exceptions import (UserNotFoundException, InvalidPasswordException, WalletEmptyException,
+                        NotAuthorizedException, SelfTransferException, LowBalanceException)
 from utils.create_tables import create_all_tables
 from utils import input_handler
 # import getpass
@@ -199,8 +199,7 @@ def login_function():
     if not username_check or not password_check:
         print('Enter valid username and password format!!')
         return
-
-    value = User.login(username, password)
+    value = Authentication.login(username, password)
     if not value:
         return
     user_object = User(username, password)

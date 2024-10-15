@@ -1,6 +1,8 @@
 from transaction_manager import TransactionManager
 from utils import db_operations
-from Errors import WalletEmptyException, NotAuthorizedException, SelfTransferException, LowBalanceException
+from Exceptions import (WalletEmptyException, NotAuthorizedException,
+                        SelfTransferException, LowBalanceException,
+                        InvalidAmountException)
 
 
 class Wallet(TransactionManager):
@@ -24,25 +26,26 @@ class Wallet(TransactionManager):
     def get_balance(self):
         return db_operations.get_user_balance_from_wallet(self.username)
 
-    def update_amount(self, amount, sender, receiver, category):
-        if sender == receiver:
+    def send_amount(self, receiver, amount,category='misc'):
+        if self.username == receiver:
             raise SelfTransferException('Cannot transfer to the same account wallet! ')
-        if sender != self.username and receiver != self.username:
-            raise NotAuthorizedException('Can only add your own transactions!')
-        if sender == self.username:
-            if self.get_balance() <= 0:
-                raise WalletEmptyException('User wallet is empty!!')
-            elif self.get_balance() < amount:
-                raise LowBalanceException('Your wallet balance is low for the transaction! ')
-            self.send_amount(amount)
-        elif receiver == self.username:
-            self.receive_amount(amount)
-        Wallet.create_transaction(amount, sender, receiver, category)
-
-    def send_amount(self, amount):
+        if self.get_balance() <= 0:
+            raise WalletEmptyException('User wallet is empty!!')
+        elif self.get_balance() < amount:
+            raise LowBalanceException('Your wallet balance is low for the transaction!')
+        if amount <= 0:
+            raise InvalidAmountException
         self.current_balance -= amount
         db_operations.update_user_wallet_balance(self.username, -amount)
+        new_transaction = Wallet.create_transaction(amount, self.username, receiver, category)
+        return new_transaction
 
-    def receive_amount(self, amount):
+    def receive_amount(self, sender, amount,category='misc'):
+        if self.username == sender:
+            raise SelfTransferException('Cannot transfer to the same account wallet!')
+        if amount <= 0:
+            raise InvalidAmountException
         self.current_balance += amount
         db_operations.update_user_wallet_balance(self.username, amount)
+        new_transaction = Wallet.create_transaction(amount, sender, self.username, category)
+        return new_transaction
