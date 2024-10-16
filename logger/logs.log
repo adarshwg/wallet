@@ -2,3 +2,30 @@
 2024-10-16 13:18:13,307 - INFO - user user14 account created - signup
 2024-10-16 13:20:08,438 - INFO -  - /auth/signup - Username already exists - signup
 2024-10-16 13:22:46,672 - INFO -  /auth/signup - Username already exists - signup
+2024-10-16 13:27:44,302 - INFO -  /auth/signup - user: - [user15] - account created - signup
+2024-10-16 13:28:48,713 - INFO -  /auth/login - user : [user12] logged in   - login
+2024-10-16 13:51:52,374 - INFO -  /auth/login - user : [user12] logged in   - login
+2024-10-16 13:52:21,845 - INFO -  - /wallet/balance - user: [user12]  - get_wallet_balance
+2024-10-16 13:52:35,437 - INFO -  - /wallet/show-wallet - user [user12]  - show_user_wallet
+2024-10-16 13:52:44,864 - INFO -  http://127.0.0.1:8000/wallet/send-amount?receiver=akhialesh123&amount=111&category=dog%20food - user: [user12] - amount: 111] - category:[dog food] - send_amount
+2024-10-16 13:53:09,358 - INFO -  http://127.0.0.1:8000/wallet/receive-amount?sender=Aman123&amount=1000000&category=aata - user: [user12] - amount: 1000000] - category:[aata] - receive_amount
+2024-10-16 13:55:48,985 - INFO -  http://127.0.0.1:8000/wallet/receive-amount?sender=Aman123&amount=1000000&category=aata - user: [user12] - amount: 1000000] - category:[aata] - receive_amount
+2024-10-16 13:55:51,364 - INFO -  http://127.0.0.1:8000/wallet/send-amount?receiver=akhialesh123&amount=111&category=dog%20food - user: [user12] - amount: 111] - category:[dog food] - send_amount
+2024-10-16 13:55:53,559 - INFO -  - /wallet/show-wallet - user [user12]  - show_user_wallet
+2024-10-16 13:55:56,059 - INFO -  - /wallet/balance - user: [user12]  - get_wallet_balance
+2024-10-16 13:56:49,336 - INFO -   /wallet/balance - user: [user12]  - get_wallet_balance
+2024-10-16 13:56:51,278 - INFO -   /wallet/show-wallet - user [user12]  - show_user_wallet
+2024-10-16 13:56:53,425 - INFO -  /wallet/send-amount - user: [user12] - amount: 111] - category:[dog food] - send_amount
+2024-10-16 13:56:55,217 - INFO -  /wallet/receive-amount - user: [user12] - amount: 1000000] - category:[aata] - receive_amount
+2024-10-16 13:58:24,631 - INFO -   /wallet/balance - user: [user12]  - get_wallet_balance
+2024-10-16 13:58:27,280 - INFO -   /wallet/show-wallet - user [user12]  - show_user_wallet
+2024-10-16 13:58:29,852 - INFO -  /wallet/send-amount - user: [user12] - amount: [111] - category:[dog food] - send_amount
+2024-10-16 13:58:32,426 - INFO -  /wallet/receive-amount - user: [user12] - amount: [1000000] - category:[aata] - receive_amount
+2024-10-16 13:59:54,089 - INFO -   /wallet/balance - user: [user12]  - get_wallet_balance
+2024-10-16 13:59:56,372 - INFO -   /wallet/show-wallet - user [user12]  - show_user_wallet
+2024-10-16 13:59:58,233 - INFO -  /wallet/send-amount - user: [user12] - amount: [111] - category:[dog food] - send_amount
+2024-10-16 14:00:00,122 - INFO -  /wallet/receive-amount - user: [user12] - amount: [1000000] - category:[aata] - receive_amount
+2024-10-16 14:00:32,350 - INFO -  /wallet/balance - user: [user12]  - get_wallet_balance
+2024-10-16 14:00:34,395 - INFO -  /wallet/show-wallet - user [user12]  - show_user_wallet
+2024-10-16 14:00:36,008 - INFO -  /wallet/send-amount - user: [user12] - amount: [111] - category:[dog food] - send_amount
+2024-10-16 14:00:37,777 - INFO -  /wallet/receive-amount - user: [user12] - amount: [1000000] - category:[aata] - receive_amount
