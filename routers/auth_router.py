@@ -1,11 +1,9 @@
 from typing import Annotated
-
 from fastapi import APIRouter, HTTPException, Depends
 from starlette import status
 from Exceptions import UserNotFoundException, InvalidPasswordException
-from pydantic import BaseModel, Field
+from pydantic import BaseModel
 from authentication import Authentication
-from utils import input_handler
 from fastapi.security import OAuth2PasswordBearer, OAuth2PasswordRequestForm
 from user import User
 from datetime import timedelta, datetime, timezone
@@ -59,7 +57,7 @@ def check_username_and_password_format(username, password):
     return True
 
 
-async def get_current_user(token: Annotated[str, Depends(oauth2_bearer)]):
+def get_current_user(token: Annotated[str, Depends(oauth2_bearer)]):
     try:
         payload = jwt.decode(token, SECRET_KEY, algorithms=[ALGORITHM])
         username: str = payload.get('sub')
@@ -91,7 +89,7 @@ async def signup(form_data: Annotated[OAuth2PasswordRequestForm, Depends()]):
                             detail='Username already exists!'
                             )
     user = User(username, password)
-    token = create_access_token(username, timedelta(minutes=20))
+    token = create_access_token(user.username, timedelta(minutes=20))
     return {'access_token': token, 'token_type': 'bearer'}
 
 

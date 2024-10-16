@@ -1,13 +1,12 @@
-from fastapi import FastAPI, HTTPException, APIRouter, Depends, Query
+from fastapi import HTTPException, APIRouter, Depends, Query
 from starlette import status
 from typing import Annotated
 from fastapi.security import OAuth2PasswordBearer
-from jose import jwt, JWTError
+from jose import JWTError
 from wallet import Wallet
-from routers.auth_router import SECRET_KEY, ALGORITHM
 from Exceptions import SelfTransferException, WalletEmptyException, LowBalanceException, InvalidAmountException
 from routers.error_codes import responses
-
+from routers.auth_router import get_current_user
 router = APIRouter(
     prefix="/wallet",
     tags=['wallet']
@@ -24,8 +23,8 @@ oauth2_bearer = OAuth2PasswordBearer('auth/login')
             )
 async def show_user_wallet(token: Annotated[str, Depends(oauth2_bearer)]):
     try:
-        payload = jwt.decode(token, SECRET_KEY, ALGORITHM)
-        username = payload.get('sub')
+        username_dict = get_current_user(token)
+        username = username_dict['username']
         user_wallet = Wallet(username)
         return user_wallet
     except JWTError:
@@ -44,8 +43,8 @@ async def show_user_wallet(token: Annotated[str, Depends(oauth2_bearer)]):
             )
 async def get_wallet_balance(token: Annotated[str, Depends(oauth2_bearer)]):
     try:
-        payload = jwt.decode(token, SECRET_KEY, algorithms=ALGORITHM)
-        username: str = payload.get('sub')
+        username_dict = get_current_user(token)
+        username = username_dict['username']
         if username is None:
             raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED,
                                 detail='Could not validate the credentials'
@@ -69,11 +68,11 @@ async def get_wallet_balance(token: Annotated[str, Depends(oauth2_bearer)]):
 async def send_amount(token: Annotated[str, Depends(oauth2_bearer)], receiver: str, amount: int,
                       category: str = 'misc'):
     try:
-        payload = jwt.decode(token, SECRET_KEY, algorithms=ALGORITHM)
-        username = payload.get('sub')
+        username_dict = get_current_user(token)
+        username = username_dict['username']
         print(username)
         user_wallet = Wallet(username)
-        new_transaction = user_wallet.send_amount(receiver, amount,category)
+        new_transaction = user_wallet.send_amount(receiver, amount, category)
         return new_transaction
     except SelfTransferException:
         raise HTTPException(status_code=status.HTTP_403_FORBIDDEN,
@@ -106,8 +105,8 @@ async def send_amount(token: Annotated[str, Depends(oauth2_bearer)], receiver: s
 async def receive_amount(token: Annotated[str, Depends(oauth2_bearer)], sender: str, amount: int,
                          category: str = 'misc'):
     try:
-        payload = jwt.decode(token, SECRET_KEY, algorithms=ALGORITHM)
-        username = payload.get('sub')
+        username_dict = get_current_user(token)
+        username = username_dict['username']
         user_wallet = Wallet(username)
         new_transaction = user_wallet.receive_amount(sender, amount, category)
         return new_transaction

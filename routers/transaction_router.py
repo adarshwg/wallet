@@ -1,12 +1,14 @@
 from fastapi import APIRouter, HTTPException, Path, Depends
 from starlette import status
-from jose import jwt, JWTError
+from jose import JWTError
 from fastapi.security import OAuth2PasswordBearer
 from Exceptions import *
 from transaction_manager import TransactionManager
 from typing import Annotated
 from fastapi_pagination import Page, paginate
 from routers.error_codes import responses
+from routers.auth_router import get_current_user
+
 
 SECRET_KEY = '47a7ee9ff3c784b0baca916bcc300680424467ca4a2f6f2c4ce7b692f2b25b3d'
 ALGORITHM = 'HS256'
@@ -30,8 +32,8 @@ oauth2_bearer = OAuth2PasswordBearer(tokenUrl='auth/login')
             )
 async def get_current_month_transactions(token: Annotated[str, Depends(oauth2_bearer)]):
     try:
-        payload = jwt.decode(token, SECRET_KEY, algorithms=ALGORITHM)
-        username = payload.get('sub')
+        username_dict = get_current_user(token)
+        username = username_dict['username']
         result = TransactionManager.get_current_month_transactions(username)
         return paginate(result)
     except InvalidDateException:
@@ -60,8 +62,8 @@ async def get_transaction_by_month(token: Annotated[str, Depends(oauth2_bearer)]
                                    year: int
                                    ):
     try:
-        payload = jwt.decode(token, SECRET_KEY, algorithms=ALGORITHM)
-        username = payload.get('sub')
+        username_dict = get_current_user(token)
+        username = username_dict['username']
         result = TransactionManager.get_transactions_by_month(month, year, username)
         return paginate(result)
     except InvalidDateException:
@@ -87,8 +89,8 @@ async def get_transaction_by_month(token: Annotated[str, Depends(oauth2_bearer)]
             )
 async def get_top_n_transactions(token: Annotated[str, Depends(oauth2_bearer)], number: int = Path(gt=0)):
     try:
-        payload = jwt.decode(token, SECRET_KEY, ALGORITHM)
-        username = payload.get('sub')
+        username_dict = get_current_user(token)
+        username = username_dict['username']
         result = TransactionManager.get_top_n_transactions(username, number)
         return paginate(result)
     except ValueError:
@@ -115,8 +117,8 @@ async def get_top_n_transactions(token: Annotated[str, Depends(oauth2_bearer)], 
             )
 async def get_last_n_transactions(token: Annotated[str, Depends(oauth2_bearer)], number: int = Path(gt=0)):
     try:
-        payload = jwt.decode(token, SECRET_KEY, ALGORITHM)
-        username = payload.get('sub')
+        username_dict = get_current_user(token)
+        username = username_dict['username']
         result = TransactionManager.get_last_n_transactions(username, number)
         return paginate(result)
     except ValueError:
@@ -141,8 +143,8 @@ async def get_last_n_transactions(token: Annotated[str, Depends(oauth2_bearer)],
             )
 async def get_transaction_by_id(token: Annotated[str, Depends(oauth2_bearer)], transaction_id: int = Path(gt=0)):
     try:
-        payload = jwt.decode(token, SECRET_KEY, ALGORITHM)
-        username = payload.get('sub')
+        username_dict = get_current_user(token)
+        username = username_dict['username']
         result = TransactionManager.get_transaction_by_id(transaction_id, username)
         return result
     except OverflowError:
