@@ -1,4 +1,4 @@
-from fastapi import APIRouter, HTTPException, Path, Depends
+from fastapi import APIRouter, HTTPException, Path, Depends, Request
 from starlette import status
 from jose import JWTError
 from fastapi.security import OAuth2PasswordBearer
@@ -8,7 +8,7 @@ from typing import Annotated
 from fastapi_pagination import Page, paginate
 from routers.error_codes import responses
 from routers.auth_router import get_current_user
-
+from logger.logger import logging
 
 SECRET_KEY = '47a7ee9ff3c784b0baca916bcc300680424467ca4a2f6f2c4ce7b692f2b25b3d'
 ALGORITHM = 'HS256'
@@ -57,13 +57,14 @@ async def get_current_month_transactions(token: Annotated[str, Depends(oauth2_be
                 404: responses[404],
             }
             )
-async def get_transaction_by_month(token: Annotated[str, Depends(oauth2_bearer)],
+async def get_transaction_by_month(request: Request, token: Annotated[str, Depends(oauth2_bearer)],
                                    month: int,
                                    year: int
                                    ):
     try:
         username_dict = get_current_user(token)
         username = username_dict['username']
+        logging.info('')
         result = TransactionManager.get_transactions_by_month(month, year, username)
         return paginate(result)
     except InvalidDateException:

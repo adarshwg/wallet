@@ -1,5 +1,5 @@
 from typing import Annotated
-from fastapi import APIRouter, HTTPException, Depends
+from fastapi import APIRouter, HTTPException, Depends, Request
 from starlette import status
 from Exceptions import UserNotFoundException, InvalidPasswordException
 from pydantic import BaseModel
@@ -9,6 +9,10 @@ from user import User
 from datetime import timedelta, datetime, timezone
 from passlib.context import CryptContext
 from jose import jwt, JWTError
+from logger.logger import logging
+
+# logging.disable()
+
 
 SECRET_KEY = '47a7ee9ff3c784b0baca916bcc300680424467ca4a2f6f2c4ce7b692f2b25b3d'
 ALGORITHM = 'HS256'
@@ -78,39 +82,46 @@ async def check_status():
 
 
 @router.post("/signup", response_model=Token)
-async def signup(form_data: Annotated[OAuth2PasswordRequestForm, Depends()]):
+async def signup(request:Request,form_data: Annotated[OAuth2PasswordRequestForm, Depends()]):
     username = form_data.username
     password = form_data.password
     if not check_username_and_password_format(username, password):
+        logging.info(f' {request.url.path} - Invalid username or password format')
         raise HTTPException(status_code=status.HTTP_403_FORBIDDEN,
                             detail='Invalid username or password format')
     if Authentication.check_if_username_exists(username):
+        logging.info(f' {request.url.path} - Username already exists')
         raise HTTPException(status_code=status.HTTP_409_CONFLICT,
                             detail='Username already exists!'
                             )
     user = User(username, password)
+    logging.info(f' {request.url.path} - user: - [{username}] - account created')
     token = create_access_token(user.username, timedelta(minutes=20))
     return {'access_token': token, 'token_type': 'bearer'}
 
 
 @router.post("/login", response_model=Token)
-async def login(form_data: Annotated[OAuth2PasswordRequestForm, Depends()]):
+async def login(request: Request,form_data: Annotated[OAuth2PasswordRequestForm, Depends()]):
     username = form_data.username
     password = form_data.password
     if not check_username_and_password_format(username, password):
+        logging.info(f' {request.url.path} - invalid username or password format  ')
         raise HTTPException(status_code=status.HTTP_403_FORBIDDEN, detail='Invalid username or password format')
     try:
         user = authenticate_user(username, password)
     except UserNotFoundException:
+        logging.info(f' {request.url.path} - user not found')
         raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST,
                             detail='User with provided credentials not found! ')
     except InvalidPasswordException:
+        logging.info(f' {request.url.path} - Invalid password credentials entered  ')
         raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED,
                             detail='Invalid password was entered!! ')
     except HTTPException:
+        logging.info(f'  {request.url.path} - Invalid token ')
         raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED,
                             detail='could not validate the credentials!'
                             )
-
+    logging.info(f' {request.url.path} - user : [{username}] logged in  ')
     token = create_access_token(user.username, timedelta(minutes=20))
     return {'access_token': token, 'token_type': 'bearer'}
