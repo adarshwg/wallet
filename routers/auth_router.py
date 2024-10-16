@@ -82,7 +82,7 @@ async def check_status():
 
 
 @router.post("/signup", response_model=Token)
-async def signup(request:Request,form_data: Annotated[OAuth2PasswordRequestForm, Depends()]):
+async def signup(request: Request, form_data: Annotated[OAuth2PasswordRequestForm, Depends()]):
     username = form_data.username
     password = form_data.password
     if not check_username_and_password_format(username, password):
@@ -101,7 +101,7 @@ async def signup(request:Request,form_data: Annotated[OAuth2PasswordRequestForm,
 
 
 @router.post("/login", response_model=Token)
-async def login(request: Request,form_data: Annotated[OAuth2PasswordRequestForm, Depends()]):
+async def login(request: Request, form_data: Annotated[OAuth2PasswordRequestForm, Depends()]):
     username = form_data.username
     password = form_data.password
     if not check_username_and_password_format(username, password):

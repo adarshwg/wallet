@@ -29,7 +29,7 @@ async def show_user_wallet(request: Request, token: Annotated[str, Depends(oauth
         logging.info(f' {request.url.path} - user [{username}] ')
         user_wallet = Wallet(username)
         return user_wallet
-    except JWTError:
+    except HTTPException:
         logging.info(f' {request.url.path} - Invalid token ')
         raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED,
                             detail='Could not validate the credentials'
@@ -58,7 +58,7 @@ async def get_wallet_balance(request: Request, token: Annotated[str, Depends(oau
         user_wallet = Wallet(username)
         logging.info(f' {request.url.path} - user: [{username}] ')
         return user_wallet.get_balance()
-    except JWTError:
+    except HTTPException:
         logging.info(f' {request.url.path} - Invalid token ')
         raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED,
                             detail='Could not validate the credentials'
@@ -105,8 +105,8 @@ async def send_amount(request: Request, token: Annotated[str, Depends(oauth2_bea
                             detail='Invalid amount entered!'
                                    ' Please enter positive amount'
                             )
-    except JWTError:
-        logging.info(f' {request.url.path} - Invalid token')
+    except HTTPException:
+        logging.info(f' {request.url.path} - Invalid token ')
         raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED,
                             detail='Could not validate the credentials'
                             )
@@ -142,8 +142,8 @@ async def receive_amount(request: Request, token: Annotated[str, Depends(oauth2_
         raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST,
                             detail='Invalid amount entered! Please enter positive amount'
                             )
-    except JWTError:
-        logging.info(f' {request.url.path} - Invalid token')
+    except HTTPException:
+        logging.info(f' {request.url.path} - Invalid token ')
         raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED,
                             detail='Could not validate the credentials'
                             )

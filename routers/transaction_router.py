@@ -1,6 +1,5 @@
 from fastapi import APIRouter, HTTPException, Path, Depends, Request
 from starlette import status
-from jose import JWTError
 from fastapi.security import OAuth2PasswordBearer
 from Exceptions import *
 from transaction_manager import TransactionManager
@@ -30,22 +29,30 @@ oauth2_bearer = OAuth2PasswordBearer(tokenUrl='auth/login')
                 404: responses[404],
             }
             )
-async def get_current_month_transactions(token: Annotated[str, Depends(oauth2_bearer)]):
+async def get_current_month_transactions(request: Request,
+                                         token: Annotated[str, Depends(oauth2_bearer)]):
     try:
         username_dict = get_current_user(token)
         username = username_dict['username']
         result = TransactionManager.get_current_month_transactions(username)
+        logging.info(f' {request.url.path} - user: [{username}] ')
         return paginate(result)
     except InvalidDateException:
-        raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST,
+        err = HTTPException(status_code=status.HTTP_400_BAD_REQUEST,
                             detail='Invalid month and year entered!')
+        logging.info(f' {request.url.path} - {str(err)} - Invalid Month and date entered ')
+        raise err
     except NoRecordsException:
-        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND,
+        err = HTTPException(status_code=status.HTTP_404_NOT_FOUND,
                             detail='No records found for the specified time!')
-    except JWTError:
-        raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED,
+        logging.info(f' {request.url.path} - {str(err)} - No records found ')
+        raise err
+    except HTTPException:
+        err = HTTPException(status_code=status.HTTP_401_UNAUTHORIZED,
                             detail='Could not validate the credentials'
                             )
+        logging.info(f' {request.url.path} - {str(err)} - Invalid token ')
+        raise err
 
 
 @router.get('/get-by-month',
@@ -57,26 +64,33 @@ async def get_current_month_transactions(token: Annotated[str, Depends(oauth2_be
                 404: responses[404],
             }
             )
-async def get_transaction_by_month(request: Request, token: Annotated[str, Depends(oauth2_bearer)],
+async def get_transaction_by_month(request: Request,
+                                   token: Annotated[str, Depends(oauth2_bearer)],
                                    month: int,
                                    year: int
                                    ):
     try:
         username_dict = get_current_user(token)
         username = username_dict['username']
-        logging.info('')
         result = TransactionManager.get_transactions_by_month(month, year, username)
+        logging.info(f' {request.url.path} - user: [{username}] ')
         return paginate(result)
     except InvalidDateException:
-        raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST,
+        err = HTTPException(status_code=status.HTTP_400_BAD_REQUEST,
                             detail='Invalid month and year entered!')
+        logging.info(f' {request.url.path} - {str(err)} - Invalid Date Entered ')
+        raise err
     except NoRecordsException:
-        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND,
+        err = HTTPException(status_code=status.HTTP_404_NOT_FOUND,
                             detail='No records found for the specified time!')
-    except JWTError:
-        raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED,
+        logging.info(f' {request.url.path} - {str(err)} - No records found ')
+        raise err
+    except HTTPException:
+        err = HTTPException(status_code=status.HTTP_401_UNAUTHORIZED,
                             detail='Could not validate the credentials'
                             )
+        logging.info(f' {request.url.path} - {str(err)} - Invalid token ')
+        raise err
 
 
 @router.get('/top-transactions/{number}',
@@ -88,23 +102,32 @@ async def get_transaction_by_month(request: Request, token: Annotated[str, Depen
                 404: responses[404],
             }
             )
-async def get_top_n_transactions(token: Annotated[str, Depends(oauth2_bearer)], number: int = Path(gt=0)):
+async def get_top_n_transactions(request: Request,
+                                 token: Annotated[str, Depends(oauth2_bearer)],
+                                 number: int = Path(gt=0)):
     try:
         username_dict = get_current_user(token)
         username = username_dict['username']
         result = TransactionManager.get_top_n_transactions(username, number)
+        logging.info(f' {request.url.path} - user: [{username}] ')
         return paginate(result)
     except ValueError:
-        raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST,
+        err = HTTPException(status_code=status.HTTP_400_BAD_REQUEST,
                             detail='Please enter numbers only'
                             )
+        logging.info(f' {request.url.path} - {str(err)} - Invalid input : non numeric value ')
+        raise err
     except NoRecordsException:
-        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND,
+        err = HTTPException(status_code=status.HTTP_404_NOT_FOUND,
                             detail='No records found!')
-    except JWTError:
-        raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED,
+        logging.info(f' {request.url.path} - {str(err)} - No records found ')
+        raise err
+    except HTTPException:
+        err = HTTPException(status_code=status.HTTP_401_UNAUTHORIZED,
                             detail='Could not validate the credentials'
                             )
+        logging.info(f' {request.url.path} - {str(err)} - Invalid token ')
+        raise err
 
 
 @router.get('/last-transactions/{number}',
@@ -116,23 +139,32 @@ async def get_top_n_transactions(token: Annotated[str, Depends(oauth2_bearer)], 
                 404: responses[404]
             }
             )
-async def get_last_n_transactions(token: Annotated[str, Depends(oauth2_bearer)], number: int = Path(gt=0)):
+async def get_last_n_transactions(request: Request,
+                                  token: Annotated[str, Depends(oauth2_bearer)],
+                                  number: int = Path(gt=0)):
     try:
         username_dict = get_current_user(token)
         username = username_dict['username']
         result = TransactionManager.get_last_n_transactions(username, number)
+        logging.info(f' {request.url.path} - user: [{username}] ')
         return paginate(result)
     except ValueError:
-        raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST,
+        err = HTTPException(status_code=status.HTTP_400_BAD_REQUEST,
                             detail='Please enter numbers only'
                             )
+        logging.info(f' {request.url.path} - {str(err)} - Invalid input : non numeric value ')
+        raise err
     except NoRecordsException:
-        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND,
+        err = HTTPException(status_code=status.HTTP_404_NOT_FOUND,
                             detail='No records found!')
-    except JWTError:
-        raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED,
+        logging.info(f' {request.url.path} - {str(err)} - No records found ')
+        raise err
+    except HTTPException:
+        err = HTTPException(status_code=status.HTTP_401_UNAUTHORIZED,
                             detail='Could not validate the credentials'
                             )
+        logging.info(f' {request.url.path} - {str(err)} - Invalid token ')
+        raise err
 
 
 @router.get('/get-transaction/{transaction_id}',
@@ -142,15 +174,28 @@ async def get_last_n_transactions(token: Annotated[str, Depends(oauth2_bearer)],
                 404: responses[404]
             }
             )
-async def get_transaction_by_id(token: Annotated[str, Depends(oauth2_bearer)], transaction_id: int = Path(gt=0)):
+async def get_transaction_by_id(request: Request,
+                                token: Annotated[str, Depends(oauth2_bearer)],
+                                transaction_id: int = Path(gt=0)):
     try:
         username_dict = get_current_user(token)
         username = username_dict['username']
         result = TransactionManager.get_transaction_by_id(transaction_id, username)
+        logging.info(f' {request.url.path} - user: [{username}] ')
         return result
     except OverflowError:
-        raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST,
+        err = HTTPException(status_code=status.HTTP_400_BAD_REQUEST,
                             detail='Requested value is too large!')
+        logging.info(f' {request.url.path} - {str(err)} - Invalid input : non numeric value ')
+        raise err
     except NoRecordsException:
-        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND,
+        err = HTTPException(status_code=status.HTTP_404_NOT_FOUND,
                             detail='No records found with this transaction ID')
+        logging.info(f' {request.url.path} - {str(err)} - No records found ')
+        raise err
+    except HTTPException:
+        err = HTTPException(status_code=status.HTTP_401_UNAUTHORIZED,
+                            detail='Could not validate the credentials'
+                            )
+        logging.info(f' {request.url.path} - {str(err)} - Invalid token ')
+        raise err

@@ -29,3 +29,48 @@
 2024-10-16 14:00:34,395 - INFO -  /wallet/show-wallet - user [user12]  - show_user_wallet
 2024-10-16 14:00:36,008 - INFO -  /wallet/send-amount - user: [user12] - amount: [111] - category:[dog food] - send_amount
 2024-10-16 14:00:37,777 - INFO -  /wallet/receive-amount - user: [user12] - amount: [1000000] - category:[aata] - receive_amount
+2024-10-16 14:38:40,092 - INFO -  /transactions/get-transaction/118 - Invalid token  - get_transaction_by_id
+2024-10-16 14:39:06,685 - INFO -  /auth/login - user : [user12] logged in   - login
+2024-10-16 14:39:15,278 - INFO -  /wallet/balance - user: [user12]  - get_wallet_balance
+2024-10-16 14:39:19,022 - INFO -  /wallet/show-wallet - user [user12]  - show_user_wallet
+2024-10-16 14:39:20,973 - INFO -  /wallet/send-amount - user: [user12] - amount: [111] - category:[dog food] - send_amount
+2024-10-16 14:39:22,900 - INFO -  /wallet/receive-amount - user: [user12] - amount: [1000000] - category:[aata] - receive_amount
+2024-10-16 14:41:26,686 - INFO -  /transactions/current-month - user: [user12]  - get_current_month_transactions
+2024-10-16 15:15:22,799 - INFO -  /wallet/balance - Invalid token  - get_wallet_balance
+2024-10-16 15:15:53,201 - INFO -  /auth/login - user : [user12] logged in   - login
+2024-10-16 15:16:02,837 - INFO -  /auth/signup - Username already exists - signup
+2024-10-16 15:16:26,233 - INFO -  /transactions/get-transaction/118 - 401: Could not validate the credentials - Invalid token  - get_transaction_by_id
+2024-10-16 15:16:39,913 - INFO -  /wallet/balance - Invalid token  - get_wallet_balance
+2024-10-16 15:16:43,297 - INFO -  /auth/signup - Username already exists - signup
+2024-10-16 15:16:50,881 - INFO -  /auth/login - user : [user12] logged in   - login
+2024-10-16 15:16:58,822 - INFO -  /wallet/show-wallet - user [user12]  - show_user_wallet
+2024-10-16 15:17:01,911 - INFO -  /wallet/send-amount - user: [user12] - amount: [111] - category:[dog food] - send_amount
+2024-10-16 15:17:05,013 - INFO -  /wallet/receive-amount - user: [user12] - amount: [1000000] - category:[aata] - receive_amount
+2024-10-16 15:21:40,083 - INFO -  /wallet/balance - user: [user12]  - get_wallet_balance
+2024-10-16 15:21:50,547 - INFO -  /transactions/current-month - user: [user12]  - get_current_month_transactions
+2024-10-16 15:22:06,139 - INFO -  - get_transaction_by_month
+2024-10-16 15:26:12,419 - INFO -  /transactions/current-month - user: [user12]  - get_current_month_transactions
+2024-10-16 15:26:19,957 - INFO -  - get_transaction_by_month
+2024-10-16 15:26:47,850 - INFO -  /transactions/get-by-month - user: [user12]  - get_transaction_by_month
+2024-10-16 15:27:00,279 - INFO -  /transactions/top-transactions/100 - user: [user12]  - get_top_n_transactions
+2024-10-16 15:27:05,307 - INFO -  /transactions/last-transactions/10 - user: [user12]  - get_last_n_transactions
+2024-10-16 15:27:18,580 - INFO -  /transactions/current-month - user: [user12]  - get_current_month_transactions
+2024-10-16 15:27:22,952 - INFO -  /transactions/get-transaction/118 - user: [user12]  - get_transaction_by_id
+2024-10-16 15:27:30,762 - INFO -  /wallet/balance - user: [user12]  - get_wallet_balance
+2024-10-16 15:27:36,149 - INFO -  /wallet/show-wallet - user [user12]  - show_user_wallet
+2024-10-16 15:27:40,871 - INFO -  /wallet/send-amount - user: [user12] - amount: [111] - category:[dog food] - send_amount
+2024-10-16 15:27:46,516 - INFO -  /wallet/receive-amount - user: [user12] - amount: [1000000] - category:[aata] - receive_amount
+2024-10-16 15:28:25,225 - INFO -  /wallet/send-amount - amount: [11111111111111111111111111111111] - User wallet balance is low  - send_amount
+2024-10-16 15:29:05,150 - INFO -  /transactions/get-transaction/1181 - 404: No records found with this transaction ID - No records found  - get_transaction_by_id
+2024-10-16 15:29:47,749 - INFO -  /transactions/current-month - user: [user12]  - get_current_month_transactions
+2024-10-16 15:30:02,335 - INFO -  /transactions/last-transactions/10000000000 - user: [user12]  - get_last_n_transactions
+2024-10-16 15:30:17,451 - INFO -  /transactions/last-transactions/1 - user: [user12]  - get_last_n_transactions
+2024-10-16 15:30:31,862 - INFO -  /transactions/get-by-month - 400: Invalid month and year entered! - Invalid Date Entered  - get_transaction_by_month
+2024-10-16 15:30:42,312 - INFO -  /transactions/get-by-month - 400: Invalid month and year entered! - Invalid Date Entered  - get_transaction_by_month
+2024-10-16 15:30:55,142 - INFO -  /transactions/get-by-month - 400: Invalid month and year entered! - Invalid Date Entered  - get_transaction_by_month
+2024-10-16 15:31:02,475 - INFO -  /transactions/get-by-month - 400: Invalid month and year entered! - Invalid Date Entered  - get_transaction_by_month
+2024-10-16 15:39:12,811 - INFO -  /transactions/get-by-month - 401: Could not validate the credentials - Invalid token  - get_transaction_by_month
+2024-10-16 15:39:24,065 - INFO -  /wallet/balance - Invalid token  - get_wallet_balance
+2024-10-16 15:39:29,149 - INFO -  /wallet/show-wallet - Invalid token  - show_user_wallet
+2024-10-16 15:39:32,744 - INFO -  /wallet/send-amount - Invalid token  - send_amount
+2024-10-16 15:44:12,482 - INFO -  /auth/login - user : [user12] logged in   - login
