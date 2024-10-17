@@ -32,3 +32,7 @@ class InvalidDateException(Exception):
 
 class NoRecordsException(Exception):
     pass
+
+
+class DatabaseException(Exception):
+    pass

@@ -1,6 +1,8 @@
+import sqlite3
+
 from utils import db_operations
 from datetime import datetime
-from Exceptions import NoRecordsException
+from Exceptions import NoRecordsException, DatabaseException
 
 
 class Transaction:
@@ -14,7 +16,10 @@ class Transaction:
         self.day = current_datetime.day
         self.month = current_datetime.month
         self.year = current_datetime.year
-        db_operations.insert(amount, sender, receiver, self.month, self.year, category)
+        try:
+            db_operations.insert(amount, sender, receiver, self.month, self.year, category)
+        except Exception:
+            raise DatabaseException
 
     def __repr__(self):
         transaction_repr = (f'--------------------------\n'
@@ -29,7 +34,10 @@ class Transaction:
 
     @staticmethod
     def get_transaction_by_id(transaction_id, username):
-        transaction = db_operations.get_transaction(transaction_id, username)
+        try:
+            transaction = db_operations.get_transaction(transaction_id, username)
+        except Exception:
+            raise DatabaseException
         if not transaction:
             raise NoRecordsException('NO records found with this ID')
         return transaction

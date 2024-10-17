@@ -1,7 +1,7 @@
 from typing import Annotated
 from fastapi import APIRouter, HTTPException, Depends, Request
 from starlette import status
-from Exceptions import UserNotFoundException, InvalidPasswordException
+from Exceptions import UserNotFoundException, InvalidPasswordException,DatabaseException
 from pydantic import BaseModel
 from authentication import Authentication
 from fastapi.security import OAuth2PasswordBearer, OAuth2PasswordRequestForm
@@ -32,10 +32,13 @@ class Token(BaseModel):
 
 
 def create_access_token(username: str, expires_delta: timedelta):
-    encode = {'sub': username}
-    expires = datetime.now(timezone.utc) + expires_delta
-    encode.update({'exp': expires})
-    return jwt.encode(encode, SECRET_KEY, algorithm=ALGORITHM)
+    try:
+        encode = {'sub': username}
+        expires = datetime.now(timezone.utc) + expires_delta
+        encode.update({'exp': expires})
+        return jwt.encode(encode, SECRET_KEY, algorithm=ALGORITHM)
+    except JWTError:
+        raise JWTError('Token encoding failed')
 
 
 def authenticate_user(username: str, password: str):
@@ -45,8 +48,13 @@ def authenticate_user(username: str, password: str):
         raise UserNotFoundException
     except InvalidPasswordException:
         raise InvalidPasswordException
+    except DatabaseException:
+        raise DatabaseException('Internal Server Error')
     if authorized:
-        user = User(username, password)
+        try:
+            user = User(username, password)
+        except DatabaseException:
+            raise DatabaseException('Internal Server Error')
         return user
     else:
         raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED,
@@ -89,14 +97,25 @@ async def signup(request: Request, form_data: Annotated[OAuth2PasswordRequestFor
         logging.info(f' {request.url.path} - Invalid username or password format')
         raise HTTPException(status_code=status.HTTP_403_FORBIDDEN,
                             detail='Invalid username or password format')
-    if Authentication.check_if_username_exists(username):
-        logging.info(f' {request.url.path} - Username already exists')
-        raise HTTPException(status_code=status.HTTP_409_CONFLICT,
-                            detail='Username already exists!'
+    try:
+        if Authentication.check_if_username_exists(username):
+            logging.info(f' {request.url.path} - Username already exists')
+            raise HTTPException(status_code=status.HTTP_409_CONFLICT,
+                                detail='Username already exists!'
+                                )
+        user = User(username, password)
+        logging.info(f' {request.url.path} - user: - [{username}] - account created')
+        token = create_access_token(user.username, timedelta(minutes=20))
+    except JWTError:
+        logging.info(f'  {request.url.path} - Invalid Token ')
+        raise HTTPException(status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
+                            detail='Internal Server Error'
                             )
-    user = User(username, password)
-    logging.info(f' {request.url.path} - user: - [{username}] - account created')
-    token = create_access_token(user.username, timedelta(minutes=20))
+    except DatabaseException:
+        logging.info(f'  {request.url.path} - Internal Server Error ')
+        raise HTTPException(status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
+                            detail='Internal Server Error'
+                            )
     return {'access_token': token, 'token_type': 'bearer'}
 
 
@@ -109,6 +128,8 @@ async def login(request: Request, form_data: Annotated[OAuth2PasswordRequestForm
         raise HTTPException(status_code=status.HTTP_403_FORBIDDEN, detail='Invalid username or password format')
     try:
         user = authenticate_user(username, password)
+        logging.info(f' {request.url.path} - user : [{username}] logged in  ')
+        token = create_access_token(user.username, timedelta(minutes=20))
     except UserNotFoundException:
         logging.info(f' {request.url.path} - user not found')
         raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST,
@@ -122,6 +143,14 @@ async def login(request: Request, form_data: Annotated[OAuth2PasswordRequestForm
         raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED,
                             detail='could not validate the credentials!'
                             )
-    logging.info(f' {request.url.path} - user : [{username}] logged in  ')
-    token = create_access_token(user.username, timedelta(minutes=20))
+    except DatabaseException:
+        logging.info(f'  {request.url.path} - Internal Server Error ')
+        raise HTTPException(status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
+                            detail='Internal Server Error'
+                            )
+    except JWTError:
+        logging.info(f'  {request.url.path} - Internal Server Error ')
+        raise HTTPException(status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
+                            detail='Internal Server Error'
+                            )
     return {'access_token': token, 'token_type': 'bearer'}

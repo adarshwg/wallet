@@ -2,12 +2,13 @@ from fastapi import HTTPException, APIRouter, Depends, Request
 from starlette import status
 from typing import Annotated
 from fastapi.security import OAuth2PasswordBearer
-from jose import JWTError
 from wallet import Wallet
-from Exceptions import SelfTransferException, WalletEmptyException, LowBalanceException, InvalidAmountException
+from Exceptions import SelfTransferException, WalletEmptyException, LowBalanceException, InvalidAmountException, \
+    DatabaseException
 from routers.error_codes import responses
 from routers.auth_router import get_current_user
 from logger.logger import logging
+from jose import JWTError
 router = APIRouter(
     prefix="/wallet",
     tags=['wallet']
@@ -29,11 +30,15 @@ async def show_user_wallet(request: Request, token: Annotated[str, Depends(oauth
         logging.info(f' {request.url.path} - user [{username}] ')
         user_wallet = Wallet(username)
         return user_wallet
-    except HTTPException:
-        logging.info(f' {request.url.path} - Invalid token ')
-        raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED,
-                            detail='Could not validate the credentials'
+    except HTTPException as err:
+        logging.info(f' {request.url.path} - {str(err)} - Invalid token ')
+        raise err
+    except DatabaseException:
+        logging.info(f'  {request.url.path} - Internal Server Error ')
+        raise HTTPException(status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
+                            detail='Internal Server Error'
                             )
+
 
 
 @router.get("/balance",
@@ -58,10 +63,15 @@ async def get_wallet_balance(request: Request, token: Annotated[str, Depends(oau
         user_wallet = Wallet(username)
         logging.info(f' {request.url.path} - user: [{username}] ')
         return user_wallet.get_balance()
-    except HTTPException:
-        logging.info(f' {request.url.path} - Invalid token ')
+    except HTTPException as err:
+        logging.info(f' {request.url.path} - {str(err)} - Invalid token ')
         raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED,
                             detail='Could not validate the credentials'
+                            )
+    except DatabaseException:
+        logging.info(f'  {request.url.path} - Internal Server Error ')
+        raise HTTPException(status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
+                            detail='Internal Server Error'
                             )
 
 
@@ -110,7 +120,11 @@ async def send_amount(request: Request, token: Annotated[str, Depends(oauth2_bea
         raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED,
                             detail='Could not validate the credentials'
                             )
-
+    except DatabaseException:
+        logging.info(f'  {request.url.path} - Internal Server Error ')
+        raise HTTPException(status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
+                            detail='Internal Server Error'
+                            )
 
 @router.post("/receive-amount",
              status_code=status.HTTP_200_OK,
@@ -146,4 +160,9 @@ async def receive_amount(request: Request, token: Annotated[str, Depends(oauth2_
         logging.info(f' {request.url.path} - Invalid token ')
         raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED,
                             detail='Could not validate the credentials'
+                            )
+    except DatabaseException:
+        logging.info(f'  {request.url.path} - Internal Server Error ')
+        raise HTTPException(status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
+                            detail='Internal Server Error'
                             )

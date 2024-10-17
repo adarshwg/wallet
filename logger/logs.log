@@ -74,3 +74,19 @@
 2024-10-16 15:39:29,149 - INFO -  /wallet/show-wallet - Invalid token  - show_user_wallet
 2024-10-16 15:39:32,744 - INFO -  /wallet/send-amount - Invalid token  - send_amount
 2024-10-16 15:44:12,482 - INFO -  /auth/login - user : [user12] logged in   - login
+2024-10-17 09:11:07,964 - INFO -  /wallet/balance - 401: could not validate the credentials!   - Invalid token  - get_wallet_balance
+2024-10-17 09:11:16,060 - INFO -  /wallet/show-wallet - 401: could not validate the credentials!   - Invalid token  - show_user_wallet
+2024-10-17 09:25:20,665 - INFO -  /wallet/balance - 401: could not validate the credentials!   - Invalid token  - get_wallet_balance
+2024-10-17 09:25:34,209 - INFO -  /wallet/send-amount - Invalid token  - send_amount
+2024-10-17 09:25:38,679 - INFO -  /transactions/current-month - 401: Could not validate the credentials - Invalid token  - get_current_month_transactions
+2024-10-17 09:25:44,646 - INFO -  /transactions/get-transaction/1181 - 401: Could not validate the credentials - Invalid token  - get_transaction_by_id
+2024-10-17 09:25:48,724 - INFO -  /transactions/last-transactions/1 - 401: Could not validate the credentials - Invalid token  - get_last_n_transactions
+2024-10-17 09:25:52,327 - INFO -  /transactions/top-transactions/100 - 401: Could not validate the credentials - Invalid token  - get_top_n_transactions
+2024-10-17 09:25:56,512 - INFO -  /transactions/get-by-month - 401: Could not validate the credentials - Invalid token  - get_transaction_by_month
+2024-10-17 09:26:11,355 - INFO -   /auth/login - Internal Server Error  - login
+2024-10-17 09:26:27,933 - INFO -   /auth/signup - Internal Server Error  - signup
+2024-10-17 09:26:40,870 - INFO -  /wallet/show-wallet - 401: could not validate the credentials!   - Invalid token  - show_user_wallet
+2024-10-17 09:27:56,935 - INFO -  /wallet/show-wallet - 401: could not validate the credentials!   - Invalid token  - show_user_wallet
+2024-10-17 09:28:00,367 - INFO -  /auth/login - user : [user12] logged in   - login
+2024-10-17 09:28:14,899 - INFO -  /wallet/show-wallet - user [user12]  - show_user_wallet
+2024-10-17 09:28:27,721 - INFO -  /wallet/send-amount - user: [user12] - amount: [111] - category:[dog food] - send_amount

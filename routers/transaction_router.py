@@ -53,6 +53,11 @@ async def get_current_month_transactions(request: Request,
                             )
         logging.info(f' {request.url.path} - {str(err)} - Invalid token ')
         raise err
+    except DatabaseException:
+        logging.info(f'  {request.url.path} - Internal Server Error ')
+        raise HTTPException(status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
+                            detail='Internal Server Error'
+                            )
 
 
 @router.get('/get-by-month',
@@ -91,6 +96,11 @@ async def get_transaction_by_month(request: Request,
                             )
         logging.info(f' {request.url.path} - {str(err)} - Invalid token ')
         raise err
+    except DatabaseException:
+        logging.info(f'  {request.url.path} - Internal Server Error ')
+        raise HTTPException(status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
+                            detail='Internal Server Error'
+                            )
 
 
 @router.get('/top-transactions/{number}',
@@ -128,6 +138,11 @@ async def get_top_n_transactions(request: Request,
                             )
         logging.info(f' {request.url.path} - {str(err)} - Invalid token ')
         raise err
+    except DatabaseException:
+        logging.info(f'  {request.url.path} - Internal Server Error ')
+        raise HTTPException(status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
+                            detail='Internal Server Error'
+                            )
 
 
 @router.get('/last-transactions/{number}',
@@ -165,6 +180,11 @@ async def get_last_n_transactions(request: Request,
                             )
         logging.info(f' {request.url.path} - {str(err)} - Invalid token ')
         raise err
+    except DatabaseException:
+        logging.info(f'  {request.url.path} - Internal Server Error ')
+        raise HTTPException(status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
+                            detail='Internal Server Error'
+                            )
 
 
 @router.get('/get-transaction/{transaction_id}',
@@ -199,3 +219,9 @@ async def get_transaction_by_id(request: Request,
                             )
         logging.info(f' {request.url.path} - {str(err)} - Invalid token ')
         raise err
+    except DatabaseException:
+        logging.info(f'  {request.url.path} - Internal Server Error ')
+        raise HTTPException(status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
+                            detail='Internal Server Error'
+                            )
+

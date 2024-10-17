@@ -1,14 +1,19 @@
+import sqlite3
+
 from authentication import Authentication
 from wallet import Wallet
 from utils import db_operations
-from Exceptions import LowBalanceException, UserNotFoundException, InvalidPasswordException, WalletEmptyException
+from Exceptions import LowBalanceException, UserNotFoundException, InvalidPasswordException, WalletEmptyException,DatabaseException
 
 
 class User:
     def __init__(self, username, password):
         self.username = username
         self.hashed_password = Authentication.hash_password(password)
-        db_operations.create_user(username, self.hashed_password)
+        try:
+            db_operations.create_user(username, self.hashed_password)
+        except sqlite3.OperationalError:
+            raise DatabaseException
         self.wallet = Wallet(username)
 
     @staticmethod
@@ -19,6 +24,8 @@ class User:
             raise UserNotFoundException
         except InvalidPasswordException:
             raise InvalidPasswordException
+        except DatabaseException:
+            raise DatabaseException
         if authorized:
             return 1
         else:

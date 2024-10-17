@@ -1,7 +1,7 @@
 from utils import db_operations
 import bcrypt
 import re
-from Exceptions import UserNotFoundException, InvalidPasswordException
+from Exceptions import UserNotFoundException, InvalidPasswordException, DatabaseException
 
 
 class Authentication:
@@ -38,21 +38,33 @@ class Authentication:
 
     @staticmethod
     def match_password(username, entered_password):
-        user_password = db_operations.get_hashed_user_password(username)
+        try:
+            user_password = db_operations.get_hashed_user_password(username)
+        except Exception:
+            raise DatabaseException
         result = bcrypt.checkpw(entered_password, user_password)
         return result
 
     @staticmethod
     def login(username, entered_password):
-        user_exists = db_operations.check_if_user_exists(username)
+        try:
+            user_exists = db_operations.check_if_user_exists(username)
+        except Exception:
+            raise DatabaseException
         if not user_exists:
             raise UserNotFoundException('User not found !!')
         else:
-            if Authentication.match_password(username, entered_password):
-                return 1
-            else:
-                raise InvalidPasswordException('Invalid password entered !')
+            try:
+                if Authentication.match_password(username, entered_password):
+                    return 1
+                else:
+                    raise InvalidPasswordException('Invalid password entered !')
+            except DatabaseException:
+                raise DatabaseException
 
     @staticmethod
     def check_if_username_exists(username):
-        return db_operations.check_if_user_exists(username)
+        try:
+            return db_operations.check_if_user_exists(username)
+        except Exception:
+            raise DatabaseException
