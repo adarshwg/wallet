@@ -90,3 +90,6 @@
 2024-10-17 09:28:00,367 - INFO -  /auth/login - user : [user12] logged in   - login
 2024-10-17 09:28:14,899 - INFO -  /wallet/show-wallet - user [user12]  - show_user_wallet
 2024-10-17 09:28:27,721 - INFO -  /wallet/send-amount - user: [user12] - amount: [111] - category:[dog food] - send_amount
+2024-10-17 09:42:06,537 - INFO -  /wallet/send-amount - user: [user12] - amount: [111] - category:[dog food] - send_amount
+2024-10-17 09:42:38,764 - INFO -  /wallet/show-wallet - user [user12]  - show_user_wallet
+2024-10-17 09:49:18,441 - INFO -  /auth/login - user : [ad123] logged in   - login

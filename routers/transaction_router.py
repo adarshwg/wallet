@@ -27,6 +27,7 @@ oauth2_bearer = OAuth2PasswordBearer(tokenUrl='auth/login')
                 400: responses[400],
                 401: responses[401],
                 404: responses[404],
+                500: responses[500]
             }
             )
 async def get_current_month_transactions(request: Request,
@@ -54,7 +55,7 @@ async def get_current_month_transactions(request: Request,
         logging.info(f' {request.url.path} - {str(err)} - Invalid token ')
         raise err
     except DatabaseException:
-        logging.info(f'  {request.url.path} - Internal Server Error ')
+        logging.info(f' {request.url.path} - Internal Server Error ')
         raise HTTPException(status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
                             detail='Internal Server Error'
                             )
@@ -67,6 +68,7 @@ async def get_current_month_transactions(request: Request,
                 400: responses[400],
                 401: responses[401],
                 404: responses[404],
+                500: responses[500]
             }
             )
 async def get_transaction_by_month(request: Request,
@@ -97,7 +99,7 @@ async def get_transaction_by_month(request: Request,
         logging.info(f' {request.url.path} - {str(err)} - Invalid token ')
         raise err
     except DatabaseException:
-        logging.info(f'  {request.url.path} - Internal Server Error ')
+        logging.info(f' {request.url.path} - Internal Server Error ')
         raise HTTPException(status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
                             detail='Internal Server Error'
                             )
@@ -110,6 +112,7 @@ async def get_transaction_by_month(request: Request,
                 400: responses[400],
                 401: responses[401],
                 404: responses[404],
+                500: responses[500]
             }
             )
 async def get_top_n_transactions(request: Request,
@@ -139,7 +142,7 @@ async def get_top_n_transactions(request: Request,
         logging.info(f' {request.url.path} - {str(err)} - Invalid token ')
         raise err
     except DatabaseException:
-        logging.info(f'  {request.url.path} - Internal Server Error ')
+        logging.info(f' {request.url.path} - Internal Server Error ')
         raise HTTPException(status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
                             detail='Internal Server Error'
                             )
@@ -151,7 +154,8 @@ async def get_top_n_transactions(request: Request,
             responses={
                 400: responses[400],
                 401: responses[401],
-                404: responses[404]
+                404: responses[404],
+                500: responses[500]
             }
             )
 async def get_last_n_transactions(request: Request,
@@ -181,7 +185,7 @@ async def get_last_n_transactions(request: Request,
         logging.info(f' {request.url.path} - {str(err)} - Invalid token ')
         raise err
     except DatabaseException:
-        logging.info(f'  {request.url.path} - Internal Server Error ')
+        logging.info(f' {request.url.path} - Internal Server Error ')
         raise HTTPException(status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
                             detail='Internal Server Error'
                             )
@@ -191,7 +195,9 @@ async def get_last_n_transactions(request: Request,
             status_code=status.HTTP_200_OK,
             responses={
                 400: responses[400],
-                404: responses[404]
+                401: responses[401],
+                404: responses[404],
+                500: responses[500]
             }
             )
 async def get_transaction_by_id(request: Request,
@@ -220,7 +226,7 @@ async def get_transaction_by_id(request: Request,
         logging.info(f' {request.url.path} - {str(err)} - Invalid token ')
         raise err
     except DatabaseException:
-        logging.info(f'  {request.url.path} - Internal Server Error ')
+        logging.info(f' {request.url.path} - Internal Server Error ')
         raise HTTPException(status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
                             detail='Internal Server Error'
                             )

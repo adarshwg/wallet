@@ -10,7 +10,7 @@ from datetime import timedelta, datetime, timezone
 from passlib.context import CryptContext
 from jose import jwt, JWTError
 from logger.logger import logging
-
+from routers.error_codes import responses
 # logging.disable()
 
 
@@ -89,7 +89,15 @@ async def check_status():
     return {"status": "UP"}
 
 
-@router.post("/signup", response_model=Token)
+@router.post("/signup",
+             response_model=Token,
+             status_code=status.HTTP_201_CREATED,
+             responses={
+                 403: responses[403],
+                 409: responses[409],
+                 500: responses[500]
+             }
+             )
 async def signup(request: Request, form_data: Annotated[OAuth2PasswordRequestForm, Depends()]):
     username = form_data.username
     password = form_data.password
@@ -107,19 +115,29 @@ async def signup(request: Request, form_data: Annotated[OAuth2PasswordRequestFor
         logging.info(f' {request.url.path} - user: - [{username}] - account created')
         token = create_access_token(user.username, timedelta(minutes=20))
     except JWTError:
-        logging.info(f'  {request.url.path} - Invalid Token ')
+        logging.info(f' {request.url.path} - Invalid Token ')
         raise HTTPException(status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
                             detail='Internal Server Error'
                             )
     except DatabaseException:
-        logging.info(f'  {request.url.path} - Internal Server Error ')
+        logging.info(f' {request.url.path} - Internal Server Error ')
         raise HTTPException(status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
                             detail='Internal Server Error'
                             )
     return {'access_token': token, 'token_type': 'bearer'}
 
 
-@router.post("/login", response_model=Token)
+@router.post("/login",
+             response_model=Token,
+             status_code=status.HTTP_201_CREATED,
+             responses={
+                 400: responses[400],
+                 401: responses[401],
+                 403: responses[404],
+                 500: responses[500]
+             }
+
+             )
 async def login(request: Request, form_data: Annotated[OAuth2PasswordRequestForm, Depends()]):
     username = form_data.username
     password = form_data.password
@@ -139,17 +157,17 @@ async def login(request: Request, form_data: Annotated[OAuth2PasswordRequestForm
         raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED,
                             detail='Invalid password was entered!! ')
     except HTTPException:
-        logging.info(f'  {request.url.path} - Invalid token ')
+        logging.info(f' {request.url.path} - Invalid token ')
         raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED,
                             detail='could not validate the credentials!'
                             )
     except DatabaseException:
-        logging.info(f'  {request.url.path} - Internal Server Error ')
+        logging.info(f' {request.url.path} - Internal Server Error ')
         raise HTTPException(status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
                             detail='Internal Server Error'
                             )
     except JWTError:
-        logging.info(f'  {request.url.path} - Internal Server Error ')
+        logging.info(f' {request.url.path} - Internal Server Error ')
         raise HTTPException(status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
                             detail='Internal Server Error'
                             )

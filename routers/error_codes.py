@@ -55,6 +55,22 @@ responses = {
             }
         }
     },
+    403: {
+        "description": "Forbidden",
+        "content": {
+            "application/json": {
+                "schema": ErrorResponse.model_json_schema(),
+                "examples": {
+                    "example-1": {
+                        "value": {
+                            "detail": "Forbidden",
+                            "message": "Action is forbidden"
+                        }
+                    }
+                }
+            }
+        }
+    },
     404: {
         "description": "Resource not found",
         "content": {

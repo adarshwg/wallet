@@ -8,7 +8,7 @@ from Exceptions import SelfTransferException, WalletEmptyException, LowBalanceEx
 from routers.error_codes import responses
 from routers.auth_router import get_current_user
 from logger.logger import logging
-from jose import JWTError
+
 router = APIRouter(
     prefix="/wallet",
     tags=['wallet']
@@ -18,9 +18,8 @@ oauth2_bearer = OAuth2PasswordBearer('auth/login')
 
 @router.get("/show-wallet", status_code=status.HTTP_200_OK,
             responses={
-                400: responses[400],
                 401: responses[401],
-                404: responses[404],
+                500: responses[500]
             }
             )
 async def show_user_wallet(request: Request, token: Annotated[str, Depends(oauth2_bearer)]):
@@ -34,19 +33,17 @@ async def show_user_wallet(request: Request, token: Annotated[str, Depends(oauth
         logging.info(f' {request.url.path} - {str(err)} - Invalid token ')
         raise err
     except DatabaseException:
-        logging.info(f'  {request.url.path} - Internal Server Error ')
+        logging.info(f' {request.url.path} - Internal Server Error ')
         raise HTTPException(status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
                             detail='Internal Server Error'
                             )
 
 
-
 @router.get("/balance",
             status_code=status.HTTP_200_OK,
             responses={
-                400: responses[400],
                 401: responses[401],
-                404: responses[404],
+                500: responses[500]
             }
             )
 async def get_wallet_balance(request: Request, token: Annotated[str, Depends(oauth2_bearer)]):
@@ -69,18 +66,19 @@ async def get_wallet_balance(request: Request, token: Annotated[str, Depends(oau
                             detail='Could not validate the credentials'
                             )
     except DatabaseException:
-        logging.info(f'  {request.url.path} - Internal Server Error ')
+        logging.info(f' {request.url.path} - Internal Server Error ')
         raise HTTPException(status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
                             detail='Internal Server Error'
                             )
 
 
 @router.post("/send-amount",
-             status_code=status.HTTP_200_OK,
+             status_code=status.HTTP_201_CREATED,
              responses={
                  400: responses[400],
                  401: responses[401],
-                 404: responses[404],
+                 403: responses[404],
+                 500: responses[500]
              }
              )
 async def send_amount(request: Request, token: Annotated[str, Depends(oauth2_bearer)],
@@ -121,17 +119,19 @@ async def send_amount(request: Request, token: Annotated[str, Depends(oauth2_bea
                             detail='Could not validate the credentials'
                             )
     except DatabaseException:
-        logging.info(f'  {request.url.path} - Internal Server Error ')
+        logging.info(f' {request.url.path} - Internal Server Error ')
         raise HTTPException(status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
                             detail='Internal Server Error'
                             )
 
+
 @router.post("/receive-amount",
-             status_code=status.HTTP_200_OK,
+             status_code=status.HTTP_201_CREATED,
              responses={
                  400: responses[400],
                  401: responses[401],
-                 404: responses[404],
+                 403: responses[404],
+                 500: responses[500]
              }
              )
 async def receive_amount(request: Request, token: Annotated[str, Depends(oauth2_bearer)],
@@ -162,7 +162,7 @@ async def receive_amount(request: Request, token: Annotated[str, Depends(oauth2_
                             detail='Could not validate the credentials'
                             )
     except DatabaseException:
-        logging.info(f'  {request.url.path} - Internal Server Error ')
+        logging.info(f' {request.url.path} - Internal Server Error ')
         raise HTTPException(status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
                             detail='Internal Server Error'
                             )
