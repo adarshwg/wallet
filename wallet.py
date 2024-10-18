@@ -48,7 +48,7 @@ class Wallet(TransactionManager):
             raise DatabaseException
         return new_transaction
 
-    def receive_amount(self, sender, amount, category='misc'):
+    def receive_amount(self, sender, amount):
         if self.username == sender:
             raise SelfTransferException('Cannot transfer to the same account wallet!')
         if amount <= 0:
@@ -56,7 +56,5 @@ class Wallet(TransactionManager):
         self.current_balance += amount
         try:
             db_operations.update_user_wallet_balance(self.username, amount)
-            new_transaction = Wallet.create_transaction(amount, sender, self.username, category)
         except Exception:
             raise DatabaseException
-        return new_transaction

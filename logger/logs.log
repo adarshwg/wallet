@@ -93,3 +93,110 @@
 2024-10-17 09:42:06,537 - INFO -  /wallet/send-amount - user: [user12] - amount: [111] - category:[dog food] - send_amount
 2024-10-17 09:42:38,764 - INFO -  /wallet/show-wallet - user [user12]  - show_user_wallet
 2024-10-17 09:49:18,441 - INFO -  /auth/login - user : [ad123] logged in   - login
+2024-10-17 14:42:30,908 - INFO -  /auth/login - user : [ad123] logged in   - login
+2024-10-17 17:01:38,923 - INFO -  /auth/login - user : [ad123] logged in   - login
+2024-10-17 17:09:47,087 - INFO -  /auth/login - user : [ad123] logged in   - login
+2024-10-17 17:10:44,027 - INFO -  /auth/signup - Username already exists - signup
+2024-10-17 17:10:52,526 - INFO -  /auth/signup - user: - [user16] - account created - signup
+2024-10-17 17:12:40,830 - INFO -  /transactions/last-transactions/1 - 404: No records found! - No records found  - get_last_n_transactions
+2024-10-17 17:15:00,182 - INFO -  /transactions/get-transaction/1181 - 404: No records found with this transaction ID - No records found  - get_transaction_by_id
+2024-10-18 03:27:07,276 - INFO -  /transactions/last-transactions/1 - 401: Could not validate the credentials - Invalid token  - get_last_n_transactions
+2024-10-18 03:27:40,635 - INFO -  /transactions/top-transactions/100 - 401: Could not validate the credentials - Invalid token  - get_top_n_transactions
+2024-10-18 03:27:53,367 - INFO -  /auth/login - user : [ad123] logged in   - login
+2024-10-18 03:28:14,224 - INFO -  /wallet/balance - user: [ad123]  - get_wallet_balance
+2024-10-18 03:28:18,996 - INFO -  /wallet/show-wallet - user [ad123]  - show_user_wallet
+2024-10-18 03:28:24,387 - INFO -  /wallet/send-amount - Receiver does not exist  - send_amount
+2024-10-18 03:28:24,387 - INFO -  /wallet/send-amount - Invalid token  - send_amount
+2024-10-18 03:28:32,284 - INFO -  /wallet/send-amount - Receiver does not exist  - send_amount
+2024-10-18 03:28:32,285 - INFO -  /wallet/send-amount - Invalid token  - send_amount
+2024-10-18 03:28:45,443 - INFO -  /transactions/get-transaction/1181 - 404: No records found with this transaction ID - No records found  - get_transaction_by_id
+2024-10-18 03:28:50,064 - INFO -  /transactions/get-transaction/11 - user: [ad123]  - get_transaction_by_id
+2024-10-18 03:28:56,897 - INFO -  /transactions/current-month - user: [ad123]  - get_current_month_transactions
+2024-10-18 03:28:59,843 - INFO -  /transactions/last-transactions/1 - user: [ad123]  - get_last_n_transactions
+2024-10-18 03:29:02,480 - INFO -  /transactions/top-transactions/100 - user: [ad123]  - get_top_n_transactions
+2024-10-18 03:29:04,925 - INFO -  /transactions/get-by-month - 400: Invalid month and year entered! - Invalid Date Entered  - get_transaction_by_month
+2024-10-18 03:29:36,837 - INFO -  /wallet/send-amount - Receiver does not exist  - send_amount
+2024-10-18 03:29:36,837 - INFO -  /wallet/send-amount - Invalid token  - send_amount
+2024-10-18 03:29:50,550 - INFO -  /wallet/send-amount - Receiver does not exist  - send_amount
+2024-10-18 03:29:50,550 - INFO -  /wallet/send-amount - Invalid token  - send_amount
+2024-10-18 03:31:29,951 - INFO -  /wallet/send-amount - user: [ad123] - amount: [111] - category:[dog food] - send_amount
+2024-10-18 03:32:27,234 - INFO -  /wallet/send-amount - Receiver does not exist  - send_amount
+2024-10-18 03:32:27,235 - INFO -  /wallet/send-amount - Invalid token  - send_amount
+2024-10-18 03:32:36,225 - INFO -  /wallet/send-amount - user: [ad123] - amount: [111] - category:[dog food] - send_amount
+2024-10-18 03:35:47,720 - INFO -  /wallet/send-amount - user: [ad123] - amount: [111] - category:[dog food] - send_amount
+2024-10-18 03:36:00,870 - INFO -  /wallet/send-amount - Receiver does not exist  - send_amount
+2024-10-18 03:36:00,870 - INFO -  /wallet/send-amount - Invalid token  - send_amount
+2024-10-18 03:37:11,140 - INFO -  /wallet/send-amount - Receiver does not exist  - send_amount
+2024-10-18 03:37:11,140 - INFO -  /wallet/send-amount - 400: Receiver does not exist  - send_amount
+2024-10-18 03:37:49,507 - INFO -  /wallet/send-amount - user: [ad123] - amount: [111] - category:[dog food] - send_amount
+2024-10-18 03:39:34,821 - INFO -  /wallet/send-amount - user: [ad123] - amount: [100] - category:[chocolate] - send_amount
+2024-10-18 03:50:52,815 - INFO -  /wallet/send-amount - 401: could not validate the credentials!    - send_amount
+2024-10-18 03:50:57,461 - INFO -  /auth/login - user : [ad123] logged in   - login
+2024-10-18 03:51:01,298 - INFO -  /wallet/show-wallet - user [ad123]  - show_user_wallet
+2024-10-18 03:51:07,783 - INFO -  /transactions/get-transaction/11 - user: [ad123]  - get_transaction_by_id
+2024-10-18 03:51:13,188 - INFO -  /wallet/send-amount - user: [ad123] - amount: [100] - category:[chocolate] - send_amount
+2024-10-18 03:51:49,036 - INFO -  /wallet/send-amount - user:[ad123 - amount:100 - Self Transfer Exception - send_amount
+2024-10-18 03:52:04,365 - INFO -  /wallet/send-amount - user: [ad123] - amount: [100] - category:[chocolate] - send_amount
+2024-10-18 04:17:21,330 - INFO -  /wallet/send-amount - 401: could not validate the credentials!    - send_amount
+2024-10-18 04:18:08,519 - INFO -  /wallet/show-wallet - 401: could not validate the credentials!   - Invalid token  - show_user_wallet
+2024-10-18 04:18:12,643 - INFO -  /auth/login - user : [ad123] logged in   - login
+2024-10-18 04:20:28,078 - INFO -  /wallet/send-amount -  user: [ad123] - amount: [100] - category:[chocolate] - send_amount
+2024-10-18 04:22:28,888 - INFO -  /wallet/send-amount - 201 - user: [ad123] - amount: [100] - category:[chocolate] - send_amount
+2024-10-18 04:23:25,226 - INFO -  /wallet/show-wallet - user [ad123]  - show_user_wallet
+2024-10-18 04:23:29,152 - INFO -  /transactions/get-transaction/11 - user: [ad123]  - get_transaction_by_id
+2024-10-18 04:23:33,952 - INFO -  /transactions/current-month - user: [ad123]  - get_current_month_transactions
+2024-10-18 04:23:39,620 - INFO -  /transactions/last-transactions/1 - user: [ad123]  - get_last_n_transactions
+2024-10-18 04:23:42,592 - INFO -  /transactions/get-by-month - 400: Invalid month and year entered! - Invalid Date Entered  - get_transaction_by_month
+2024-10-18 04:23:50,374 - INFO -  /transactions/get-by-month - 400: Invalid month and year entered! - Invalid Date Entered  - get_transaction_by_month
+2024-10-18 04:23:53,822 - INFO -  /transactions/get-by-month - user: [ad123]  - get_transaction_by_month
+2024-10-18 04:44:10,547 - INFO -  /transactions/get-by-month - 401: Could not validate the credentials - Invalid token  - get_transaction_by_month
+2024-10-18 04:46:29,359 - INFO -  /auth/login - Internal Server Error  - login
+2024-10-18 04:47:25,189 - INFO -  /auth/login - Internal Server Error  - login
+2024-10-18 04:47:48,861 - INFO -  /auth/login - user : [ad123] logged in   - login
+2024-10-18 04:48:06,062 - INFO -  /wallet/send-amount - 400: Receiver does not exist  - send_amount
+2024-10-18 04:48:06,063 - INFO -  /wallet/send-amount - 400: Receiver does not exist  - send_amount
+2024-10-18 04:48:27,806 - INFO -  /wallet/send-amount - 403: Cannot transfer to the same account wallet!  - send_amount
+2024-10-18 04:50:36,869 - INFO -  /wallet/send-amount - 403: Cannot transfer to the same account wallet!  - send_amount
+2024-10-18 04:50:38,173 - INFO -  /wallet/send-amount - 403: Cannot transfer to the same account wallet!  - send_amount
+2024-10-18 04:50:39,330 - INFO -  /wallet/send-amount - 403: Cannot transfer to the same account wallet!  - send_amount
+2024-10-18 04:50:40,404 - INFO -  /wallet/send-amount - 403: Cannot transfer to the same account wallet!  - send_amount
+2024-10-18 04:50:41,632 - INFO -  /wallet/send-amount - 403: Cannot transfer to the same account wallet!  - send_amount
+2024-10-18 04:50:42,788 - INFO -  /wallet/send-amount - 403: Cannot transfer to the same account wallet!  - send_amount
+2024-10-18 04:50:43,841 - INFO -  /wallet/send-amount - 403: Cannot transfer to the same account wallet!  - send_amount
+2024-10-18 05:32:10,743 - INFO -  /wallet/send-amount - 401: could not validate the credentials!    - send_amount
+2024-10-18 05:32:31,323 - INFO -  /transactions/get-transaction/11 - 401: Could not validate the credentials - Invalid token  - get_transaction_by_id
+2024-10-18 05:32:35,168 - INFO -  /transactions/current-month - 401: Could not validate the credentials - Invalid token  - get_current_month_transactions
+2024-10-18 05:32:38,370 - INFO -  /transactions/last-transactions/1 - 401: Could not validate the credentials - Invalid token  - get_last_n_transactions
+2024-10-18 05:32:42,318 - INFO -  /transactions/top-transactions/100 - 401: Could not validate the credentials - Invalid token  - get_top_n_transactions
+2024-10-18 05:32:45,869 - INFO -  /transactions/get-by-month - 401: Could not validate the credentials - Invalid token  - get_transaction_by_month
+2024-10-18 05:32:51,397 - INFO -  /wallet/show-wallet - 401: could not validate the credentials!   - Invalid token  - show_user_wallet
+2024-10-18 05:32:54,728 - INFO -  /wallet/send-amount - 401: could not validate the credentials!    - send_amount
+2024-10-18 05:33:05,583 - INFO -  /wallet/send-amount - 401: could not validate the credentials!    - send_amount
+2024-10-18 05:33:51,000 - INFO -  /auth/signup - Username already exists - signup
+2024-10-18 05:35:27,764 - INFO -  /wallet/balance - 401: Could not validate the credentials - get_wallet_balance
+2024-10-18 05:39:50,010 - INFO -  /wallet/balance - 401: Could not validate the credentials - get_wallet_balance
+2024-10-18 05:42:35,246 - INFO -  /auth/signup - Username already exists - signup
+2024-10-18 05:42:51,801 - INFO -  /auth/login - user : [ad123] logged in   - login
+2024-10-18 05:43:11,207 - INFO -  /wallet/balance - 200 - user: [ad123]  - get_wallet_balance
+2024-10-18 05:43:54,221 - INFO -  /wallet/balance - 200 - user: [ad123]  
+2024-10-18 05:44:14,576 - INFO -  /wallet/show-wallet - 200 - user [ad123]  
+2024-10-18 05:44:37,729 - INFO -  /wallet/send-amount - 403: Cannot transfer to the same account wallet!  
+2024-10-18 05:44:56,766 - INFO -  /wallet/send-amount - 201 - user: [ad123] - amount: [100] - category:[chocolate] 
+2024-10-18 05:46:39,965 - INFO -  /auth/login - user : [user16] logged in   
+2024-10-18 05:46:52,690 - INFO -  /wallet/balance - 200 - user: [user16]  
+2024-10-18 05:46:58,790 - INFO -  /wallet/send-amount - 403: User wallet is empty! 
+2024-10-18 05:48:31,840 - INFO -  /wallet/send-amount - 500: Internal Server Error  
+2024-10-18 05:49:06,566 - INFO -  /wallet/show-wallet - 200 - user [user16]  
+2024-10-18 05:49:06,566 - INFO -  /wallet/show-wallet - 500: Internal Server Error 
+2024-10-18 05:49:26,540 - INFO -  /wallet/show-wallet - 200 - user [user16]  
+2024-10-18 05:49:26,544 - INFO -  /wallet/show-wallet - 500: Internal Server Error 
+2024-10-18 05:52:23,783 - INFO -  /wallet/show-wallet - 500: Internal Server Error 
+2024-10-18 05:52:35,474 - INFO -  /wallet/balance - 500: Internal Server Error  
+2024-10-18 05:52:47,343 - INFO -  /wallet/send-amount - 500: Internal Server Error  
+2024-10-18 05:53:05,674 - INFO -  /auth/login - Internal Server Error  
+2024-10-18 05:53:14,391 - INFO -  /transactions/current-month - 401: Could not validate the credentials - Invalid token  
+2024-10-18 05:53:26,208 - INFO -  /transactions/last-transactions/1 - 401: Could not validate the credentials - Invalid token  
+2024-10-18 05:53:33,187 - INFO -  /transactions/top-transactions/100 - 401: Could not validate the credentials - Invalid token  
+2024-10-18 05:53:42,739 - INFO -  /transactions/current-month - 401: Could not validate the credentials - Invalid token  
+2024-10-18 05:53:48,501 - INFO -  /transactions/last-transactions/1 - 401: Could not validate the credentials - Invalid token  
+2024-10-18 05:53:57,638 - INFO -  /transactions/get-by-month - 401: Could not validate the credentials - Invalid token  
