@@ -44,7 +44,7 @@ async def get_current_month_transactions(request: Request,
         logging.info(f' {request.url.path} - {str(err)} ')
         raise err
     except NoRecordsException:
-        err = HTTPException(status_code=status.HTTP_404_NOT_FOUND,
+        err = HTTPException(status_code=status.HTTP_200_OK,
                             detail='No records found for the specified time!')
         logging.info(f' {request.url.path} - {str(err)} ')
         raise err
@@ -89,8 +89,7 @@ async def get_transaction_by_month(request: Request,
         logging.info(f' {request.url.path} - {str(err)} ')
         raise err
     except NoRecordsException:
-        err = HTTPException(status_code=status.HTTP_404_NOT_FOUND,
-                            detail='No records found for the specified time!')
+        err = HTTPException(status_code=status.HTTP_200_OK)
         logging.info(f' {request.url.path} - {str(err)} ')
         raise err
     except HTTPException:
@@ -133,9 +132,9 @@ async def get_top_n_transactions(request: Request,
         logging.warning(f' {request.url.path} - {str(err)} ')
         raise err
     except NoRecordsException:
-        err = HTTPException(status_code=status.HTTP_404_NOT_FOUND,
+        err = HTTPException(status_code=status.HTTP_200_OK,
                             detail='No records found!')
-        logging.info(f' {request.url.path} - {str(err)} ')
+        logging.info(f' {request.url.path} ')
         raise err
     except HTTPException:
         err = HTTPException(status_code=status.HTTP_401_UNAUTHORIZED,
@@ -177,8 +176,7 @@ async def get_last_n_transactions(request: Request,
         logging.warning(f' {request.url.path} - {str(err)} ')
         raise err
     except NoRecordsException:
-        err = HTTPException(status_code=status.HTTP_404_NOT_FOUND,
-                            detail='No records found!')
+        err = HTTPException(status_code=status.HTTP_200_OK)
         logging.info(f' {request.url.path} - {str(err)} ')
         raise err
     except HTTPException:
@@ -225,8 +223,7 @@ async def get_transaction_by_id(request: Request,
         logging.info(f' {request.url.path} - {str(err)} ')
         raise err
     except NoRecordsException:
-        err = HTTPException(status_code=status.HTTP_404_NOT_FOUND,
-                            detail='No records found with this transaction ID')
+        err = HTTPException(status_code=status.HTTP_200_OK)
         logging.info(f' {request.url.path} - {str(err)} ')
         raise err
     except DatabaseException:

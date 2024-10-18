@@ -50,8 +50,6 @@ class TransactionManager:
             result_list = [TransactionManager.get_transaction_dictionary(result) for result in fetched_results]
         except Exception:
             raise DatabaseException
-        if not result_list:
-            raise NoRecordsException('No records were found !')
         return result_list
 
     @staticmethod
@@ -63,8 +61,6 @@ class TransactionManager:
             result_list = [TransactionManager.get_transaction_dictionary(result) for result in fetched_results]
         except Exception:
             raise DatabaseException
-        if not result_list:
-            raise NoRecordsException('No records were found !')
         return result_list
 
     @staticmethod
@@ -79,8 +75,6 @@ class TransactionManager:
             result_list = [TransactionManager.get_transaction_dictionary(result) for result in fetched_results]
         except Exception:
             raise DatabaseException
-        if not result_list:
-            raise NoRecordsException('No records were found !')
         return result_list
 
     @staticmethod

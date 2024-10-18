@@ -278,3 +278,37 @@
 2024-10-18 07:25:14,420 - INFO -  /wallet/show-wallet - 200 - user [ad123]  
 2024-10-18 07:25:17,958 - INFO -  /wallet/show-wallet - 200 - user [ad123]  
 2024-10-18 07:25:21,243 - INFO -  /wallet/send-amount - 201 - user: [ad123] - amount: [100] - category:[chocolate] 
+2024-10-18 07:27:28,844 - INFO -  /wallet/send-amount - 201 - user: [ad123] - amount: [100] - category:[chocolate] 
+2024-10-18 07:33:11,217 - INFO -  /wallet/send-amount - 201 - user: [ad123] - amount: [100] - category:[chocolate] 
+2024-10-18 07:33:15,722 - INFO -  /transactions/current-month - 200 - user: [ad123]  
+2024-10-18 07:33:46,914 - INFO -  /auth/login - 201 - user : [user16] logged in   
+2024-10-18 07:33:50,989 - INFO -  /wallet/balance - 200 - user: [user16]  
+2024-10-18 07:34:06,328 - INFO -  /transactions/get-transaction/11 - 404: No records found with this transaction ID  
+2024-10-18 07:34:26,191 - INFO -  /transactions/get-transaction/11 - 404: No records found with this transaction ID  
+2024-10-18 07:42:53,770 - INFO -  /transactions/current-month - 200 - user: [user16]  
+2024-10-18 07:43:32,406 - INFO -  /transactions/current-month - 200 - user: [user16]  
+2024-10-18 07:44:06,152 - INFO -  /transactions/last-transactions/1 - 200 - user: [user16]  
+2024-10-18 09:05:39,074 - INFO -  /wallet/show-wallet - 401: could not validate the credentials!    
+2024-10-18 09:05:52,327 - INFO -  /wallet/send-amount - 401: could not validate the credentials!    
+2024-10-18 09:05:56,013 - INFO -  /transactions/get-transaction/11 - 401: Could not validate the credentials - Invalid Token  
+2024-10-18 09:05:59,586 - INFO -  /transactions/current-month - 401: Could not validate the credentials- Invalid token   
+2024-10-18 09:06:02,461 - INFO -  /transactions/last-transactions/1 - 401: Could not validate the credentials  
+2024-10-18 09:06:05,671 - INFO -  /transactions/top-transactions/100 - 401: Could not validate the credentials - Invalid Token   
+2024-10-18 09:06:08,502 - INFO -  /transactions/get-by-month - 401: Could not validate the credentials- Invalid token   
+2024-10-18 09:06:41,455 - INFO -  /wallet/show-wallet - 401: could not validate the credentials!    
+2024-10-18 09:06:51,345 - INFO -  /transactions/current-month - 401: Could not validate the credentials- Invalid token   
+2024-10-18 09:07:10,372 - INFO -  /auth/signup - 409: Username already exists! 
+2024-10-18 09:07:17,722 - INFO -  /auth/login - 201 - user : [user16] logged in   
+2024-10-18 09:07:29,531 - INFO -  /wallet/balance - 200 - user: [user16]  
+2024-10-18 09:07:32,544 - INFO -  /wallet/show-wallet - 200 - user [user16]  
+2024-10-18 09:07:36,592 - INFO -  /wallet/send-amount - 403: User wallet is empty! 
+2024-10-18 09:07:44,834 - INFO -  /transactions/get-transaction/11 - 200: No records found with this transaction ID  
+2024-10-18 09:07:53,375 - INFO -  /transactions/current-month - 200 - user: [user16]  
+2024-10-18 09:07:58,781 - INFO -  /transactions/last-transactions/1 - 200 - user: [user16]  
+2024-10-18 09:08:05,419 - INFO -  /transactions/top-transactions/100 - 200 - user: [user16]  
+2024-10-18 09:08:11,042 - INFO -  /transactions/get-by-month - 200 - user: [user16]  
+2024-10-18 09:09:53,337 - INFO -  /auth/login - 201 - user : [ad123] logged in   
+2024-10-18 09:10:00,047 - INFO -  /wallet/send-amount - 201 - user: [ad123] - amount: [100] - category:[chocolate] 
+2024-10-18 09:10:11,609 - INFO -  /transactions/get-transaction/11 - 200 - user: [ad123]  
+2024-10-18 09:19:39,026 - INFO -  /transactions/get-transaction/11 - 200 - user: [ad123]  
+2024-10-18 09:25:54,590 - INFO -  /transactions/get-transaction/11 - 200 - user: [ad123]  
