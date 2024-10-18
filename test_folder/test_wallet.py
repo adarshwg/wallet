@@ -1,8 +1,6 @@
 import unittest
 from unittest.mock import patch, MagicMock
 
-import transaction_manager
-import wallet
 from wallet import Wallet
 
 

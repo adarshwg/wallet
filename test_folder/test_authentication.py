@@ -1,9 +1,8 @@
-import re
 import unittest
 from unittest.mock import patch, MagicMock
-import authentication
-from authentication import Authentication
-from Exceptions import UserNotFoundException, InvalidPasswordException
+import business_layer.authentication
+from business_layer.authentication import Authentication
+from utils.Exceptions import UserNotFoundException, InvalidPasswordException
 
 
 class TestAuthentication(unittest.TestCase):
@@ -15,7 +14,7 @@ class TestAuthentication(unittest.TestCase):
     def test_hash_password(self, mock_hashpw):
         password = 'Secure'
         mock_hashpw.return_value = b'hashed_password'
-        result = authentication.bcrypt.hashpw(password)
+        result = business_layer.authentication.bcrypt.hashpw(password)
         mock_hashpw.assert_called_once_with(password)
         self.assertEqual(result, b'hashed_password')
 
@@ -73,7 +72,7 @@ class TestAuthentication(unittest.TestCase):
         self.assertTrue(result)
         mock_get_hashed_user_password.assert_called_once_with('adarsh')
         mock_checkpw.assert_called_once_with('Adarsh@123',
-                                             authentication.db_operations.get_hashed_user_password('adarsh'))
+                                             business_layer.authentication.db_operations.get_hashed_user_password('adarsh'))
 
     @patch('authentication.bcrypt.checkpw')
     @patch('authentication.db_operations.get_hashed_user_password')
@@ -84,7 +83,7 @@ class TestAuthentication(unittest.TestCase):
         self.assertFalse(result)
         mock_get_hashed_user_password.assert_called_once_with('adarsh')
         mock_checkpw.assert_called_once_with('Adarsh@123',
-                                             authentication.db_operations.get_hashed_user_password('adarsh'))
+                                             business_layer.authentication.db_operations.get_hashed_user_password('adarsh'))
 
     @patch('authentication.db_operations.check_if_user_exists')
     def test_login_user_not_exists(self, mock_check_user_exists):
@@ -113,7 +112,7 @@ class TestAuthentication(unittest.TestCase):
     @patch('authentication.db_operations.check_if_user_exists')
     def test_check_if_username_exists(self, mock_check_user_exist):
         mock_check_user_exist.return_value = True
-        result = authentication.Authentication.check_if_username_exists('ad123')
+        result = business_layer.authentication.Authentication.check_if_username_exists('ad123')
         self.assertTrue(result)
         mock_check_user_exist.assert_called_once_with('ad123')
 

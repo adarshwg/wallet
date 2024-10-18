@@ -3,9 +3,9 @@ from fastapi import APIRouter, HTTPException, Depends, Request
 from starlette import status
 from utils.Exceptions import UserNotFoundException, InvalidPasswordException,DatabaseException
 from pydantic import BaseModel
-from authentication import Authentication
+from business_layer.authentication import Authentication
 from fastapi.security import OAuth2PasswordBearer, OAuth2PasswordRequestForm
-from user import User
+from business_layer.user import User
 from datetime import timedelta, datetime, timezone
 from passlib.context import CryptContext
 from jose import jwt, JWTError

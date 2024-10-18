@@ -426,3 +426,32 @@
 2024-10-18 14:47:40,117 - INFO -  /auth/login - 201 - user : [ad123] logged in   
 2024-10-18 14:47:58,574 - INFO -  /wallet/ - 200 - user [ad123]  
 2024-10-18 14:48:00,339 - INFO -  /wallet/send - 201 - user: [ad123] - amount: [150] - category:[pani] 
+2024-10-18 15:17:26,948 - INFO -  /wallet/balance - 401: Could not validate the credentials 
+2024-10-18 15:17:32,693 - INFO -  /auth/login - 201 - user : [ad123] logged in   
+2024-10-18 15:17:35,246 - INFO -  /auth/signup - 409: Username already exists! 
+2024-10-18 15:17:38,077 - INFO -  /wallet/balance - 401: Could not validate the credentials 
+2024-10-18 15:17:42,872 - INFO -  /auth/signup - 409: Username already exists! 
+2024-10-18 15:17:45,164 - INFO -  /wallet/balance - 401: Could not validate the credentials 
+2024-10-18 15:17:48,006 - INFO -  /auth/login - 201 - user : [ad123] logged in   
+2024-10-18 15:17:50,282 - INFO -  /wallet/ - 200 - user [ad123]  
+2024-10-18 15:17:52,748 - INFO -  /wallet/balance - 200 - user: [ad123]  
+2024-10-18 15:17:57,047 - INFO -  /wallet/send - 201 - user: [ad123] - amount: [150] - category:[pani] 
+2024-10-18 15:22:30,457 - INFO -  /wallet/send - 201 - user: [ad123] - amount: [150] - category:[pani] 
+2024-10-18 15:22:33,596 - INFO -  /transactions/11 - 200 - user: [ad123]  
+2024-10-18 15:22:36,009 - INFO -  /transactions/month - 200 - user: [ad123]  
+2024-10-18 15:22:44,033 - INFO -  /transactions/show - 200 - user: [ad123]  
+2024-10-18 15:23:24,449 - INFO -  /transactions/month - 200 - user: [ad123]  
+2024-10-18 15:23:31,354 - INFO -  /transactions/11 - 200 - user: [ad123]  
+2024-10-18 15:23:39,688 - INFO -  /wallet/ - 200 - user [ad123]  
+2024-10-18 15:23:42,223 - INFO -  /wallet/balance - 200 - user: [ad123]  
+2024-10-18 15:23:45,518 - INFO -  /auth/login - 201 - user : [ad123] logged in   
+2024-10-18 15:23:47,744 - INFO -  /auth/signup - 409: Username already exists! 
+2024-10-18 15:24:43,397 - INFO -  /auth/signup - 409: Username already exists! 
+2024-10-18 15:24:54,829 - INFO -  /wallet/balance - 200 - user: [ad123]  
+2024-10-18 15:24:58,722 - INFO -  /wallet/ - 200 - user [ad123]  
+2024-10-18 15:25:02,454 - INFO -  /wallet/send - 201 - user: [ad123] - amount: [150] - category:[pani] 
+2024-10-18 15:25:05,785 - INFO -  /auth/signup - 409: Username already exists! 
+2024-10-18 15:25:12,180 - INFO -  /wallet/ - 200 - user [ad123]  
+2024-10-18 15:26:02,543 - INFO -  /wallet/ - 200 - user [ad123]  
+2024-10-18 15:26:06,825 - INFO -  /auth/signup - 409: Username already exists! 
+2024-10-18 15:26:10,309 - INFO -  /auth/login - 201 - user : [ad123] logged in   

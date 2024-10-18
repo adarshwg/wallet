@@ -1,7 +1,5 @@
 import unittest
 from unittest.mock import patch
-import user
-import authentication
 from user import User
 from wallet import Wallet
 from Exceptions import LowBalanceException,InvalidPasswordException,UserNotFoundException,WalletEmptyException

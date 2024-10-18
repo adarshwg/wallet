@@ -1,8 +1,7 @@
-from transaction_manager import TransactionManager
+from business_layer.transaction_manager import TransactionManager
 from utils.db import db_operations
-from utils.Exceptions import (WalletEmptyException, NotAuthorizedException,
-                        SelfTransferException, LowBalanceException,
-                        InvalidAmountException, DatabaseException)
+from utils.Exceptions import (WalletEmptyException, SelfTransferException, LowBalanceException,
+                              InvalidAmountException, DatabaseException)
 
 
 class Wallet(TransactionManager):

@@ -2,14 +2,14 @@ from fastapi import HTTPException, APIRouter, Depends, Request
 from starlette import status
 from typing import Annotated
 from fastapi.security import OAuth2PasswordBearer
-from wallet import Wallet
+from business_layer.wallet import Wallet
 from utils.Exceptions import SelfTransferException, WalletEmptyException, LowBalanceException, InvalidAmountException, \
     DatabaseException
 from utils.error_codes import responses
 from routers.auth_router import get_current_user
 from utils.logger.logger import logging
-from authentication import Authentication
-from transaction import Transaction
+from business_layer.authentication import Authentication
+from business_layer.transaction import Transaction
 
 router = APIRouter(
     prefix="/wallet",
