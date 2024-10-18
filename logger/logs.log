@@ -312,3 +312,95 @@
 2024-10-18 09:10:11,609 - INFO -  /transactions/get-transaction/11 - 200 - user: [ad123]  
 2024-10-18 09:19:39,026 - INFO -  /transactions/get-transaction/11 - 200 - user: [ad123]  
 2024-10-18 09:25:54,590 - INFO -  /transactions/get-transaction/11 - 200 - user: [ad123]  
+2024-10-18 10:02:16,662 - INFO -  /auth/login - 201 - user : [ad123] logged in   
+2024-10-18 10:02:33,394 - INFO -  /transactions/11 - 200 - user: [ad123]  
+2024-10-18 10:02:37,916 - INFO -  /transactions/current-month - 200 - user: [ad123]  
+2024-10-18 10:02:41,753 - INFO -  /transactions/last/1 - 200 - user: [ad123]  
+2024-10-18 10:02:48,845 - INFO -  /transactions/top/100 - 200 - user: [ad123]  
+2024-10-18 10:02:52,481 - INFO -  /transactions/month - 200 - user: [ad123]  
+2024-10-18 10:03:03,253 - INFO -  /wallet/balance - 200 - user: [ad123]  
+2024-10-18 10:03:07,061 - INFO -  /wallet/ - 200 - user [ad123]  
+2024-10-18 10:03:21,672 - INFO -  /wallet/send - 201 - user: [ad123] - amount: [100] - category:[chocolate] 
+2024-10-18 10:15:36,779 - INFO -  /auth/login - 201 - user : [ad123] logged in   
+2024-10-18 10:15:56,127 - INFO -  /wallet/balance - 200 - user: [ad123]  
+2024-10-18 10:16:00,122 - INFO -  /wallet/ - 200 - user [ad123]  
+2024-10-18 10:16:20,941 - INFO -  /wallet/send - 201 - user: [ad123] - amount: [100] - category:[chocolate] 
+2024-10-18 10:16:39,158 - INFO -  /transactions/11 - 200 - user: [ad123]  
+2024-10-18 10:16:43,917 - INFO -  /transactions/current-month - 200 - user: [ad123]  
+2024-10-18 10:24:51,873 - INFO -  /auth/login - 201 - user : [user16] logged in   
+2024-10-18 10:25:27,169 - INFO -  /transactions/last/1 - 200 - user: [user16]  
+2024-10-18 10:45:54,051 - INFO -  /transactions/month - 401: Could not validate the credentials- Invalid token   
+2024-10-18 10:45:57,365 - INFO -  /auth/login - 201 - user : [user16] logged in   
+2024-10-18 10:45:59,160 - INFO -  /transactions/month - 200 - user: [user16]  
+2024-10-18 10:46:07,147 - INFO -  /transactions/current-month - 200 - user: [user16]  
+2024-10-18 10:48:53,338 - INFO -  /transactions/current-month - 200 - user: [user16]  
+2024-10-18 10:49:05,896 - INFO -  /auth/login - 201 - user : [ad123] logged in   
+2024-10-18 10:49:11,709 - INFO -  /transactions/11 - 200 - user: [ad123]  
+2024-10-18 10:49:14,598 - INFO -  /wallet/balance - 200 - user: [ad123]  
+2024-10-18 10:49:17,870 - INFO -  /wallet/ - 200 - user [ad123]  
+2024-10-18 10:49:21,581 - INFO -  /wallet/send - 201 - user: [ad123] - amount: [100] - category:[chocolate] 
+2024-10-18 11:31:53,318 - INFO -  /transactions/show - 401: Could not validate the credentials - Invalid Token   
+2024-10-18 11:31:57,432 - INFO -  /auth/login - 201 - user : [ad123] logged in   
+2024-10-18 11:32:01,161 - INFO -  /transactions/show - 200 - user: [ad123]  
+2024-10-18 11:33:12,357 - INFO -  /transactions/show - 200 - user: [ad123]  
+2024-10-18 11:33:29,436 - INFO -  /transactions/show - 200 - user: [ad123]  
+2024-10-18 11:33:34,441 - INFO -  /transactions/show - 200 - user: [ad123]  
+2024-10-18 11:33:36,724 - INFO -  /transactions/show - 200 - user: [ad123]  
+2024-10-18 11:42:16,791 - INFO -  /transactions/month - 200 - user: [ad123]  
+2024-10-18 11:42:21,216 - INFO -  /transactions/month - 200 - user: [ad123]  
+2024-10-18 11:51:23,068 - INFO -  /transactions/month - 200 - user: [ad123]  
+2024-10-18 11:51:44,185 - INFO -  /transactions/month - 400: Invalid month and year entered!  
+2024-10-18 11:52:19,055 - INFO -  /transactions/month - 401: Could not validate the credentials- Invalid token   
+2024-10-18 11:52:22,797 - INFO -  /auth/login - 201 - user : [ad123] logged in   
+2024-10-18 11:52:24,459 - INFO -  /transactions/month - 400: Invalid month and year entered!  
+2024-10-18 11:53:58,419 - INFO -  /transactions/month - 200 - user: [ad123]  
+2024-10-18 11:54:23,264 - INFO -  /transactions/month - 200 - user: [ad123]  
+2024-10-18 11:54:30,178 - INFO -  /transactions/month - 200 - user: [ad123]  
+2024-10-18 11:54:41,075 - INFO -  /transactions/month - 200 - user: [ad123]  
+2024-10-18 11:54:45,902 - INFO -  /transactions/month - 200 - user: [ad123]  
+2024-10-18 11:54:51,750 - INFO -  /transactions/month - 200 - user: [ad123]  
+2024-10-18 11:54:57,795 - INFO -  /transactions/month - 200 - user: [ad123]  
+2024-10-18 11:55:00,465 - INFO -  /transactions/month - 200 - user: [ad123]  
+2024-10-18 13:11:31,569 - INFO -  /auth/login - 201 - user : [ad123] logged in   
+2024-10-18 13:11:35,460 - INFO -  /transactions/month - 200 - user: [ad123]  
+2024-10-18 13:11:47,022 - INFO -  /transactions/month - 200 - user: [ad123]  
+2024-10-18 13:12:11,656 - INFO -  /transactions/show - 200 - user: [ad123]  
+2024-10-18 13:12:30,716 - INFO -  /transactions/1 - 200 - user: [ad123]  
+2024-10-18 13:13:32,170 - INFO -  /wallet/send - 400: Receiver does not exist  
+2024-10-18 13:13:32,170 - INFO -  /wallet/send - 400: Receiver does not exist  
+2024-10-18 13:13:37,599 - INFO -  /wallet/send - 400: Receiver does not exist  
+2024-10-18 13:13:37,599 - INFO -  /wallet/send - 400: Receiver does not exist  
+2024-10-18 13:13:39,461 - INFO -  /wallet/send - 400: Receiver does not exist  
+2024-10-18 13:13:39,461 - INFO -  /wallet/send - 400: Receiver does not exist  
+2024-10-18 13:13:45,837 - INFO -  /wallet/send - 400: Receiver does not exist  
+2024-10-18 13:13:45,837 - INFO -  /wallet/send - 400: Receiver does not exist  
+2024-10-18 13:13:56,489 - INFO -  /wallet/send - 400: Receiver does not exist  
+2024-10-18 13:13:56,489 - INFO -  /wallet/send - 400: Receiver does not exist  
+2024-10-18 13:15:33,367 - INFO -  /wallet/send - 201 - user: [ad123] - amount: [10] - category:[zomato] 
+2024-10-18 13:19:44,317 - INFO -  /transactions/month - 401: Could not validate the credentials- Invalid token   
+2024-10-18 13:19:45,458 - INFO -  /transactions/month - 401: Could not validate the credentials- Invalid token   
+2024-10-18 13:19:57,167 - INFO -  /auth/login - 201 - user : [ad123] logged in   
+2024-10-18 13:20:10,518 - INFO -  /wallet/balance - 200 - user: [ad123]  
+2024-10-18 13:20:15,661 - INFO -  /wallet/ - 200 - user [ad123]  
+2024-10-18 13:20:22,770 - INFO -  /wallet/send - 201 - user: [ad123] - amount: [1] - category:[chocolate] 
+2024-10-18 13:22:00,948 - INFO -  /wallet/send - 201 - user: [ad123] - amount: [1] - category:[chocolate] 
+2024-10-18 13:22:04,101 - INFO -  /wallet/send - 201 - user: [ad123] - amount: [1] - category:[chocolate] 
+2024-10-18 13:22:05,294 - INFO -  /wallet/send - 201 - user: [ad123] - amount: [1] - category:[chocolate] 
+2024-10-18 13:25:28,625 - INFO -  /auth/login - 201 - user : [user12] logged in   
+2024-10-18 13:25:32,262 - INFO -  /wallet/balance - 200 - user: [user12]  
+2024-10-18 13:25:35,148 - INFO -  /wallet/ - 200 - user [user12]  
+2024-10-18 13:25:56,335 - INFO -  /wallet/send - 201 - user: [user12] - amount: [10000] - category:[topup balance] 
+2024-10-18 13:27:04,258 - INFO -  /transactions/show - 200 - user: [user12]  
+2024-10-18 13:27:45,040 - INFO -  /transactions/show - 200 - user: [user12]  
+2024-10-18 13:28:37,803 - INFO -  /transactions/show - 200 - user: [user12]  
+2024-10-18 13:28:48,160 - INFO -  /wallet/ - 200 - user [user12]  
+2024-10-18 13:29:01,545 - INFO -  /auth/login - 201 - user : [ad123] logged in   
+2024-10-18 13:29:15,820 - INFO -  /wallet/ - 200 - user [ad123]  
+2024-10-18 13:29:37,374 - INFO -  /wallet/ - 200 - user [ad123]  
+2024-10-18 13:30:12,099 - INFO -  /wallet/send - 403: Cannot transfer to the same account wallet!  
+2024-10-18 13:30:19,098 - INFO -  /wallet/send - 400: Receiver does not exist  
+2024-10-18 13:30:19,098 - INFO -  /wallet/send - 400: Receiver does not exist  
+2024-10-18 13:30:22,739 - INFO -  /wallet/send - 201 - user: [ad123] - amount: [150] - category:[dedh sau rupiya dega] 
+2024-10-18 13:35:32,347 - INFO -  /transactions/show - 200 - user: [ad123]  
+2024-10-18 13:35:36,088 - INFO -  /transactions/month - 200 - user: [ad123]  
+2024-10-18 13:35:49,566 - INFO -  /transactions/11 - 200 - user: [ad123]  

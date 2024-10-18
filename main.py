@@ -2,7 +2,16 @@ from fastapi import FastAPI
 from starlette import status
 from routers import auth_router,wallet_router,transaction_router
 from fastapi_pagination import Page, add_pagination, paginate
-app = FastAPI()
+app = FastAPI(
+    title="Wallet Application",
+    description="The purpose of the application is to provide users with"
+                " a platform where they can manage and track their transactions,"
+                " set up their wallets, and and monitor their expenditure."
+                "The project is focused on creating an application which can help the users"
+                " to manage their transactions. It can help users track their wallet amount, "
+                "and provide them an overview of their transactions.",
+    version= "1.0.0"
+)
 add_pagination(app)
 app.include_router(auth_router.router)
 app.include_router(wallet_router.router)

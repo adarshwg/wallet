@@ -18,17 +18,18 @@ router = APIRouter(
 oauth2_bearer = OAuth2PasswordBearer('auth/login')
 
 
-def transaction_dictionary(transaction: Transaction):
+def transaction_dictionary(transaction: Transaction,wallet:Wallet):
     return {
         "Amount Sent ": transaction.amount,
         "Receiver ": transaction.receiver,
         "Date ": f'{transaction.day}/{transaction.month}/{transaction.year}',
         "Category ": transaction.category,
-        "Transaction ID": transaction.transaction_id
+        "Transaction ID ": transaction.transaction_id,
+        "Remaining Balance ":wallet.get_balance()
     }
 
 
-@router.get("/show-wallet", status_code=status.HTTP_200_OK,
+@router.get("/", status_code=status.HTTP_200_OK,
             responses={
                 401: responses[401],
                 500: responses[500]
@@ -86,7 +87,7 @@ async def get_wallet_balance(request: Request, token: Annotated[str, Depends(oau
         raise err
 
 
-@router.post("/send-amount",
+@router.post("/send",
              status_code=status.HTTP_201_CREATED,
              responses={
                  400: responses[400],
@@ -113,7 +114,7 @@ async def send_amount(request: Request,
         receiver_wallet.receive_amount(username, amount)
         logging.info(f' {request.url.path} - {status.HTTP_201_CREATED} - user: [{username}] '
                      f'- amount: [{amount}] - category:[{category}]')
-        return transaction_dictionary(new_transaction)
+        return transaction_dictionary(new_transaction,user_wallet)
     except SelfTransferException:
         err = HTTPException(status_code=status.HTTP_403_FORBIDDEN,
                             detail='Cannot transfer to the same account wallet!')
