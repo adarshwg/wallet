@@ -232,3 +232,7 @@
 2024-10-18 06:30:25,049 - INFO -  /wallet/balance - 200 - user: [user16]  
 2024-10-18 06:30:30,887 - INFO -  /wallet/show-wallet - 200 - user [user16]  
 2024-10-18 06:30:36,106 - INFO -  /wallet/send-amount - 403: User wallet is empty! 
+2024-10-18 06:33:28,216 - INFO -  /auth/login - 201 - user : [user16] logged in   
+2024-10-18 06:33:36,181 - INFO -  /auth/signup - 409: Username already exists! 
+2024-10-18 06:33:46,639 - INFO -  /auth/signup - 201 - user: - [user17] - account created 
+2024-10-18 06:33:57,210 - INFO -  /auth/login - 201 - user : [user16] logged in   

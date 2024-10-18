@@ -9,14 +9,12 @@ class Wallet(TransactionManager):
     def __init__(self, username):
         self.username = username
         try:
-            print(333333)
             if db_operations.check_if_user_wallet_exists(self.username):
                 self.current_balance = db_operations.get_user_balance_from_wallet(self.username)
                 return
             super().__init__()
             db_operations.create_user_wallet(username)
         except Exception:
-            print(444444)
             raise DatabaseException
         self.current_balance = 0
 

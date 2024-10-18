@@ -25,13 +25,9 @@ oauth2_bearer = OAuth2PasswordBearer('auth/login')
             )
 async def show_user_wallet(request: Request, token: Annotated[str, Depends(oauth2_bearer)]):
     try:
-        print('here first')
         username_dict = get_current_user(token)
-        print('hehe here now')
         username = username_dict['username']
-        print(111)
         user_wallet = Wallet(username)
-        print(222)
         logging.info(f' {request.url.path} - {status.HTTP_200_OK} - user [{username}] ')
         return user_wallet
     except HTTPException as err:
