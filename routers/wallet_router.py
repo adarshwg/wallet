@@ -9,12 +9,23 @@ from routers.error_codes import responses
 from routers.auth_router import get_current_user
 from logger.logger import logging
 from authentication import Authentication
+from transaction import Transaction
 
 router = APIRouter(
     prefix="/wallet",
     tags=['wallet']
 )
 oauth2_bearer = OAuth2PasswordBearer('auth/login')
+
+
+def transaction_dictionary(transaction: Transaction):
+    return {
+        "Amount Sent ": transaction.amount,
+        "Receiver ": transaction.receiver,
+        "Date ": f'{transaction.day}/{transaction.month}/{transaction.year}',
+        "Category ": transaction.category,
+        "Transaction ID": transaction.transaction_id
+    }
 
 
 @router.get("/show-wallet", status_code=status.HTTP_200_OK,
@@ -61,7 +72,7 @@ async def get_wallet_balance(request: Request, token: Annotated[str, Depends(oau
         balance = user_wallet.get_balance()
         logging.info(f' {request.url.path} - {status.HTTP_200_OK} - user: [{username}] ')
         return balance
-    except HTTPException :
+    except HTTPException:
         err = HTTPException(status_code=status.HTTP_401_UNAUTHORIZED,
                             detail='Could not validate the credentials')
         logging.info(f' {request.url.path} - {str(err)}')
@@ -73,6 +84,7 @@ async def get_wallet_balance(request: Request, token: Annotated[str, Depends(oau
                             )
         logging.error(f' {request.url.path} - {str(err)} ')
         raise err
+
 
 @router.post("/send-amount",
              status_code=status.HTTP_201_CREATED,
@@ -86,7 +98,8 @@ async def get_wallet_balance(request: Request, token: Annotated[str, Depends(oau
 async def send_amount(request: Request,
                       token: Annotated[str, Depends(oauth2_bearer)],
                       receiver: str, amount: int,
-                      category: str = 'misc'):
+                      category: str = 'misc',
+                      ):
     try:
         username_dict = get_current_user(token)
         username = username_dict['username']
@@ -100,7 +113,7 @@ async def send_amount(request: Request,
         receiver_wallet.receive_amount(username, amount)
         logging.info(f' {request.url.path} - {status.HTTP_201_CREATED} - user: [{username}] '
                      f'- amount: [{amount}] - category:[{category}]')
-        return new_transaction
+        return transaction_dictionary(new_transaction)
     except SelfTransferException:
         err = HTTPException(status_code=status.HTTP_403_FORBIDDEN,
                             detail='Cannot transfer to the same account wallet!')

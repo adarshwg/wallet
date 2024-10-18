@@ -275,3 +275,6 @@
 2024-10-18 07:13:51,096 - ERROR -  /auth/login - 500: Internal Server Error  
 2024-10-18 07:13:53,038 - ERROR -  /auth/login - 500: Internal Server Error  
 2024-10-18 07:14:10,832 - INFO -  /auth/login - 201 - user : [ad123] logged in   
+2024-10-18 07:25:14,420 - INFO -  /wallet/show-wallet - 200 - user [ad123]  
+2024-10-18 07:25:17,958 - INFO -  /wallet/show-wallet - 200 - user [ad123]  
+2024-10-18 07:25:21,243 - INFO -  /wallet/send-amount - 201 - user: [ad123] - amount: [100] - category:[chocolate] 
