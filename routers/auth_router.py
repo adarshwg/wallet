@@ -84,11 +84,6 @@ def get_current_user(token: Annotated[str, Depends(oauth2_bearer)]):
                             )
 
 
-@router.get('/status', status_code=status.HTTP_200_OK)
-async def check_status():
-    return {"status": "UP"}
-
-
 @router.post("/signup",
              response_model=Token,
              status_code=status.HTTP_201_CREATED,
@@ -104,29 +99,29 @@ async def signup(request: Request, form_data: Annotated[OAuth2PasswordRequestFor
     if not check_username_and_password_format(username, password):
         err = HTTPException(status_code=status.HTTP_403_FORBIDDEN,
                             detail='Invalid username or password format')
-        logging.info(f' {request.url.path} - Invalid username or password format')
+        logging.info(f' {request.url.path} - {str(err)}')
         raise err
     try:
         if Authentication.check_if_username_exists(username):
             err = HTTPException(status_code=status.HTTP_409_CONFLICT,
                                 detail='Username already exists!'
                                 )
-            logging.info(f' {request.url.path} - Username already exists')
+            logging.info(f' {request.url.path} - {str(err)}')
             raise err
         user = User(username, password)
         token = create_access_token(user.username, timedelta(minutes=20))
-        logging.info(f' {request.url.path} - user: - [{username}] - account created')
+        logging.info(f' {request.url.path} - {status.HTTP_201_CREATED} - user: - [{username}] - account created')
     except JWTError:
         err = HTTPException(status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
                             detail='Internal Server Error'
                             )
-        logging.info(f' {request.url.path} - Invalid Token ')
+        logging.info(f' {request.url.path} - {str(err)} ')
         raise err
     except DatabaseException:
         err = HTTPException(status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
                             detail='Internal Server Error'
                             )
-        logging.info(f' {request.url.path} - Internal Server Error ')
+        logging.info(f' {request.url.path} - {str(err)} ')
         raise err
     return {'access_token': token, 'token_type': 'bearer'}
 
@@ -146,21 +141,21 @@ async def login(request: Request, form_data: Annotated[OAuth2PasswordRequestForm
     password = form_data.password
     if not check_username_and_password_format(username, password):
         err = HTTPException(status_code=status.HTTP_403_FORBIDDEN, detail='Invalid username or password format')
-        logging.info(f' {request.url.path} - invalid username or password format  ')
+        logging.info(f' {request.url.path} - {str(err)} ')
         raise err
     try:
         user = authenticate_user(username, password)
         token = create_access_token(user.username, timedelta(minutes=20))
-        logging.info(f' {request.url.path} - user : [{username}] logged in  ')
+        logging.info(f' {request.url.path} - {status.HTTP_201_CREATED} - user : [{username}] logged in  ')
     except UserNotFoundException:
         err = HTTPException(status_code=status.HTTP_400_BAD_REQUEST,
                             detail='User with provided credentials not found! ')
-        logging.info(f' {request.url.path} - user not found')
+        logging.info(f' {request.url.path} - {str(err)}')
         raise err
     except InvalidPasswordException:
         err = HTTPException(status_code=status.HTTP_401_UNAUTHORIZED,
                             detail='Invalid password was entered!! ')
-        logging.info(f' {request.url.path} - Invalid password credentials entered  ')
+        logging.info(f' {request.url.path} - {str(err)}  ')
         raise err
     except HTTPException as err:
         logging.info(f' {request.url.path} - {str(err)} ')
@@ -169,12 +164,12 @@ async def login(request: Request, form_data: Annotated[OAuth2PasswordRequestForm
         err = HTTPException(status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
                             detail='Internal Server Error'
                             )
-        logging.info(f' {request.url.path} - Internal Server Error ')
+        logging.info(f' {request.url.path} - {str(err)} ')
         raise err
     except JWTError:
         err = HTTPException(status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
                             detail='Internal Server Error'
                             )
-        logging.info(f' {request.url.path} - Internal Server Error ')
+        logging.info(f' {request.url.path} - {str(err)}')
         raise err
     return {'access_token': token, 'token_type': 'bearer'}

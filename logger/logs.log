@@ -200,3 +200,35 @@
 2024-10-18 05:53:42,739 - INFO -  /transactions/current-month - 401: Could not validate the credentials - Invalid token  
 2024-10-18 05:53:48,501 - INFO -  /transactions/last-transactions/1 - 401: Could not validate the credentials - Invalid token  
 2024-10-18 05:53:57,638 - INFO -  /transactions/get-by-month - 401: Could not validate the credentials - Invalid token  
+2024-10-18 06:11:32,734 - INFO -  /wallet/balance - 401: Could not validate the credentials 
+2024-10-18 06:11:50,275 - INFO -  /auth/signup - 409: Username already exists! 
+2024-10-18 06:15:19,947 - INFO -  /auth/signup - 409: Username already exists! 
+2024-10-18 06:15:26,616 - INFO -  /wallet/show-wallet - 401: could not validate the credentials!   - Invalid token  
+2024-10-18 06:15:35,951 - INFO -  /wallet/send-amount - 401: could not validate the credentials!    
+2024-10-18 06:16:00,336 - INFO -  /wallet/send-amount - 401: could not validate the credentials!    
+2024-10-18 06:16:43,123 - INFO -  /wallet/send-amount - 401: could not validate the credentials!    
+2024-10-18 06:16:47,086 - INFO -  /wallet/show-wallet - 401: could not validate the credentials!   - Invalid token  
+2024-10-18 06:16:50,961 - INFO -  /wallet/balance - 401: Could not validate the credentials 
+2024-10-18 06:16:56,392 - INFO -  /auth/signup - 409: Username already exists! 
+2024-10-18 06:17:48,283 - INFO -  /auth/login - 201 - user : [user16] logged in   
+2024-10-18 06:17:59,372 - INFO -  /auth/signup - 409: Username already exists! 
+2024-10-18 06:18:16,629 - INFO -  /auth/signup - 409: Username already exists! 
+2024-10-18 06:18:35,065 - INFO -  /auth/signup - 500: Internal Server Error  
+2024-10-18 06:18:46,584 - INFO -  /wallet/balance - 401: Could not validate the credentials 
+2024-10-18 06:18:49,502 - INFO -  /wallet/show-wallet - 401: could not validate the credentials!    
+2024-10-18 06:18:53,239 - INFO -  /wallet/balance - 401: Could not validate the credentials 
+2024-10-18 06:18:59,756 - INFO -  /auth/signup - 500: Internal Server Error  
+2024-10-18 06:21:09,366 - INFO -  /wallet/show-wallet - 401: could not validate the credentials!    
+2024-10-18 06:23:36,208 - INFO -  /wallet/show-wallet - 401: could not validate the credentials!    
+2024-10-18 06:26:10,024 - INFO -  /wallet/show-wallet - 401: could not validate the credentials!    
+2024-10-18 06:26:58,306 - INFO -  /wallet/show-wallet - 401: could not validate the credentials!    
+2024-10-18 06:27:35,566 - INFO -  /wallet/show-wallet - 401: could not validate the credentials!    
+2024-10-18 06:27:41,227 - INFO -  /wallet/send-amount - 401: could not validate the credentials!    
+2024-10-18 06:27:45,082 - INFO -  /auth/login - 500: Internal Server Error  
+2024-10-18 06:27:50,710 - INFO -  /auth/signup - 500: Internal Server Error  
+2024-10-18 06:29:36,715 - INFO -  /auth/signup - 409: Username already exists! 
+2024-10-18 06:30:11,722 - INFO -  /wallet/balance - 401: Could not validate the credentials 
+2024-10-18 06:30:17,411 - INFO -  /auth/login - 201 - user : [user16] logged in   
+2024-10-18 06:30:25,049 - INFO -  /wallet/balance - 200 - user: [user16]  
+2024-10-18 06:30:30,887 - INFO -  /wallet/show-wallet - 200 - user [user16]  
+2024-10-18 06:30:36,106 - INFO -  /wallet/send-amount - 403: User wallet is empty! 
