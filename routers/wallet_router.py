@@ -3,11 +3,11 @@ from starlette import status
 from typing import Annotated
 from fastapi.security import OAuth2PasswordBearer
 from wallet import Wallet
-from Exceptions import SelfTransferException, WalletEmptyException, LowBalanceException, InvalidAmountException, \
+from utils.Exceptions import SelfTransferException, WalletEmptyException, LowBalanceException, InvalidAmountException, \
     DatabaseException
-from routers.error_codes import responses
+from utils.error_codes import responses
 from routers.auth_router import get_current_user
-from logger.logger import logging
+from utils.logger.logger import logging
 from authentication import Authentication
 from transaction import Transaction
 

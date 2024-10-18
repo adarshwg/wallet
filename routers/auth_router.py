@@ -1,7 +1,7 @@
 from typing import Annotated
 from fastapi import APIRouter, HTTPException, Depends, Request
 from starlette import status
-from Exceptions import UserNotFoundException, InvalidPasswordException,DatabaseException
+from utils.Exceptions import UserNotFoundException, InvalidPasswordException,DatabaseException
 from pydantic import BaseModel
 from authentication import Authentication
 from fastapi.security import OAuth2PasswordBearer, OAuth2PasswordRequestForm
@@ -9,8 +9,8 @@ from user import User
 from datetime import timedelta, datetime, timezone
 from passlib.context import CryptContext
 from jose import jwt, JWTError
-from logger.logger import logging
-from routers.error_codes import responses
+from utils.logger.logger import logging
+from utils.error_codes import responses
 # logging.disable()
 
 

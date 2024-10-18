@@ -404,3 +404,25 @@
 2024-10-18 13:35:32,347 - INFO -  /transactions/show - 200 - user: [ad123]  
 2024-10-18 13:35:36,088 - INFO -  /transactions/month - 200 - user: [ad123]  
 2024-10-18 13:35:49,566 - INFO -  /transactions/11 - 200 - user: [ad123]  
+2024-10-18 13:47:36,416 - INFO -  /auth/login - 201 - user : [ad123] logged in   
+2024-10-18 13:47:40,676 - INFO -  /wallet/balance - 200 - user: [ad123]  
+2024-10-18 13:47:43,902 - INFO -  /wallet/ - 200 - user [ad123]  
+2024-10-18 13:47:50,610 - INFO -  /wallet/send - 201 - user: [ad123] - amount: [150] - category:[pani] 
+2024-10-18 13:48:09,387 - INFO -  /transactions/11 - 200 - user: [ad123]  
+2024-10-18 13:48:12,921 - INFO -  /transactions/month - 200 - user: [ad123]  
+2024-10-18 13:48:19,952 - INFO -  /transactions/show - 200 - user: [ad123]  
+2024-10-18 14:33:19,847 - INFO -  /transactions/show - 401: Could not validate the credentials - Invalid Token   
+2024-10-18 14:33:23,922 - INFO -  /auth/login - 201 - user : [ad123] logged in   
+2024-10-18 14:33:26,823 - INFO -  /wallet/ - 200 - user [ad123]  
+2024-10-18 14:33:30,781 - INFO -  /wallet/send - 201 - user: [ad123] - amount: [150] - category:[pani] 
+2024-10-18 14:33:37,487 - INFO -  /transactions/11 - 200 - user: [ad123]  
+2024-10-18 14:35:34,528 - INFO -  /transactions/show - 200 - user: [ad123]  
+2024-10-18 14:35:38,336 - INFO -  /transactions/month - 200 - user: [ad123]  
+2024-10-18 14:35:41,258 - INFO -  /transactions/11 - 200 - user: [ad123]  
+2024-10-18 14:35:44,093 - INFO -  /wallet/ - 200 - user [ad123]  
+2024-10-18 14:35:46,141 - INFO -  /wallet/balance - 200 - user: [ad123]  
+2024-10-18 14:35:49,883 - INFO -  /auth/signup - 409: Username already exists! 
+2024-10-18 14:47:36,460 - INFO -  /auth/signup - 409: Username already exists! 
+2024-10-18 14:47:40,117 - INFO -  /auth/login - 201 - user : [ad123] logged in   
+2024-10-18 14:47:58,574 - INFO -  /wallet/ - 200 - user [ad123]  
+2024-10-18 14:48:00,339 - INFO -  /wallet/send - 201 - user: [ad123] - amount: [150] - category:[pani] 

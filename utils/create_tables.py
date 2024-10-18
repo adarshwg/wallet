@@ -1,4 +1,4 @@
-from utils.connection import conn, cursor
+from utils.db.connection import conn, cursor
 
 
 def create_all_tables():

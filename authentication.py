@@ -1,7 +1,7 @@
-from utils import db_operations
+from utils.db import db_operations
 import bcrypt
 import re
-from Exceptions import UserNotFoundException, InvalidPasswordException, DatabaseException
+from utils.Exceptions import UserNotFoundException, InvalidPasswordException, DatabaseException
 
 
 class Authentication:

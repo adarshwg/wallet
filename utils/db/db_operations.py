@@ -1,5 +1,5 @@
-from utils.connection import conn, cursor
-from Exceptions import UserNotFoundException, InvalidPasswordException, WalletEmptyException
+from utils.db.connection import conn, cursor
+from utils.Exceptions import UserNotFoundException, WalletEmptyException
 
 
 def check_if_user_exists(username):

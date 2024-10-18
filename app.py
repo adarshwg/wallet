@@ -1,12 +1,10 @@
 from user import User
 from authentication import Authentication
-from Exceptions import (UserNotFoundException, InvalidPasswordException, WalletEmptyException,
-                        NotAuthorizedException, SelfTransferException, LowBalanceException)
 from utils.create_tables import create_all_tables
 from utils import input_handler
 # import getpass
 from datetime import datetime
-from utils.connection import conn
+from utils.db.connection import conn
 
 auth_message = """
 Choose an option :

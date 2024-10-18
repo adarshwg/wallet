@@ -1,6 +1,6 @@
 from transaction_manager import TransactionManager
-from utils import db_operations
-from Exceptions import (WalletEmptyException, NotAuthorizedException,
+from utils.db import db_operations
+from utils.Exceptions import (WalletEmptyException, NotAuthorizedException,
                         SelfTransferException, LowBalanceException,
                         InvalidAmountException, DatabaseException)
 
