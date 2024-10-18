@@ -236,3 +236,25 @@
 2024-10-18 06:33:36,181 - INFO -  /auth/signup - 409: Username already exists! 
 2024-10-18 06:33:46,639 - INFO -  /auth/signup - 201 - user: - [user17] - account created 
 2024-10-18 06:33:57,210 - INFO -  /auth/login - 201 - user : [user16] logged in   
+2024-10-18 06:49:56,503 - INFO -  /transactions/get-transaction/11 - 404: No records found with this transaction ID  
+2024-10-18 06:50:10,720 - INFO -  /transactions/current-month - 404: No records found for the specified time!  
+2024-10-18 06:50:18,406 - INFO -  /wallet/show-wallet - 200 - user [user16]  
+2024-10-18 06:50:23,980 - INFO -  /transactions/get-by-month - 404: No records found for the specified time!  
+2024-10-18 06:50:38,830 - INFO -  /transactions/top-transactions/100 - 404: No records found!  
+2024-10-18 06:50:43,135 - INFO -  /transactions/last-transactions/1 - 404: No records found!  
+2024-10-18 06:51:19,580 - INFO -  /transactions/last-transactions/1 - 500: Internal Server Error  
+2024-10-18 06:51:30,133 - INFO -  /transactions/get-transaction/11 - 500: Internal Server Error  
+2024-10-18 06:51:38,623 - INFO -  /transactions/top-transactions/100 - 500: Internal Server Error  
+2024-10-18 06:51:41,370 - INFO -  /transactions/current-month - 500: Internal Server Error  
+2024-10-18 06:54:00,710 - INFO -  /auth/login - 201 - user : [user16] logged in   
+2024-10-18 06:54:04,880 - INFO -  /wallet/balance - 200 - user: [user16]  
+2024-10-18 06:54:38,230 - INFO -  /auth/login - 201 - user : [ad123] logged in   
+2024-10-18 06:54:44,733 - INFO -  /transactions/get-transaction/11 - 200 - user: [ad123]  
+2024-10-18 06:54:52,132 - INFO -  /transactions/current-month - 200 - user: [ad123]  
+2024-10-18 06:55:00,978 - INFO -  /transactions/last-transactions/1 - 200 - user: [ad123]  
+2024-10-18 06:55:08,821 - INFO -  /transactions/top-transactions/100 - 200 - user: [ad123]  
+2024-10-18 06:55:13,257 - INFO -  /transactions/get-by-month - 200 - user: [ad123]  
+2024-10-18 06:55:18,560 - INFO -  /wallet/show-wallet - 200 - user [ad123]  
+2024-10-18 06:55:24,903 - INFO -  /wallet/send-amount - 201 - user: [ad123] - amount: [100] - category:[chocolate] 
+2024-10-18 06:55:35,105 - INFO -  /wallet/balance - 200 - user: [ad123]  
+2024-10-18 06:55:39,989 - INFO -  /transactions/top-transactions/100 - 200 - user: [ad123]  

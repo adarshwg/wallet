@@ -36,29 +36,30 @@ async def get_current_month_transactions(request: Request,
         username_dict = get_current_user(token)
         username = username_dict['username']
         result = TransactionManager.get_current_month_transactions(username)
-        logging.info(f' {request.url.path} - user: [{username}] ')
+        logging.info(f' {request.url.path} - {status.HTTP_200_OK} - user: [{username}] ')
         return paginate(result)
     except InvalidDateException:
         err = HTTPException(status_code=status.HTTP_400_BAD_REQUEST,
                             detail='Invalid month and year entered!')
-        logging.info(f' {request.url.path} - {str(err)} - Invalid Month and date entered ')
+        logging.info(f' {request.url.path} - {str(err)} ')
         raise err
     except NoRecordsException:
         err = HTTPException(status_code=status.HTTP_404_NOT_FOUND,
                             detail='No records found for the specified time!')
-        logging.info(f' {request.url.path} - {str(err)} - No records found ')
+        logging.info(f' {request.url.path} - {str(err)} ')
         raise err
     except HTTPException:
         err = HTTPException(status_code=status.HTTP_401_UNAUTHORIZED,
-                            detail='Could not validate the credentials'
+                            detail='Could not validate the credentials- Invalid token '
                             )
-        logging.info(f' {request.url.path} - {str(err)} - Invalid token ')
+        logging.info(f' {request.url.path} - {str(err)} ')
         raise err
     except DatabaseException:
-        logging.info(f' {request.url.path} - Internal Server Error ')
-        raise HTTPException(status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
+        err = HTTPException(status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
                             detail='Internal Server Error'
                             )
+        logging.info(f' {request.url.path} - {str(err)} ')
+        raise err
 
 
 @router.get('/get-by-month',
@@ -80,29 +81,30 @@ async def get_transaction_by_month(request: Request,
         username_dict = get_current_user(token)
         username = username_dict['username']
         result = TransactionManager.get_transactions_by_month(month, year, username)
-        logging.info(f' {request.url.path} - user: [{username}] ')
+        logging.info(f' {request.url.path} - {status.HTTP_200_OK} - user: [{username}] ')
         return paginate(result)
     except InvalidDateException:
         err = HTTPException(status_code=status.HTTP_400_BAD_REQUEST,
                             detail='Invalid month and year entered!')
-        logging.info(f' {request.url.path} - {str(err)} - Invalid Date Entered ')
+        logging.info(f' {request.url.path} - {str(err)} ')
         raise err
     except NoRecordsException:
         err = HTTPException(status_code=status.HTTP_404_NOT_FOUND,
                             detail='No records found for the specified time!')
-        logging.info(f' {request.url.path} - {str(err)} - No records found ')
+        logging.info(f' {request.url.path} - {str(err)} ')
         raise err
     except HTTPException:
         err = HTTPException(status_code=status.HTTP_401_UNAUTHORIZED,
-                            detail='Could not validate the credentials'
+                            detail='Could not validate the credentials- Invalid token '
                             )
-        logging.info(f' {request.url.path} - {str(err)} - Invalid token ')
+        logging.info(f' {request.url.path} - {str(err)} ')
         raise err
     except DatabaseException:
-        logging.info(f' {request.url.path} - Internal Server Error ')
-        raise HTTPException(status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
+        err = HTTPException(status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
                             detail='Internal Server Error'
                             )
+        logging.info(f' {request.url.path} - {str(err)} ')
+        raise err
 
 
 @router.get('/top-transactions/{number}',
@@ -122,30 +124,31 @@ async def get_top_n_transactions(request: Request,
         username_dict = get_current_user(token)
         username = username_dict['username']
         result = TransactionManager.get_top_n_transactions(username, number)
-        logging.info(f' {request.url.path} - user: [{username}] ')
+        logging.info(f' {request.url.path} - {status.HTTP_200_OK} - user: [{username}] ')
         return paginate(result)
     except ValueError:
         err = HTTPException(status_code=status.HTTP_400_BAD_REQUEST,
-                            detail='Please enter numbers only'
+                            detail='Invalid input : non numeric value entered '
                             )
-        logging.info(f' {request.url.path} - {str(err)} - Invalid input : non numeric value ')
+        logging.info(f' {request.url.path} - {str(err)} ')
         raise err
     except NoRecordsException:
         err = HTTPException(status_code=status.HTTP_404_NOT_FOUND,
                             detail='No records found!')
-        logging.info(f' {request.url.path} - {str(err)} - No records found ')
+        logging.info(f' {request.url.path} - {str(err)} ')
         raise err
     except HTTPException:
         err = HTTPException(status_code=status.HTTP_401_UNAUTHORIZED,
-                            detail='Could not validate the credentials'
+                            detail='Could not validate the credentials - Invalid Token '
                             )
-        logging.info(f' {request.url.path} - {str(err)} - Invalid token ')
+        logging.info(f' {request.url.path} - {str(err)} ')
         raise err
     except DatabaseException:
-        logging.info(f' {request.url.path} - Internal Server Error ')
-        raise HTTPException(status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
+        err = HTTPException(status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
                             detail='Internal Server Error'
                             )
+        logging.info(f' {request.url.path} - {str(err)} ')
+        raise err
 
 
 @router.get('/last-transactions/{number}',
@@ -165,30 +168,31 @@ async def get_last_n_transactions(request: Request,
         username_dict = get_current_user(token)
         username = username_dict['username']
         result = TransactionManager.get_last_n_transactions(username, number)
-        logging.info(f' {request.url.path} - user: [{username}] ')
+        logging.info(f' {request.url.path} - {status.HTTP_200_OK} - user: [{username}] ')
         return paginate(result)
     except ValueError:
         err = HTTPException(status_code=status.HTTP_400_BAD_REQUEST,
-                            detail='Please enter numbers only'
+                            detail='Invalid input : non numeric value entered '
                             )
-        logging.info(f' {request.url.path} - {str(err)} - Invalid input : non numeric value ')
+        logging.info(f' {request.url.path} - {str(err)} ')
         raise err
     except NoRecordsException:
         err = HTTPException(status_code=status.HTTP_404_NOT_FOUND,
                             detail='No records found!')
-        logging.info(f' {request.url.path} - {str(err)} - No records found ')
+        logging.info(f' {request.url.path} - {str(err)} ')
         raise err
     except HTTPException:
         err = HTTPException(status_code=status.HTTP_401_UNAUTHORIZED,
                             detail='Could not validate the credentials'
                             )
-        logging.info(f' {request.url.path} - {str(err)} - Invalid token ')
+        logging.info(f' {request.url.path} - {str(err)} ')
         raise err
     except DatabaseException:
-        logging.info(f' {request.url.path} - Internal Server Error ')
-        raise HTTPException(status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
+        err = HTTPException(status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
                             detail='Internal Server Error'
                             )
+        logging.info(f' {request.url.path} - {str(err)} ')
+        raise err
 
 
 @router.get('/get-transaction/{transaction_id}',
@@ -207,27 +211,28 @@ async def get_transaction_by_id(request: Request,
         username_dict = get_current_user(token)
         username = username_dict['username']
         result = TransactionManager.get_transaction_by_id(transaction_id, username)
-        logging.info(f' {request.url.path} - user: [{username}] ')
+        logging.info(f' {request.url.path} - {status.HTTP_200_OK} - user: [{username}] ')
         return result
     except OverflowError:
         err = HTTPException(status_code=status.HTTP_400_BAD_REQUEST,
                             detail='Requested value is too large!')
-        logging.info(f' {request.url.path} - {str(err)} - Invalid input : non numeric value ')
+        logging.info(f' {request.url.path} - {str(err)} ')
+        raise err
+    except HTTPException:
+        err = HTTPException(status_code=status.HTTP_401_UNAUTHORIZED,
+                            detail='Could not validate the credentials - Invalid Token'
+                            )
+        logging.info(f' {request.url.path} - {str(err)} ')
         raise err
     except NoRecordsException:
         err = HTTPException(status_code=status.HTTP_404_NOT_FOUND,
                             detail='No records found with this transaction ID')
-        logging.info(f' {request.url.path} - {str(err)} - No records found ')
-        raise err
-    except HTTPException:
-        err = HTTPException(status_code=status.HTTP_401_UNAUTHORIZED,
-                            detail='Could not validate the credentials'
-                            )
-        logging.info(f' {request.url.path} - {str(err)} - Invalid token ')
+        logging.info(f' {request.url.path} - {str(err)} ')
         raise err
     except DatabaseException:
-        logging.info(f' {request.url.path} - Internal Server Error ')
-        raise HTTPException(status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
+        err = HTTPException(status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
                             detail='Internal Server Error'
                             )
+        logging.info(f' {request.url.path} - {str(err)} ')
+        raise err
 
