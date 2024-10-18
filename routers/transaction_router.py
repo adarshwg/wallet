@@ -58,7 +58,7 @@ async def get_current_month_transactions(request: Request,
         err = HTTPException(status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
                             detail='Internal Server Error'
                             )
-        logging.info(f' {request.url.path} - {str(err)} ')
+        logging.error(f' {request.url.path} - {str(err)} ')
         raise err
 
 
@@ -103,7 +103,7 @@ async def get_transaction_by_month(request: Request,
         err = HTTPException(status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
                             detail='Internal Server Error'
                             )
-        logging.info(f' {request.url.path} - {str(err)} ')
+        logging.error(f' {request.url.path} - {str(err)} ')
         raise err
 
 
@@ -130,7 +130,7 @@ async def get_top_n_transactions(request: Request,
         err = HTTPException(status_code=status.HTTP_400_BAD_REQUEST,
                             detail='Invalid input : non numeric value entered '
                             )
-        logging.info(f' {request.url.path} - {str(err)} ')
+        logging.warning(f' {request.url.path} - {str(err)} ')
         raise err
     except NoRecordsException:
         err = HTTPException(status_code=status.HTTP_404_NOT_FOUND,
@@ -147,7 +147,7 @@ async def get_top_n_transactions(request: Request,
         err = HTTPException(status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
                             detail='Internal Server Error'
                             )
-        logging.info(f' {request.url.path} - {str(err)} ')
+        logging.error(f' {request.url.path} - {str(err)} ')
         raise err
 
 
@@ -174,7 +174,7 @@ async def get_last_n_transactions(request: Request,
         err = HTTPException(status_code=status.HTTP_400_BAD_REQUEST,
                             detail='Invalid input : non numeric value entered '
                             )
-        logging.info(f' {request.url.path} - {str(err)} ')
+        logging.warning(f' {request.url.path} - {str(err)} ')
         raise err
     except NoRecordsException:
         err = HTTPException(status_code=status.HTTP_404_NOT_FOUND,
@@ -191,7 +191,7 @@ async def get_last_n_transactions(request: Request,
         err = HTTPException(status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
                             detail='Internal Server Error'
                             )
-        logging.info(f' {request.url.path} - {str(err)} ')
+        logging.error(f' {request.url.path} - {str(err)} ')
         raise err
 
 
@@ -216,7 +216,7 @@ async def get_transaction_by_id(request: Request,
     except OverflowError:
         err = HTTPException(status_code=status.HTTP_400_BAD_REQUEST,
                             detail='Requested value is too large!')
-        logging.info(f' {request.url.path} - {str(err)} ')
+        logging.warning(f' {request.url.path} - {str(err)} ')
         raise err
     except HTTPException:
         err = HTTPException(status_code=status.HTTP_401_UNAUTHORIZED,
@@ -233,6 +233,6 @@ async def get_transaction_by_id(request: Request,
         err = HTTPException(status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
                             detail='Internal Server Error'
                             )
-        logging.info(f' {request.url.path} - {str(err)} ')
+        logging.error(f' {request.url.path} - {str(err)} ')
         raise err
 

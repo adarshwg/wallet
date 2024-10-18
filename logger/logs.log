@@ -258,3 +258,20 @@
 2024-10-18 06:55:24,903 - INFO -  /wallet/send-amount - 201 - user: [ad123] - amount: [100] - category:[chocolate] 
 2024-10-18 06:55:35,105 - INFO -  /wallet/balance - 200 - user: [ad123]  
 2024-10-18 06:55:39,989 - INFO -  /transactions/top-transactions/100 - 200 - user: [ad123]  
+2024-10-18 07:10:35,410 - INFO -  /wallet/balance - 200 - user: [ad123]  
+2024-10-18 07:11:13,220 - INFO -  /wallet/show-wallet - 200 - user [ad123]  
+2024-10-18 07:11:19,161 - INFO -  /transactions/get-transaction/11 - 200 - user: [ad123]  
+2024-10-18 07:11:24,664 - INFO -  /transactions/last-transactions/1 - 200 - user: [ad123]  
+2024-10-18 07:12:08,301 - ERROR -  /transactions/last-transactions/1 - 500: Internal Server Error  
+2024-10-18 07:12:17,751 - ERROR -  /transactions/current-month - 500: Internal Server Error  
+2024-10-18 07:12:22,551 - ERROR -  /wallet/show-wallet - 500: Internal Server Error 
+2024-10-18 07:12:24,871 - ERROR -  /auth/signup - 500: Internal Server Error  
+2024-10-18 07:12:26,691 - INFO -  /wallet/balance - 401: Could not validate the credentials 
+2024-10-18 07:12:39,209 - ERROR -  /auth/login - 500: Internal Server Error  
+2024-10-18 07:12:43,767 - ERROR -  /auth/signup - 500: Internal Server Error  
+2024-10-18 07:12:48,769 - INFO -  /wallet/balance - 401: Could not validate the credentials 
+2024-10-18 07:12:59,753 - INFO -  /wallet/show-wallet - 401: could not validate the credentials!    
+2024-10-18 07:13:11,601 - ERROR -  /auth/login - 500: Internal Server Error  
+2024-10-18 07:13:51,096 - ERROR -  /auth/login - 500: Internal Server Error  
+2024-10-18 07:13:53,038 - ERROR -  /auth/login - 500: Internal Server Error  
+2024-10-18 07:14:10,832 - INFO -  /auth/login - 201 - user : [ad123] logged in   

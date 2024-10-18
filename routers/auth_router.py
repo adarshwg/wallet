@@ -115,13 +115,13 @@ async def signup(request: Request, form_data: Annotated[OAuth2PasswordRequestFor
         err = HTTPException(status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
                             detail='Internal Server Error'
                             )
-        logging.info(f' {request.url.path} - {str(err)} ')
+        logging.warning(f' {request.url.path} - {str(err)} ')
         raise err
     except DatabaseException:
         err = HTTPException(status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
                             detail='Internal Server Error'
                             )
-        logging.info(f' {request.url.path} - {str(err)} ')
+        logging.error(f' {request.url.path} - {str(err)} ')
         raise err
     return {'access_token': token, 'token_type': 'bearer'}
 
@@ -150,7 +150,7 @@ async def login(request: Request, form_data: Annotated[OAuth2PasswordRequestForm
     except UserNotFoundException:
         err = HTTPException(status_code=status.HTTP_400_BAD_REQUEST,
                             detail='User with provided credentials not found! ')
-        logging.info(f' {request.url.path} - {str(err)}')
+        logging.error(f' {request.url.path} - {str(err)}')
         raise err
     except InvalidPasswordException:
         err = HTTPException(status_code=status.HTTP_401_UNAUTHORIZED,
@@ -164,12 +164,12 @@ async def login(request: Request, form_data: Annotated[OAuth2PasswordRequestForm
         err = HTTPException(status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
                             detail='Internal Server Error'
                             )
-        logging.info(f' {request.url.path} - {str(err)} ')
+        logging.error(f' {request.url.path} - {str(err)} ')
         raise err
     except JWTError:
         err = HTTPException(status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
                             detail='Internal Server Error'
                             )
-        logging.info(f' {request.url.path} - {str(err)}')
+        logging.error(f' {request.url.path} - {str(err)}')
         raise err
     return {'access_token': token, 'token_type': 'bearer'}

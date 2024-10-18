@@ -36,7 +36,7 @@ async def show_user_wallet(request: Request, token: Annotated[str, Depends(oauth
     except DatabaseException:
         err = HTTPException(status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
                             detail='Internal Server Error')
-        logging.info(f' {request.url.path} - {str(err)}')
+        logging.error(f' {request.url.path} - {str(err)}')
         raise err
 
 
@@ -61,7 +61,7 @@ async def get_wallet_balance(request: Request, token: Annotated[str, Depends(oau
         balance = user_wallet.get_balance()
         logging.info(f' {request.url.path} - {status.HTTP_200_OK} - user: [{username}] ')
         return balance
-    except HTTPException as err:
+    except HTTPException :
         err = HTTPException(status_code=status.HTTP_401_UNAUTHORIZED,
                             detail='Could not validate the credentials')
         logging.info(f' {request.url.path} - {str(err)}')
@@ -71,7 +71,7 @@ async def get_wallet_balance(request: Request, token: Annotated[str, Depends(oau
         err = HTTPException(status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
                             detail='Internal Server Error'
                             )
-        logging.info(f' {request.url.path} - {str(err)} ')
+        logging.error(f' {request.url.path} - {str(err)} ')
         raise err
 
 @router.post("/send-amount",
@@ -132,5 +132,5 @@ async def send_amount(request: Request,
         err = HTTPException(status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
                             detail='Internal Server Error'
                             )
-        logging.info(f' {request.url.path} - {str(err)} ')
+        logging.error(f' {request.url.path} - {str(err)} ')
         raise err
