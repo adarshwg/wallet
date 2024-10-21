@@ -49,7 +49,7 @@ class Authentication:
     def login(username, entered_password):
         try:
             user_exists = db_operations.check_if_user_exists(username)
-        except Exception:
+        except Exception :
             raise DatabaseException
         if not user_exists:
             raise UserNotFoundException('User not found !!')

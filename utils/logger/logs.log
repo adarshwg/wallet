@@ -508,3 +508,132 @@
 2024-10-21 15:55:38,054 - INFO -  /transactions/11 - 200 - user: [ad123]  
 2024-10-21 15:55:41,550 - INFO -  /transactions/month - 200 - user: [ad123]  
 2024-10-21 15:56:11,208 - INFO -  /auth/signup - 409: Username already exists! 
+2024-10-21 16:24:38,672 - ERROR -  /auth/login - 500: Internal Server Error  
+2024-10-21 16:25:45,715 - ERROR -  /auth/login - 500: Internal Server Error  
+2024-10-21 16:26:18,038 - ERROR -  /auth/login - 500: Internal Server Error  
+2024-10-21 16:29:11,300 - ERROR -  /auth/login - 500: Internal Server Error  
+2024-10-21 16:29:26,578 - ERROR -  /auth/login - 500: Internal Server Error  
+2024-10-21 16:29:30,325 - ERROR -  /auth/signup - 500: Internal Server Error  
+2024-10-21 16:29:34,843 - INFO -  /wallet/balance - 401: Could not validate the credentials 
+2024-10-21 16:29:41,191 - ERROR -  /auth/login - 500: Internal Server Error  
+2024-10-21 16:31:57,769 - ERROR -  /auth/login - 500: Internal Server Error  
+2024-10-21 16:33:27,957 - ERROR -  /auth/login - 500: Internal Server Error  
+2024-10-21 16:33:30,849 - ERROR -  /auth/login - 500: Internal Server Error  
+2024-10-21 16:33:48,441 - ERROR -  /auth/login - 500: Internal Server Error  
+2024-10-21 16:35:23,060 - ERROR -  /auth/login - 500: Internal Server Error  
+2024-10-21 16:35:59,001 - ERROR -  /auth/login - 500: Internal Server Error  
+2024-10-21 16:36:26,151 - ERROR -  /auth/login - 500: Internal Server Error  
+2024-10-21 16:36:39,190 - ERROR -  /auth/login - 500: Internal Server Error  
+2024-10-21 16:36:55,714 - ERROR -  /auth/login - 500: Internal Server Error  
+2024-10-21 16:37:09,183 - ERROR -  /auth/login - 500: Internal Server Error  
+2024-10-21 16:38:24,723 - ERROR -  /auth/login - 500: Internal Server Error  
+2024-10-21 16:38:32,247 - ERROR -  /auth/login - 500: Internal Server Error  
+2024-10-21 16:38:45,247 - ERROR -  /auth/login - 500: Internal Server Error  
+2024-10-21 16:39:26,332 - ERROR -  /auth/login - 500: Internal Server Error  
+2024-10-21 16:39:46,103 - INFO -  /auth/login - 201 - user : [ad123] logged in   
+2024-10-21 16:41:00,236 - INFO -  /auth/login - 201 - user : [ad123] logged in   
+2024-10-21 16:41:40,435 - INFO -  /auth/login - 201 - user : [ad123] logged in   
+2024-10-21 16:41:54,891 - INFO -  /auth/login - 201 - user : [ad123] logged in   
+2024-10-21 16:42:44,996 - ERROR -  /auth/login - 500: Internal Server Error  
+2024-10-21 17:37:27,221 - INFO -  /auth/login - 201 - user : [ad123] logged in   
+2024-10-21 17:37:30,677 - INFO -  /auth/signup - 409: Username already exists 
+2024-10-21 17:37:33,611 - INFO -  /wallet/balance - 200 - user: [ad123]  
+2024-10-21 17:37:36,652 - INFO -  /wallet/ - 200 - user [ad123]  
+2024-10-21 17:37:39,137 - INFO -  /wallet/send - 201 - user: [ad123] - amount: [100] - category:[pani] 
+2024-10-21 17:37:41,014 - INFO -  /transactions/show - 200 - user: [ad123]  
+2024-10-21 17:37:42,710 - INFO -  /transactions/11 - 200 - user: [ad123]  
+2024-10-21 17:37:45,111 - INFO -  /transactions/month - 200 - user: [ad123]  
+2024-10-21 17:55:49,186 - INFO -  /auth/login - 201 - user : [ad123] logged in   
+2024-10-21 17:55:52,078 - INFO -  /auth/signup - 409: Username already exists 
+2024-10-21 17:55:54,021 - INFO -  /auth/signup - 409: Username already exists 
+2024-10-21 17:55:55,961 - INFO -  /wallet/balance - 200 - user: [ad123]  
+2024-10-21 17:55:58,337 - INFO -  /wallet/ - 200 - user [ad123]  
+2024-10-21 17:56:00,669 - INFO -  /wallet/send - 201 - user: [ad123] - amount: [100] - category:[pani] 
+2024-10-21 17:56:03,946 - INFO -  /transactions/show - 200 - user: [ad123]  
+2024-10-21 17:56:05,909 - INFO -  /transactions/11 - 200 - user: [ad123]  
+2024-10-21 17:56:07,995 - INFO -  /transactions/month - 200 - user: [ad123]  
+2024-10-21 17:57:20,080 - INFO -  /transactions/month - 200 - user: [ad123]  
+2024-10-21 18:01:51,178 - INFO -  /transactions/month - 200 - user: [ad123]  
+2024-10-21 18:01:54,858 - INFO -  /wallet/ - 200 - user [ad123]  
+2024-10-21 18:02:08,130 - INFO -  /transactions/11 - 200 - user: [ad123]  
+2024-10-21 18:02:10,157 - INFO -  /transactions/11 - 200 - user: [ad123]  
+2024-10-21 18:03:26,241 - INFO -  /transactions/11 - 200 - user: [ad123]  
+2024-10-22 02:41:40,578 - INFO -  /transactions/show - 401: Could not validate the credentials  
+2024-10-22 02:42:48,364 - INFO -  /transactions/show - 401: Could not validate the credentials  
+2024-10-22 02:44:08,397 - INFO -  /transactions/show - 401: Could not validate the credentials  
+2024-10-22 02:44:43,313 - INFO -  /transactions/show - 401: Could not validate the credentials  
+2024-10-22 02:44:59,792 - INFO -  /transactions/show - 401: Could not validate the credentials  
+2024-10-22 02:45:56,316 - INFO -  /transactions/show - 401: Could not validate the credentials  
+2024-10-22 02:46:40,409 - INFO -  /wallet/send - 401: could not validate the credentials!    
+2024-10-22 02:46:55,534 - INFO -  /auth/login - 201 - user : [ad123] logged in   
+2024-10-22 02:46:58,438 - INFO -  /wallet/balance - 200 - user: [ad123]  
+2024-10-22 02:47:03,026 - INFO -  /wallet/ - 200 - user [ad123]  
+2024-10-22 02:48:03,529 - INFO -  /transactions/show - 200 - user: [ad123]  
+2024-10-22 02:48:06,397 - INFO -  /transactions/11 - 200 - user: [ad123]  
+2024-10-22 02:48:13,137 - INFO -  /transactions/month - 200 - user: [ad123]  
+2024-10-22 02:48:17,886 - INFO -  /wallet/send - 201 - user: [ad123] - amount: [100] - category:[pani] 
+2024-10-22 02:48:20,952 - INFO -  /wallet/ - 200 - user [ad123]  
+2024-10-22 02:48:25,544 - INFO -  /wallet/balance - 200 - user: [ad123]  
+2024-10-22 02:50:33,566 - INFO -  /wallet/balance - 200 - user: [ad123]  
+2024-10-22 02:51:10,404 - INFO -  /wallet/balance - 200 - user: [ad123]  
+2024-10-22 02:53:00,721 - INFO -  /wallet/ - 200 - user [ad123]  
+2024-10-22 02:55:32,006 - INFO -  /wallet/send - 201 - user: [ad123] - amount: [100] - category:[pani] 
+2024-10-22 02:56:03,848 - INFO -  /wallet/send - 201 - user: [ad123] - amount: [100] - category:[pani] 
+2024-10-22 02:57:33,209 - INFO -  /auth/login - 201 - user : [ad123] logged in   
+2024-10-22 02:58:12,644 - INFO -  /auth/signup - 409: Username already exists 
+2024-10-22 02:58:24,298 - INFO -  /auth/signup - 201 - user: - [user19] - account created 
+2024-10-22 02:58:41,859 - INFO -  /wallet/balance - 200 - user: [ad123]  
+2024-10-22 02:58:44,665 - INFO -  /wallet/balance - 200 - user: [ad123]  
+2024-10-22 02:58:45,437 - INFO -  /wallet/balance - 200 - user: [ad123]  
+2024-10-22 02:58:49,305 - INFO -  /auth/signup - 409: Username already exists 
+2024-10-22 02:58:55,461 - INFO -  /wallet/balance - 200 - user: [ad123]  
+2024-10-22 03:04:52,083 - INFO -  /auth/login - 201 - user : [ad123] logged in   
+2024-10-22 03:05:46,263 - ERROR -  /auth/login - 500: Internal Server Error  
+2024-10-22 03:06:14,080 - INFO -  /auth/login - 201 - user : [ad123] logged in   
+2024-10-22 03:07:02,626 - INFO -  /auth/signup - 409: Username already exists 
+2024-10-22 03:07:14,203 - INFO -  /auth/signup - 201 - user: - [user199] - account created 
+2024-10-22 03:08:05,612 - INFO -  /auth/signup - 201 - user: - [user20] - account created 
+2024-10-22 03:08:35,924 - INFO -  /auth/signup - 409: Username already exists 
+2024-10-22 03:08:47,603 - INFO -  /auth/signup - 201 - user: - [user21] - account created 
+2024-10-22 03:53:38,519 - INFO -  /auth/signup - 409: Username already exists 
+2024-10-22 03:54:05,811 - INFO -  /auth/signup - 201 - user: - [user22] - account created 
+2024-10-22 03:54:50,550 - INFO -  /auth/signup - 409: Username already exists 
+2024-10-22 03:55:10,324 - INFO -  /auth/signup - 201 - user: - [user23] - account created 
+2024-10-22 03:56:11,876 - INFO -  /auth/signup - 409: Username already exists 
+2024-10-22 03:56:21,280 - INFO -  /auth/signup - 409: Username already exists 
+2024-10-22 03:56:30,406 - INFO -  /auth/signup - 201 - user: - [user24] - account created 
+2024-10-22 03:56:53,887 - INFO -  /auth/signup - 409: Username already exists 
+2024-10-22 03:57:05,593 - INFO -  /auth/signup - 201 - user: - [user25] - account created 
+2024-10-22 03:58:03,443 - INFO -  /auth/signup - 409: Username already exists 
+2024-10-22 03:58:15,199 - INFO -  /auth/signup - 201 - user: - [user26] - account created 
+2024-10-22 04:00:59,407 - INFO -  /auth/signup - 409: Username already exists 
+2024-10-22 04:01:30,849 - INFO -  /auth/signup - 409: Username already exists 
+2024-10-22 04:01:33,892 - INFO -  /auth/signup - 409: Username already exists 
+2024-10-22 04:01:44,259 - INFO -  /auth/signup - 409: Username already exists 
+2024-10-22 04:01:45,635 - INFO -  /auth/signup - 409: Username already exists 
+2024-10-22 04:02:42,411 - INFO -  /auth/signup - 201 - user: - [user29] - account created 
+2024-10-22 04:02:50,029 - INFO -  /auth/login - 201 - user : [ad123] logged in   
+2024-10-22 04:05:24,904 - INFO -  /auth/login - 201 - user : [ad123] logged in   
+2024-10-22 04:05:25,714 - INFO -  /auth/signup - 201 - user: - [user30] - account created 
+2024-10-22 04:06:07,998 - INFO -  /auth/login - 201 - user : [ad123] logged in   
+2024-10-22 04:06:10,511 - INFO -  /auth/signup - 409: Username already exists 
+2024-10-22 04:06:41,880 - INFO -  /auth/signup - 201 - user: - [user31] - account created 
+2024-10-22 04:06:45,557 - INFO -  /auth/login - 201 - user : [ad123] logged in   
+2024-10-22 04:06:49,462 - INFO -  /auth/signup - 201 - user: - [user32] - account created 
+2024-10-22 04:06:52,941 - INFO -  /wallet/balance - 200 - user: [user32]  
+2024-10-22 04:06:55,907 - INFO -  /wallet/ - 200 - user [user32]  
+2024-10-22 04:06:58,000 - INFO -  /wallet/send - 403: User wallet is empty! 
+2024-10-22 04:06:59,961 - INFO -  /transactions/show - 200 - user: [user32]  
+2024-10-22 04:07:02,523 - INFO -  /transactions/11 - 200: OK  
+2024-10-22 04:07:05,544 - INFO -  /transactions/month - 200 - user: [user32]  
+2024-10-22 04:07:32,886 - INFO -  /auth/login - 201 - user : [ad123] logged in   
+2024-10-22 04:07:33,042 - INFO -  /auth/signup - 409: Username already exists 
+2024-10-22 04:07:57,984 - INFO -  /wallet/balance - 200 - user: [user32]  
+2024-10-22 04:09:58,088 - INFO -  /auth/login - 201 - user : [ad123] logged in   
+2024-10-22 04:09:58,452 - INFO -  /auth/signup - 201 - user: - [user33] - account created 
+2024-10-22 04:09:58,533 - INFO -  /wallet/balance - 200 - user: [user33]  
+2024-10-22 04:09:58,596 - INFO -  /wallet/ - 200 - user [user33]  
+2024-10-22 04:09:58,672 - INFO -  /wallet/send - 403: User wallet is empty! 
+2024-10-22 04:09:58,754 - INFO -  /transactions/show - 200 - user: [user33]  
+2024-10-22 04:09:58,855 - INFO -  /transactions/11 - 200: OK  
+2024-10-22 04:09:58,914 - INFO -  /transactions/month - 200 - user: [user33]  

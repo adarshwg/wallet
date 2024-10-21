@@ -1,4 +1,4 @@
-from authentication import Authentication
+from business_layer.authentication import Authentication
 
 
 def int_handler(message):

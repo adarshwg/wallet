@@ -24,9 +24,9 @@ class Token(BaseModel):
     token_type: str
 
 
-def authenticate_user(username: str, password: str):
+async def authenticate_user(username: str, password: str):
     try:
-        authorized = User.login(username, password)
+        authorized = Authentication.login(username, password)
     except UserNotFoundException:
         raise UserNotFoundException
     except InvalidPasswordException:
@@ -97,7 +97,7 @@ async def signup(request: Request, form_data: Annotated[OAuth2PasswordRequestFor
                  500: responses[500]
              }
              )
-async def login(request: Request, form_data: Annotated[OAuth2PasswordRequestForm, Depends()]):
+def login(request: Request, form_data: Annotated[OAuth2PasswordRequestForm, Depends()]):
     username = form_data.username
     password = form_data.password
     if not Authentication.check_username_and_password_format(username, password):
@@ -105,8 +105,8 @@ async def login(request: Request, form_data: Annotated[OAuth2PasswordRequestForm
         logging.info(f' {request.url.path} - {str(err)} ')
         raise err
     try:
-        user = authenticate_user(username, password)
-        token = create_access_token(user.username, timedelta(minutes=20))
+        authenticate_user(username, password)
+        token = create_access_token(username, timedelta(minutes=20))
         logging.info(f' {request.url.path} - {status.HTTP_201_CREATED} - user : [{username}] logged in  ')
     except UserNotFoundException:
         err = HTTPException(status_code=status.HTTP_401_BAD_REQUEST,
