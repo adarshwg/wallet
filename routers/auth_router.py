@@ -11,7 +11,7 @@ from jose import JWTError
 from utils.logger.logger import logging
 from utils.error_codes import responses
 from routers.tokens.tokens import create_access_token
-
+from utils.error_messages import ERROR_DETAILS
 
 router = APIRouter(
     prefix='/auth',
@@ -32,16 +32,16 @@ def authenticate_user(username: str, password: str):
     except InvalidPasswordException:
         raise InvalidPasswordException
     except DatabaseException:
-        raise DatabaseException('Internal Server Error')
+        raise DatabaseException(ERROR_DETAILS[500])
     if authorized:
         try:
             user = User(username, password)
         except DatabaseException:
-            raise DatabaseException('Internal Server Error')
+            raise DatabaseException(ERROR_DETAILS[500])
         return user
     else:
         raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED,
-                            detail='could not validate the credentials!'
+                            detail=ERROR_DETAILS[401]
                             )
 
 
@@ -65,7 +65,7 @@ async def signup(request: Request, form_data: Annotated[OAuth2PasswordRequestFor
     try:
         if Authentication.check_if_username_exists(username):
             err = HTTPException(status_code=status.HTTP_409_CONFLICT,
-                                detail='Username already exists!'
+                                detail=ERROR_DETAILS[409]
                                 )
             logging.info(f' {request.url.path} - {str(err)}')
             raise err
@@ -74,13 +74,13 @@ async def signup(request: Request, form_data: Annotated[OAuth2PasswordRequestFor
         logging.info(f' {request.url.path} - {status.HTTP_201_CREATED} - user: - [{username}] - account created')
     except JWTError:
         err = HTTPException(status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
-                            detail='Internal Server Error'
+                            detail=ERROR_DETAILS[500]
                             )
         logging.warning(f' {request.url.path} - {str(err)} ')
         raise err
     except DatabaseException:
         err = HTTPException(status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
-                            detail='Internal Server Error'
+                            detail=ERROR_DETAILS[500]
                             )
         logging.error(f' {request.url.path} - {str(err)} ')
         raise err
@@ -101,7 +101,7 @@ async def login(request: Request, form_data: Annotated[OAuth2PasswordRequestForm
     username = form_data.username
     password = form_data.password
     if not Authentication.check_username_and_password_format(username, password):
-        err = HTTPException(status_code=status.HTTP_403_FORBIDDEN, detail='Invalid username or password format')
+        err = HTTPException(status_code=status.HTTP_403_FORBIDDEN, detail=ERROR_DETAILS['invalid_credentials_format'])
         logging.info(f' {request.url.path} - {str(err)} ')
         raise err
     try:
@@ -109,13 +109,13 @@ async def login(request: Request, form_data: Annotated[OAuth2PasswordRequestForm
         token = create_access_token(user.username, timedelta(minutes=20))
         logging.info(f' {request.url.path} - {status.HTTP_201_CREATED} - user : [{username}] logged in  ')
     except UserNotFoundException:
-        err = HTTPException(status_code=status.HTTP_400_BAD_REQUEST,
-                            detail='User with provided credentials not found! ')
+        err = HTTPException(status_code=status.HTTP_401_BAD_REQUEST,
+                            detail=ERROR_DETAILS[401])
         logging.error(f' {request.url.path} - {str(err)}')
         raise err
     except InvalidPasswordException:
         err = HTTPException(status_code=status.HTTP_401_UNAUTHORIZED,
-                            detail='Invalid password was entered!! ')
+                            detail=ERROR_DETAILS[401])
         logging.info(f' {request.url.path} - {str(err)}  ')
         raise err
     except HTTPException as err:
@@ -123,13 +123,13 @@ async def login(request: Request, form_data: Annotated[OAuth2PasswordRequestForm
         raise err
     except DatabaseException:
         err = HTTPException(status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
-                            detail='Internal Server Error'
+                            detail=ERROR_DETAILS[500]
                             )
         logging.error(f' {request.url.path} - {str(err)} ')
         raise err
     except JWTError:
         err = HTTPException(status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
-                            detail='Internal Server Error'
+                            detail=ERROR_DETAILS[500]
                             )
         logging.error(f' {request.url.path} - {str(err)}')
         raise err

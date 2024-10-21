@@ -1,4 +1,4 @@
-from fastapi import APIRouter, HTTPException, Path, Depends, Request, Query
+from fastapi import APIRouter,HTTPException, Path, Depends, Request, Query
 from starlette import status
 from fastapi.security import OAuth2PasswordBearer
 from utils.Exceptions import *
@@ -9,7 +9,7 @@ from utils.error_codes import responses
 from routers.tokens.tokens import get_current_user
 from utils.logger.logger import logging
 from datetime import datetime
-
+from utils.error_messages import ERROR_DETAILS
 router = APIRouter(
     prefix='/transactions',
     tags=['transactions']
@@ -49,13 +49,13 @@ async def get_transaction_by_month(request: Request,
         raise err
     except HTTPException:
         err = HTTPException(status_code=status.HTTP_401_UNAUTHORIZED,
-                            detail='Could not validate the credentials- Invalid token '
+                            detail=ERROR_DETAILS[401]
                             )
         logging.info(f' {request.url.path} - {str(err)} ')
         raise err
     except DatabaseException:
         err = HTTPException(status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
-                            detail='Internal Server Error'
+                            detail=ERROR_DETAILS[500]
                             )
         logging.error(f' {request.url.path} - {str(err)} ')
         raise err
@@ -99,13 +99,13 @@ async def get_n_transactions(request: Request,
         raise err
     except HTTPException:
         err = HTTPException(status_code=status.HTTP_401_UNAUTHORIZED,
-                            detail='Could not validate the credentials - Invalid Token '
+                            detail=ERROR_DETAILS[401]
                             )
         logging.info(f' {request.url.path} - {str(err)} ')
         raise err
     except DatabaseException:
         err = HTTPException(status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
-                            detail='Internal Server Error'
+                            detail=ERROR_DETAILS[500]
                             )
         logging.error(f' {request.url.path} - {str(err)} ')
         raise err
@@ -135,7 +135,7 @@ async def get_transaction_by_id(request: Request,
         raise err
     except HTTPException:
         err = HTTPException(status_code=status.HTTP_401_UNAUTHORIZED,
-                            detail='Could not validate the credentials - Invalid Token'
+                            detail=ERROR_DETAILS[401]
                             )
         logging.info(f' {request.url.path} - {str(err)} ')
         raise err
@@ -145,7 +145,7 @@ async def get_transaction_by_id(request: Request,
         raise err
     except DatabaseException:
         err = HTTPException(status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
-                            detail='Internal Server Error'
+                            detail=ERROR_DETAILS[500]
                             )
         logging.error(f' {request.url.path} - {str(err)} ')
         raise err

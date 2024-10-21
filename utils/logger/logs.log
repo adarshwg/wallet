@@ -498,3 +498,13 @@
 2024-10-21 15:33:28,397 - INFO -  /transactions/show - 200 - user: [ad123]  
 2024-10-21 15:33:31,119 - INFO -  /transactions/11 - 200 - user: [ad123]  
 2024-10-21 15:33:33,343 - INFO -  /transactions/month - 200 - user: [ad123]  
+2024-10-21 15:54:56,512 - INFO -  /auth/login - 201 - user : [ad123] logged in   
+2024-10-21 15:55:00,083 - INFO -  /wallet/balance - 200 - user: [ad123]  
+2024-10-21 15:55:03,815 - INFO -  /wallet/ - 200 - user [ad123]  
+2024-10-21 15:55:07,226 - INFO -  /wallet/send - 201 - user: [ad123] - amount: [150] - category:[pani] 
+2024-10-21 15:55:15,509 - INFO -  /wallet/send - 403: User wallet balance is low for the transaction  
+2024-10-21 15:55:31,229 - INFO -  /wallet/send - 201 - user: [ad123] - amount: [100] - category:[pani] 
+2024-10-21 15:55:36,102 - INFO -  /transactions/show - 200 - user: [ad123]  
+2024-10-21 15:55:38,054 - INFO -  /transactions/11 - 200 - user: [ad123]  
+2024-10-21 15:55:41,550 - INFO -  /transactions/month - 200 - user: [ad123]  
+2024-10-21 15:56:11,208 - INFO -  /auth/signup - 409: Username already exists! 

@@ -10,6 +10,7 @@ from business_layer.authentication import Authentication
 from business_layer.transaction import Transaction
 from routers.tokens.tokens import oauth2_bearer
 from routers.tokens.tokens import get_current_user
+from utils.error_messages import ERROR_DETAILS
 
 
 router = APIRouter(
@@ -50,7 +51,7 @@ async def show_user_wallet(request: Request, token: Annotated[str, Depends(oauth
         raise err
     except DatabaseException:
         err = HTTPException(status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
-                            detail='Internal Server Error')
+                            detail=ERROR_DETAILS[500])
         logging.error(f' {request.url.path} - {str(err)}')
         raise err
 
@@ -67,7 +68,7 @@ async def get_wallet_balance(request: Request, token: Annotated[str, Depends(oau
         username = get_current_user(token)
         if username is None:
             err = HTTPException(status_code=status.HTTP_401_UNAUTHORIZED,
-                                detail='Could not validate the credentialss'
+                                detail=ERROR_DETAILS[401]
                                 )
             logging.info(f' {request.url.path} - {str(err)}')
             raise err
@@ -77,13 +78,13 @@ async def get_wallet_balance(request: Request, token: Annotated[str, Depends(oau
         return balance
     except HTTPException:
         err = HTTPException(status_code=status.HTTP_401_UNAUTHORIZED,
-                            detail='Could not validate the credentialsss')
+                            detail=ERROR_DETAILS[401])
         logging.info(f' {request.url.path} - {str(err)}')
         raise err
 
     except DatabaseException:
         err = HTTPException(status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
-                            detail='Internal Server Error'
+                            detail=ERROR_DETAILS[500]
                             )
         logging.error(f' {request.url.path} - {str(err)} ')
         raise err
@@ -101,13 +102,13 @@ async def get_wallet_balance(request: Request, token: Annotated[str, Depends(oau
 async def send_amount(request: Request,
                       token: Annotated[str, Depends(oauth2_bearer)],
                       receiver: str, amount: int,
-                      category: str = 'misc',
+                      category: str = 'misc'
                       ):
     try:
         username = get_current_user(token)
         user_wallet = create_wallet_from_username(username)
         if not Authentication.check_if_username_exists(receiver):
-            err = HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail='Receiver does not exist')
+            err = HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail=ERROR_DETAILS['receiver_not_found'])
             logging.info(f' {request.url.path} - {str(err)} ')
             raise err
         receiver_wallet = create_wallet_from_username(receiver)
@@ -118,25 +119,24 @@ async def send_amount(request: Request,
         return transaction_dictionary(new_transaction, user_wallet)
     except SelfTransferException:
         err = HTTPException(status_code=status.HTTP_403_FORBIDDEN,
-                            detail='Cannot transfer to the same account wallet!')
+                            detail=ERROR_DETAILS['self_transfer'])
         logging.info(f' {request.url.path} - {str(err)} ')
         raise err
 
     except WalletEmptyException:
         err = HTTPException(status_code=status.HTTP_403_FORBIDDEN,
-                            detail='User wallet is empty!'
+                            detail=ERROR_DETAILS['wallet_empty']
                             )
         logging.info(f' {request.url.path} - {str(err)}')
         raise err
     except LowBalanceException:
         err = HTTPException(status_code=status.HTTP_403_FORBIDDEN,
-                            detail='User wallet balance is low for the transaction')
+                            detail=ERROR_DETAILS['low_user_balance'])
         logging.info(f' {request.url.path} - {str(err)} ')
         raise err
     except InvalidAmountException:
         err = HTTPException(status_code=status.HTTP_400_BAD_REQUEST,
-                            detail='Invalid amount entered!'
-                                   ' Please enter positive amount'
+                            detail=ERROR_DETAILS['invalid_amount']
                             )
         logging.info(f' {request.url.path} - {str(err)}')
         raise err
@@ -145,7 +145,7 @@ async def send_amount(request: Request,
         raise err
     except DatabaseException:
         err = HTTPException(status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
-                            detail='Internal Server Error'
+                            detail=ERROR_DETAILS[500]
                             )
         logging.error(f' {request.url.path} - {str(err)} ')
         raise err
