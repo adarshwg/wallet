@@ -68,3 +68,10 @@ class Authentication:
             return db_operations.check_if_user_exists(username)
         except Exception:
             raise DatabaseException
+
+    @staticmethod
+    def check_username_and_password_format(username, password):
+        if not Authentication.check_username_format(username) or \
+                not Authentication.check_password_format(password):
+            return False
+        return True

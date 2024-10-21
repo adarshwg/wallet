@@ -1,32 +1,36 @@
 from fastapi import HTTPException, APIRouter, Depends, Request
 from starlette import status
 from typing import Annotated
-from fastapi.security import OAuth2PasswordBearer
 from business_layer.wallet import Wallet
 from utils.Exceptions import SelfTransferException, WalletEmptyException, LowBalanceException, InvalidAmountException, \
     DatabaseException
 from utils.error_codes import responses
-from routers.auth_router import get_current_user
 from utils.logger.logger import logging
 from business_layer.authentication import Authentication
 from business_layer.transaction import Transaction
+from routers.tokens.tokens import oauth2_bearer
+from routers.tokens.tokens import get_current_user
+
 
 router = APIRouter(
     prefix="/wallet",
     tags=['wallet']
 )
-oauth2_bearer = OAuth2PasswordBearer('auth/login')
 
 
-def transaction_dictionary(transaction: Transaction,wallet:Wallet):
+def transaction_dictionary(transaction: Transaction, wallet: Wallet):
     return {
         "Amount Sent ": transaction.amount,
         "Receiver ": transaction.receiver,
         "Date ": f'{transaction.day}/{transaction.month}/{transaction.year}',
         "Category ": transaction.category,
         "Transaction ID ": transaction.transaction_id,
-        "Remaining Balance ":wallet.get_balance()
+        "Remaining Balance ": wallet.get_balance()
     }
+
+
+def create_wallet_from_username(username):
+    return Wallet(username)
 
 
 @router.get("/", status_code=status.HTTP_200_OK,
@@ -37,9 +41,8 @@ def transaction_dictionary(transaction: Transaction,wallet:Wallet):
             )
 async def show_user_wallet(request: Request, token: Annotated[str, Depends(oauth2_bearer)]):
     try:
-        username_dict = get_current_user(token)
-        username = username_dict['username']
-        user_wallet = Wallet(username)
+        username = get_current_user(token)
+        user_wallet = create_wallet_from_username(username)
         logging.info(f' {request.url.path} - {status.HTTP_200_OK} - user [{username}] ')
         return user_wallet
     except HTTPException as err:
@@ -61,21 +64,20 @@ async def show_user_wallet(request: Request, token: Annotated[str, Depends(oauth
             )
 async def get_wallet_balance(request: Request, token: Annotated[str, Depends(oauth2_bearer)]):
     try:
-        username_dict = get_current_user(token)
-        username = username_dict['username']
+        username = get_current_user(token)
         if username is None:
             err = HTTPException(status_code=status.HTTP_401_UNAUTHORIZED,
-                                detail='Could not validate the credentials'
+                                detail='Could not validate the credentialss'
                                 )
             logging.info(f' {request.url.path} - {str(err)}')
             raise err
-        user_wallet = Wallet(username)
+        user_wallet = create_wallet_from_username(username)
         balance = user_wallet.get_balance()
         logging.info(f' {request.url.path} - {status.HTTP_200_OK} - user: [{username}] ')
         return balance
     except HTTPException:
         err = HTTPException(status_code=status.HTTP_401_UNAUTHORIZED,
-                            detail='Could not validate the credentials')
+                            detail='Could not validate the credentialsss')
         logging.info(f' {request.url.path} - {str(err)}')
         raise err
 
@@ -102,19 +104,18 @@ async def send_amount(request: Request,
                       category: str = 'misc',
                       ):
     try:
-        username_dict = get_current_user(token)
-        username = username_dict['username']
-        user_wallet = Wallet(username)
+        username = get_current_user(token)
+        user_wallet = create_wallet_from_username(username)
         if not Authentication.check_if_username_exists(receiver):
             err = HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail='Receiver does not exist')
             logging.info(f' {request.url.path} - {str(err)} ')
             raise err
-        receiver_wallet = Wallet(receiver)
+        receiver_wallet = create_wallet_from_username(receiver)
         new_transaction = user_wallet.send_amount(receiver, amount, category)
         receiver_wallet.receive_amount(username, amount)
         logging.info(f' {request.url.path} - {status.HTTP_201_CREATED} - user: [{username}] '
                      f'- amount: [{amount}] - category:[{category}]')
-        return transaction_dictionary(new_transaction,user_wallet)
+        return transaction_dictionary(new_transaction, user_wallet)
     except SelfTransferException:
         err = HTTPException(status_code=status.HTTP_403_FORBIDDEN,
                             detail='Cannot transfer to the same account wallet!')

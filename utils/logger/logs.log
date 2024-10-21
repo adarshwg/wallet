@@ -455,3 +455,46 @@
 2024-10-18 15:26:02,543 - INFO -  /wallet/ - 200 - user [ad123]  
 2024-10-18 15:26:06,825 - INFO -  /auth/signup - 409: Username already exists! 
 2024-10-18 15:26:10,309 - INFO -  /auth/login - 201 - user : [ad123] logged in   
+2024-10-21 14:47:21,953 - INFO -  /auth/login - 201 - user : [ad123] logged in   
+2024-10-21 14:48:41,722 - INFO -  /auth/login - 201 - user : [ad123] logged in   
+2024-10-21 14:57:44,760 - INFO -  /wallet/balance - 401: Could not validate the credentials 
+2024-10-21 14:57:52,505 - INFO -  /auth/login - 201 - user : [ad123] logged in   
+2024-10-21 14:57:55,140 - INFO -  /wallet/balance - 401: Could not validate the credentials 
+2024-10-21 14:57:56,902 - INFO -  /wallet/balance - 401: Could not validate the credentials 
+2024-10-21 14:58:20,901 - INFO -  /wallet/balance - 401: Could not validate the credentials 
+2024-10-21 14:58:46,578 - INFO -  /wallet/balance - 401: Could not validate the credentials 
+2024-10-21 14:59:27,058 - INFO -  /wallet/balance - 401: Could not validate the credentialsss 
+2024-10-21 14:59:53,014 - INFO -  /wallet/balance - 401: Could not validate the credentialsss 
+2024-10-21 15:02:03,844 - INFO -  /wallet/balance - 401: Could not validate the credentialsss 
+2024-10-21 15:02:10,258 - INFO -  /auth/login - 201 - user : [ad123] logged in   
+2024-10-21 15:02:12,716 - INFO -  /wallet/balance - 401: Could not validate the credentialsss 
+2024-10-21 15:02:24,488 - INFO -  /auth/login - 201 - user : [ad123] logged in   
+2024-10-21 15:02:26,297 - INFO -  /wallet/balance - 401: Could not validate the credentialsss 
+2024-10-21 15:04:56,191 - INFO -  /wallet/balance - 401: Could not validate the credentialsss 
+2024-10-21 15:06:27,070 - INFO -  /wallet/balance - 401: Could not validate the credentialsss 
+2024-10-21 15:06:34,805 - INFO -  /auth/login - 201 - user : [ad123] logged in   
+2024-10-21 15:06:36,965 - INFO -  /wallet/balance - 401: Could not validate the credentialsss 
+2024-10-21 15:07:43,493 - INFO -  /wallet/balance - 401: Could not validate the credentialsss 
+2024-10-21 15:08:11,370 - INFO -  /auth/signup - 409: Username already exists! 
+2024-10-21 15:08:31,692 - INFO -  /auth/signup - 201 - user: - [user18] - account created 
+2024-10-21 15:12:20,198 - INFO -  /wallet/balance - 401: Could not validate the credentialsss 
+2024-10-21 15:20:28,238 - INFO -  /auth/login - 201 - user : [ad123] logged in   
+2024-10-21 15:20:31,477 - INFO -  /wallet/balance - 401: Could not validate the credentialsss 
+2024-10-21 15:26:47,758 - INFO -  /wallet/balance - 401: Could not validate the credentialsss 
+2024-10-21 15:29:19,768 - INFO -  /transactions/show - 401: Could not validate the credentials - Invalid Token   
+2024-10-21 15:29:23,211 - INFO -  /transactions/11 - 401: Could not validate the credentials - Invalid Token  
+2024-10-21 15:29:33,906 - INFO -  /auth/login - 201 - user : [ad123] logged in   
+2024-10-21 15:30:19,889 - INFO -  /auth/login - 201 - user : [ad123] logged in   
+2024-10-21 15:30:53,087 - INFO -  /auth/login - 201 - user : [ad123] logged in   
+2024-10-21 15:31:20,762 - INFO -  /auth/login - 201 - user : [ad123] logged in   
+2024-10-21 15:32:11,543 - INFO -  /auth/login - 201 - user : [ad123] logged in   
+2024-10-21 15:32:47,692 - INFO -  /auth/login - 201 - user : [ad123] logged in   
+2024-10-21 15:32:59,771 - INFO -  /auth/login - 201 - user : [ad123] logged in   
+2024-10-21 15:33:01,607 - INFO -  /auth/login - 201 - user : [ad123] logged in   
+2024-10-21 15:33:13,981 - INFO -  /auth/login - 201 - user : [ad123] logged in   
+2024-10-21 15:33:16,385 - INFO -  /wallet/balance - 200 - user: [ad123]  
+2024-10-21 15:33:20,185 - INFO -  /wallet/ - 200 - user [ad123]  
+2024-10-21 15:33:25,898 - INFO -  /wallet/send - 201 - user: [ad123] - amount: [150] - category:[pani] 
+2024-10-21 15:33:28,397 - INFO -  /transactions/show - 200 - user: [ad123]  
+2024-10-21 15:33:31,119 - INFO -  /transactions/11 - 200 - user: [ad123]  
+2024-10-21 15:33:33,343 - INFO -  /transactions/month - 200 - user: [ad123]  

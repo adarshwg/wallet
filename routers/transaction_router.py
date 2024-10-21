@@ -6,12 +6,9 @@ from business_layer.transaction_manager import TransactionManager
 from typing import Annotated
 from fastapi_pagination import Page, paginate
 from utils.error_codes import responses
-from routers.auth_router import get_current_user
+from routers.tokens.tokens import get_current_user
 from utils.logger.logger import logging
 from datetime import datetime
-
-SECRET_KEY = '47a7ee9ff3c784b0baca916bcc300680424467ca4a2f6f2c4ce7b692f2b25b3d'
-ALGORITHM = 'HS256'
 
 router = APIRouter(
     prefix='/transactions',
@@ -37,8 +34,7 @@ async def get_transaction_by_month(request: Request,
                                    year: int = datetime.now().date().year
                                    ):
     try:
-        username_dict = get_current_user(token)
-        username = username_dict['username']
+        username = get_current_user(token)
         result = TransactionManager.get_transactions_by_month(month, year, username)
         logging.info(f' {request.url.path} - {status.HTTP_200_OK} - user: [{username}] ')
         return paginate(result)
@@ -81,8 +77,7 @@ async def get_n_transactions(request: Request,
                              number: int = Query(gt=0)
                              ):
     try:
-        username_dict = get_current_user(token)
-        username = username_dict['username']
+        username = get_current_user(token)
         if mode == 'last':
             result = TransactionManager.get_last_n_transactions(username, number)
         elif mode == 'top':
@@ -129,8 +124,7 @@ async def get_transaction_by_id(request: Request,
                                 token: Annotated[str, Depends(oauth2_bearer)],
                                 transaction_id: int = Path(gt=0)):
     try:
-        username_dict = get_current_user(token)
-        username = username_dict['username']
+        username = get_current_user(token)
         result = TransactionManager.get_transaction_by_id(transaction_id, username)
         logging.info(f' {request.url.path} - {status.HTTP_200_OK} - user: [{username}] ')
         return result

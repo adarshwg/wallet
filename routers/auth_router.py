@@ -1,44 +1,27 @@
 from typing import Annotated
 from fastapi import APIRouter, HTTPException, Depends, Request
 from starlette import status
-from utils.Exceptions import UserNotFoundException, InvalidPasswordException,DatabaseException
+from utils.Exceptions import UserNotFoundException, InvalidPasswordException, DatabaseException
 from pydantic import BaseModel
 from business_layer.authentication import Authentication
-from fastapi.security import OAuth2PasswordBearer, OAuth2PasswordRequestForm
+from fastapi.security import OAuth2PasswordRequestForm
 from business_layer.user import User
-from datetime import timedelta, datetime, timezone
-from passlib.context import CryptContext
-from jose import jwt, JWTError
+from datetime import timedelta
+from jose import JWTError
 from utils.logger.logger import logging
 from utils.error_codes import responses
-# logging.disable()
+from routers.tokens.tokens import create_access_token
 
-
-SECRET_KEY = '47a7ee9ff3c784b0baca916bcc300680424467ca4a2f6f2c4ce7b692f2b25b3d'
-ALGORITHM = 'HS256'
 
 router = APIRouter(
     prefix='/auth',
     tags=['auth']
 )
 
-bcrypt_context = CryptContext(schemes=['bcrypt'], deprecated='auto')
-oauth2_bearer = OAuth2PasswordBearer(tokenUrl='auth/login')
-
 
 class Token(BaseModel):
     access_token: str
     token_type: str
-
-
-def create_access_token(username: str, expires_delta: timedelta):
-    try:
-        encode = {'sub': username}
-        expires = datetime.now(timezone.utc) + expires_delta
-        encode.update({'exp': expires})
-        return jwt.encode(encode, SECRET_KEY, algorithm=ALGORITHM)
-    except JWTError:
-        raise JWTError('Token encoding failed')
 
 
 def authenticate_user(username: str, password: str):
@@ -62,28 +45,6 @@ def authenticate_user(username: str, password: str):
                             )
 
 
-def check_username_and_password_format(username, password):
-    if not Authentication.check_username_format(username) or \
-            not Authentication.check_password_format(password):
-        return False
-    return True
-
-
-def get_current_user(token: Annotated[str, Depends(oauth2_bearer)]):
-    try:
-        payload = jwt.decode(token, SECRET_KEY, algorithms=[ALGORITHM])
-        username: str = payload.get('sub')
-        if username is None:
-            raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED,
-                                detail='could not validate the credentials! '
-                                )
-        return {'username': username}
-    except JWTError:
-        raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED,
-                            detail='could not validate the credentials!  '
-                            )
-
-
 @router.post("/signup",
              response_model=Token,
              status_code=status.HTTP_201_CREATED,
@@ -96,7 +57,7 @@ def get_current_user(token: Annotated[str, Depends(oauth2_bearer)]):
 async def signup(request: Request, form_data: Annotated[OAuth2PasswordRequestForm, Depends()]):
     username = form_data.username
     password = form_data.password
-    if not check_username_and_password_format(username, password):
+    if not Authentication.check_username_and_password_format(username, password):
         err = HTTPException(status_code=status.HTTP_403_FORBIDDEN,
                             detail='Invalid username or password format')
         logging.info(f' {request.url.path} - {str(err)}')
@@ -139,7 +100,7 @@ async def signup(request: Request, form_data: Annotated[OAuth2PasswordRequestFor
 async def login(request: Request, form_data: Annotated[OAuth2PasswordRequestForm, Depends()]):
     username = form_data.username
     password = form_data.password
-    if not check_username_and_password_format(username, password):
+    if not Authentication.check_username_and_password_format(username, password):
         err = HTTPException(status_code=status.HTTP_403_FORBIDDEN, detail='Invalid username or password format')
         logging.info(f' {request.url.path} - {str(err)} ')
         raise err
