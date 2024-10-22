@@ -40,7 +40,7 @@ async def get_transaction_by_month(request: Request,
         return paginate(result)
     except InvalidDateException:
         err = HTTPException(status_code=status.HTTP_400_BAD_REQUEST,
-                            detail='Invalid month and year entered!')
+                            detail=ERROR_DETAILS['invalid_month_year'])
         logging.info(f' {request.url.path} - {str(err)} ')
         raise err
     except NoRecordsException:
@@ -88,13 +88,13 @@ async def get_n_transactions(request: Request,
         return paginate(result)
     except ValueError:
         err = HTTPException(status_code=status.HTTP_400_BAD_REQUEST,
-                            detail='Invalid input : non numeric value entered '
+                            detail=ERROR_DETAILS['invalid_int_input']
                             )
         logging.warning(f' {request.url.path} - {str(err)} ')
         raise err
     except NoRecordsException:
         err = HTTPException(status_code=status.HTTP_200_OK,
-                            detail='No records found!')
+                            detail=ERROR_DETAILS['no_records'])
         logging.info(f' {request.url.path} ')
         raise err
     except HTTPException:
@@ -130,7 +130,7 @@ async def get_transaction_by_id(request: Request,
         return result
     except OverflowError:
         err = HTTPException(status_code=status.HTTP_400_BAD_REQUEST,
-                            detail='Requested value is too large!')
+                            detail=ERROR_DETAILS['value_overflow'])
         logging.warning(f' {request.url.path} - {str(err)} ')
         raise err
     except HTTPException:

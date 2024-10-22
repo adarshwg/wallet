@@ -59,7 +59,7 @@ async def signup(request: Request, form_data: Annotated[OAuth2PasswordRequestFor
     password = form_data.password
     if not Authentication.check_username_and_password_format(username, password):
         err = HTTPException(status_code=status.HTTP_403_FORBIDDEN,
-                            detail='Invalid username or password format')
+                            detail=ERROR_DETAILS['invalid_credentials_format'])
         logging.info(f' {request.url.path} - {str(err)}')
         raise err
     try:
