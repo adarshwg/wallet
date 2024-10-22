@@ -8,8 +8,8 @@ from utils.error_codes import responses
 from utils.logger.logger import logging
 from business_layer.authentication import Authentication
 from business_layer.transaction import Transaction
-from routers.tokens.tokens import oauth2_bearer
-from routers.tokens.tokens import get_current_user
+from tokens.tokens import oauth2_bearer
+from tokens.tokens import get_current_user
 from utils.error_messages import ERROR_DETAILS
 
 
@@ -66,6 +66,7 @@ async def show_user_wallet(request: Request, token: Annotated[str, Depends(oauth
 async def get_wallet_balance(request: Request, token: Annotated[str, Depends(oauth2_bearer)]):
     try:
         username = get_current_user(token)
+        print(username)
         if username is None:
             err = HTTPException(status_code=status.HTTP_401_UNAUTHORIZED,
                                 detail=ERROR_DETAILS[401]
@@ -83,6 +84,7 @@ async def get_wallet_balance(request: Request, token: Annotated[str, Depends(oau
         raise err
 
     except DatabaseException:
+
         err = HTTPException(status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
                             detail=ERROR_DETAILS[500]
                             )

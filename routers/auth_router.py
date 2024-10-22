@@ -10,7 +10,7 @@ from datetime import timedelta
 from jose import JWTError
 from utils.logger.logger import logging
 from utils.error_codes import responses
-from routers.tokens.tokens import create_access_token
+from tokens.tokens import create_access_token
 from utils.error_messages import ERROR_DETAILS
 
 router = APIRouter(

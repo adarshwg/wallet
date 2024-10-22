@@ -637,3 +637,48 @@
 2024-10-22 04:09:58,754 - INFO -  /transactions/show - 200 - user: [user33]  
 2024-10-22 04:09:58,855 - INFO -  /transactions/11 - 200: OK  
 2024-10-22 04:09:58,914 - INFO -  /transactions/month - 200 - user: [user33]  
+2024-10-22 04:54:56,839 - INFO -  /auth/login - 201 - user : [ad123] logged in   
+2024-10-22 04:55:01,017 - INFO -  /wallet/send - 401: could not validate the credentials!    
+2024-10-22 04:55:05,653 - INFO -  /auth/login - 201 - user : [ad123] logged in   
+2024-10-22 04:55:10,697 - INFO -  /wallet/send - 401: could not validate the credentials!    
+2024-10-22 04:56:28,664 - INFO -  /auth/login - 201 - user : [ad123] logged in   
+2024-10-22 04:56:32,572 - INFO -  /wallet/send - 401: could not validate the credentials!    
+2024-10-22 04:57:09,086 - INFO -  /auth/login - 201 - user : [ad123] logged in   
+2024-10-22 04:57:11,921 - INFO -  /auth/signup - 201 - user: - [user34] - account created 
+2024-10-22 04:57:14,915 - INFO -  /wallet/balance - 200 - user: [user34]  
+2024-10-22 04:57:17,869 - INFO -  /wallet/ - 200 - user [user34]  
+2024-10-22 04:57:20,354 - INFO -  /wallet/send - 403: User wallet is empty! 
+2024-10-22 04:57:23,074 - INFO -  /auth/login - 201 - user : [ad123] logged in   
+2024-10-22 04:57:25,661 - INFO -  /wallet/balance - 200 - user: [user34]  
+2024-10-22 04:57:50,813 - INFO -  /auth/login - 201 - user : [ad123] logged in   
+2024-10-22 04:57:53,367 - INFO -  /wallet/ - 200 - user [user34]  
+2024-10-22 04:57:54,894 - INFO -  /wallet/ - 200 - user [user34]  
+2024-10-22 04:58:06,785 - INFO -  /auth/login - 201 - user : [ad123] logged in   
+2024-10-22 04:58:10,406 - INFO -  /wallet/balance - 200 - user: [user34]  
+2024-10-22 04:58:13,620 - INFO -  /wallet/ - 200 - user [user34]  
+2024-10-22 04:58:14,612 - INFO -  /wallet/ - 200 - user [user34]  
+2024-10-22 04:58:16,677 - INFO -  /auth/login - 201 - user : [ad123] logged in   
+2024-10-22 04:58:38,847 - INFO -  /auth/login - 201 - user : [ad123] logged in   
+2024-10-22 04:59:03,971 - INFO -  /auth/login - 201 - user : [ad123] logged in   
+2024-10-22 04:59:09,697 - INFO -  /auth/login - 201 - user : [ad123] logged in   
+2024-10-22 04:59:25,640 - INFO -  /wallet/balance - 200 - user: [ad123]  
+2024-10-22 04:59:29,042 - INFO -  /wallet/send - 201 - user: [ad123] - amount: [100] - category:[pani] 
+2024-10-22 04:59:35,397 - INFO -  /wallet/ - 200 - user [ad123]  
+2024-10-22 05:00:19,361 - INFO -  /auth/login - 201 - user : [ad123] logged in   
+2024-10-22 05:00:21,826 - INFO -  /wallet/balance - 200 - user: [ad123]  
+2024-10-22 05:00:24,175 - INFO -  /wallet/send - 201 - user: [ad123] - amount: [100] - category:[pani] 
+2024-10-22 05:00:26,699 - INFO -  /wallet/ - 200 - user [ad123]  
+2024-10-22 05:00:29,806 - INFO -  /auth/signup - 201 - user: - [user35] - account created 
+2024-10-22 09:14:00,099 - INFO -  /auth/login - 201 - user : [ad123] logged in   
+2024-10-22 09:14:08,406 - INFO -  /transactions/show - 200 - user: [ad123]  
+2024-10-22 09:19:21,497 - INFO -  /wallet/send - 401: could not validate the credentials!    
+2024-10-22 09:30:18,906 - INFO -  /wallet/balance - 401: Could not validate the credentials 
+2024-10-22 09:30:24,056 - INFO -  /auth/login - 201 - user : [ad123] logged in   
+2024-10-22 09:30:33,688 - INFO -  /auth/signup - 201 - user: - [user36] - account created 
+2024-10-22 09:30:36,003 - INFO -  /wallet/balance - 200 - user: [user36]  
+2024-10-22 09:30:39,991 - INFO -  /wallet/ - 200 - user [user36]  
+2024-10-22 09:30:42,398 - INFO -  /wallet/send - 403: User wallet is empty! 
+2024-10-22 09:30:48,031 - INFO -  /auth/login - 201 - user : [ad123] logged in   
+2024-10-22 09:30:50,404 - INFO -  /wallet/balance - 200 - user: [ad123]  
+2024-10-22 09:30:53,282 - INFO -  /wallet/send - 201 - user: [ad123] - amount: [100] - category:[pani] 
+2024-10-22 09:30:56,822 - INFO -  /transactions/show - 200 - user: [ad123]  

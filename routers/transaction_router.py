@@ -6,7 +6,7 @@ from business_layer.transaction_manager import TransactionManager
 from typing import Annotated
 from fastapi_pagination import Page, paginate
 from utils.error_codes import responses
-from routers.tokens.tokens import get_current_user
+from tokens.tokens import get_current_user
 from utils.logger.logger import logging
 from datetime import datetime
 from utils.error_messages import ERROR_DETAILS
