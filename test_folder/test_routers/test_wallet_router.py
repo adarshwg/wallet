@@ -185,6 +185,40 @@ class TestSendAmountEndpoint(unittest.TestCase):
         self.assertEqual(response.status_code, 200)
         self.assertEqual(response.json(), 100)
 
+    @patch('routers.wallet_router.create_wallet_from_username')
+    @patch('tokens.tokens.get_current_user')
+    def test_get_wallet_balance_database_failure(self, mock_get_current_user,
+                                                 mock_create_wallet,
+                                                 ):
+        # Arrange
+        mock_create_wallet.return_value.get_balance.side_effect = DatabaseException()
+        mock_get_current_user.return_value = self.username
+
+        # Act
+        headers = {"Authorization": f"Bearer {self.token}"}
+        response = client.get("/wallet/balance", params={"username": self.username}, headers=headers)
+
+        # Assert
+        self.assertEqual(response.status_code, 500)
+        self.assertRaises(HTTPException)
+
+    @patch('routers.wallet_router.create_wallet_from_username')
+    @patch('tokens.tokens.get_current_user')
+    def test_get_wallet_balance_success(self, mock_get_current_user,
+                                        mock_create_wallet,
+                                        ):
+        # Arrange
+        mock_create_wallet.return_value.get_balance.return_value = 100
+        mock_get_current_user.return_value = self.username
+
+        # Act
+        headers = {"Authorization": f"Bearer {self.token}"}
+        response = client.get("/wallet/balance", params={"username": self.username}, headers=headers)
+
+        # Assert
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.json(), 100)
+
 
 if __name__ == '__main__':
     unittest.main()
