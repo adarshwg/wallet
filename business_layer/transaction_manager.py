@@ -55,7 +55,7 @@ class TransactionManager:
     @staticmethod
     def get_top_n_transactions(username, number=10):
         if not isinstance(number, int):
-            raise ValueError('Not a number')
+            raise ValueError('Not a number.db')
         try:
             fetched_results = db_operations.get_top_n_transactions(username, number)
             result_list = [TransactionManager.get_transaction_dictionary(result) for result in fetched_results]

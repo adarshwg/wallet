@@ -1,6 +1,7 @@
 from fastapi import FastAPI
 from routers import auth_router, wallet_router, transaction_router
 from fastapi_pagination import add_pagination
+from middleware.auth_middleware import AuthMiddleware
 
 app = FastAPI(
     title="Wallet Application",
@@ -13,6 +14,7 @@ app = FastAPI(
     version="1.0.0"
 )
 add_pagination(app)
-app.include_router(auth_router.router)
-app.include_router(wallet_router.router)
-app.include_router(transaction_router.router)
+app.add_middleware(AuthMiddleware)
+app.include_router(auth_router.router, prefix='/auth')
+app.include_router(wallet_router.router, prefix='/wallet')
+app.include_router(transaction_router.router, prefix='/transactions')

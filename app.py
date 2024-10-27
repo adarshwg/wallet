@@ -1,6 +1,6 @@
-from user import User
-from authentication import Authentication
-from utils.create_tables import create_all_tables
+from business_layer.user import User
+from business_layer.authentication import Authentication
+from utils.db.create_tables import create_all_tables
 from utils import input_handler
 # import getpass
 from datetime import datetime
@@ -119,11 +119,11 @@ def wallet_functionalities(new_user):
         get_transaction_by_id(transaction_id, new_user)
     elif wallet_input == '3':
         while True:
-            number = input_handler.int_handler('Enter the number of transactions (default :10) :')
+            number = input_handler.int_handler('Enter the number.db of transactions (default :10) :')
             if number != -1:
                 break
             else:
-                print('Enter positive number only !')
+                print('Enter positive number.db only !')
         if not number:
             number = 10
         list_of_transactions = new_user.wallet.get_last_n_transactions(new_user.username, number)
@@ -134,11 +134,11 @@ def wallet_functionalities(new_user):
         print(f'Found {len(list_of_transactions)} matching transactions !\n')
     elif wallet_input == '4':
         while True:
-            number = input_handler.int_handler('Enter the number of transactions (default :10) :')
+            number = input_handler.int_handler('Enter the number.db of transactions (default :10) :')
             if number != -1:
                 break
             else:
-                print('Enter positive number only !')
+                print('Enter positive number.db only !')
         if not number:
             number = 10
         list_of_top_transactions = new_user.wallet.get_top_n_transactions(new_user.username, number)
@@ -158,7 +158,7 @@ def wallet_functionalities(new_user):
         curr_month = datetime.now().date().month
         curr_year = datetime.now().date().year
         while True:
-            month = input_handler.int_handler('Enter the month in number : ')
+            month = input_handler.int_handler('Enter the month in number.db : ')
             if month > -1 and 0 < month <= 12:
                 break
             else:

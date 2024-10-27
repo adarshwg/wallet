@@ -3,13 +3,11 @@ from fastapi import HTTPException, Depends
 from starlette import status
 from fastapi.security import OAuth2PasswordBearer
 from datetime import timedelta, datetime, timezone
-from passlib.context import CryptContext
 from jose import jwt, JWTError
 
 SECRET_KEY = '47a7ee9ff3c784b0baca916bcc300680424467ca4a2f6f2c4ce7b692f2b25b3d'
 ALGORITHM = 'HS256'
 
-bcrypt_context = CryptContext(schemes=['bcrypt'], deprecated='auto')
 oauth2_bearer = OAuth2PasswordBearer(tokenUrl='auth/login')
 
 

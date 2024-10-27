@@ -682,3 +682,283 @@
 2024-10-22 09:30:50,404 - INFO -  /wallet/balance - 200 - user: [ad123]  
 2024-10-22 09:30:53,282 - INFO -  /wallet/send - 201 - user: [ad123] - amount: [100] - category:[pani] 
 2024-10-22 09:30:56,822 - INFO -  /transactions/show - 200 - user: [ad123]  
+2024-10-24 09:30:39,491 - INFO -  /auth/auth/signup - 403: Invalid username or password format 
+2024-10-24 09:31:19,283 - INFO -  /auth/login - 201 - user : [ad123] logged in   
+2024-10-24 09:33:02,138 - INFO -  /wallet/balance - 200 - user: [ad123]  
+2024-10-24 09:33:05,610 - INFO -  /wallet/ - 200 - user [ad123]  
+2024-10-24 09:33:09,732 - INFO -  /wallet/send - 201 - user: [ad123] - amount: [100] - category:[pani] 
+2024-10-24 09:33:14,160 - INFO -  /wallet/balance - 200 - user: [ad123]  
+2024-10-26 09:38:29,411 - INFO -  /auth/login - 201 - user : [ad123] logged in   
+2024-10-26 09:56:03,788 - INFO -  /wallet/balance - 200 - user: [ad123]  
+2024-10-26 09:56:10,013 - INFO -  /auth/login - 201 - user : [ad123] logged in   
+2024-10-26 09:56:12,882 - INFO -  /wallet/balance - 200 - user: [ad123]  
+2024-10-26 09:56:42,986 - INFO -  /wallet/balance - 200 - user: [ad123]  
+2024-10-26 09:57:11,346 - INFO -  /wallet/ - 200 - user [ad123]  
+2024-10-26 09:57:20,627 - INFO -  /wallet/send - 201 - user: [ad123] - amount: [100] - category:[pani] 
+2024-10-26 09:57:29,071 - INFO -  /wallet/send - 201 - user: [ad123] - amount: [100] - category:[pani] 
+2024-10-26 09:57:49,879 - INFO -  /wallet/send - 201 - user: [ad123] - amount: [100] - category:[pani] 
+2024-10-26 09:58:15,351 - INFO -  /wallet/balance - 200 - user: [ad123]  
+2024-10-26 09:58:34,446 - INFO -  /wallet/ - 200 - user [ad123]  
+2024-10-26 17:09:37,665 - INFO -  /auth/login - 201 - user : [ad123] logged in   
+2024-10-26 17:09:43,753 - INFO -  /auth/signup - 201 - user: - [user37] - account created 
+2024-10-26 18:56:22,886 - INFO -  /auth/login - 201 - user : [ad123] logged in   
+2024-10-26 18:56:27,874 - INFO -  /auth/signup - 201 - user: - [user38] - account created 
+2024-10-26 19:16:09,325 - INFO -  /wallet/balance - 200 - user: [user38]  
+2024-10-26 19:16:13,681 - ERROR -  /auth/login - 500: Internal Server Error  
+2024-10-26 19:18:26,175 - INFO -  /wallet/send - 401: could not validate the credentials!    
+2024-10-26 19:18:31,357 - ERROR -  /auth/login - 500: Internal Server Error  
+2024-10-26 19:18:35,431 - INFO -  /auth/signup - 201 - user: - [user39] - account created 
+2024-10-26 19:18:42,951 - INFO -  /wallet/send - 403: User wallet is empty! 
+2024-10-26 19:18:48,249 - ERROR -  /auth/login - 500: Internal Server Error  
+2024-10-26 19:19:41,139 - ERROR -  /auth/login - 500: Internal Server Error - b'' 
+2024-10-26 19:22:19,342 - ERROR -  /auth/login - 500: Internal Server Error - [] - None - None - MutableHeaders({}) 
+2024-10-26 19:27:19,384 - ERROR -  /auth/login - 500: Internal Server Error 
+Stack (most recent call last):
+  File "C:\Users\adsingh\AppData\Local\Programs\Python\Python312\Lib\threading.py", line 1032, in _bootstrap
+    self._bootstrap_inner()
+  File "C:\Users\adsingh\AppData\Local\Programs\Python\Python312\Lib\threading.py", line 1075, in _bootstrap_inner
+    self.run()
+  File "C:\Users\adsingh\PycharmProjects\pythonProject\.venv\Lib\site-packages\anyio\_backends\_asyncio.py", line 914, in run
+    result = context.run(func, *args)
+  File "C:\Users\adsingh\PycharmProjects\Wallet\routers\auth_router.py", line 129, in login
+    logging.error(f' {request.url.path} - {str(err)}',stack_info=True)
+2024-10-26 19:28:44,606 - ERROR -  /auth/login - 500: Internal Server Error 
+Stack (most recent call last):
+  File "C:\Users\adsingh\AppData\Local\Programs\Python\Python312\Lib\threading.py", line 1032, in _bootstrap
+    self._bootstrap_inner()
+  File "C:\Users\adsingh\AppData\Local\Programs\Python\Python312\Lib\threading.py", line 1075, in _bootstrap_inner
+    self.run()
+  File "C:\Users\adsingh\PycharmProjects\pythonProject\.venv\Lib\site-packages\anyio\_backends\_asyncio.py", line 914, in run
+    result = context.run(func, *args)
+  File "C:\Users\adsingh\PycharmProjects\Wallet\routers\auth_router.py", line 129, in login
+    logging.error(f' {request.url.path} - {str(err)}',stack_info=True,stacklevel=0)
+  File "C:\Users\adsingh\AppData\Local\Programs\Python\Python312\Lib\logging\__init__.py", line 2183, in error
+    root.error(msg, *args, **kwargs)
+  File "C:\Users\adsingh\AppData\Local\Programs\Python\Python312\Lib\logging\__init__.py", line 1568, in error
+    self._log(ERROR, msg, args, **kwargs)
+  File "C:\Users\adsingh\AppData\Local\Programs\Python\Python312\Lib\logging\__init__.py", line 1672, in _log
+    fn, lno, func, sinfo = self.findCaller(stack_info, stacklevel)
+  File "C:\Users\adsingh\AppData\Local\Programs\Python\Python312\Lib\logging\__init__.py", line 1639, in findCaller
+    traceback.print_stack(f, file=sio)
+2024-10-26 19:29:42,814 - INFO -  /auth/signup - 201 - user: - [user40] - account created 
+2024-10-26 19:31:06,880 - ERROR -  /auth/login - 500: Internal Server Error 
+Stack (most recent call last):
+  File "C:\Users\adsingh\AppData\Local\Programs\Python\Python312\Lib\threading.py", line 1032, in _bootstrap
+    self._bootstrap_inner()
+  File "C:\Users\adsingh\AppData\Local\Programs\Python\Python312\Lib\threading.py", line 1075, in _bootstrap_inner
+    self.run()
+  File "C:\Users\adsingh\PycharmProjects\pythonProject\.venv\Lib\site-packages\anyio\_backends\_asyncio.py", line 914, in run
+    result = context.run(func, *args)
+  File "C:\Users\adsingh\PycharmProjects\Wallet\routers\auth_router.py", line 127, in login
+    logging.error(f' {request.url.path} - {str(err)}',stack_info=True,stacklevel=0)
+  File "C:\Users\adsingh\AppData\Local\Programs\Python\Python312\Lib\logging\__init__.py", line 2183, in error
+    root.error(msg, *args, **kwargs)
+  File "C:\Users\adsingh\AppData\Local\Programs\Python\Python312\Lib\logging\__init__.py", line 1568, in error
+    self._log(ERROR, msg, args, **kwargs)
+  File "C:\Users\adsingh\AppData\Local\Programs\Python\Python312\Lib\logging\__init__.py", line 1672, in _log
+    fn, lno, func, sinfo = self.findCaller(stack_info, stacklevel)
+  File "C:\Users\adsingh\AppData\Local\Programs\Python\Python312\Lib\logging\__init__.py", line 1639, in findCaller
+    traceback.print_stack(f, file=sio)
+2024-10-26 19:31:12,084 - INFO -  /auth/login - 403: Invalid username or password format  
+2024-10-26 19:31:19,920 - ERROR -  /auth/login - 500: Internal Server Error 
+Stack (most recent call last):
+  File "C:\Users\adsingh\AppData\Local\Programs\Python\Python312\Lib\threading.py", line 1032, in _bootstrap
+    self._bootstrap_inner()
+  File "C:\Users\adsingh\AppData\Local\Programs\Python\Python312\Lib\threading.py", line 1075, in _bootstrap_inner
+    self.run()
+  File "C:\Users\adsingh\PycharmProjects\pythonProject\.venv\Lib\site-packages\anyio\_backends\_asyncio.py", line 914, in run
+    result = context.run(func, *args)
+  File "C:\Users\adsingh\PycharmProjects\Wallet\routers\auth_router.py", line 127, in login
+    logging.error(f' {request.url.path} - {str(err)}',stack_info=True,stacklevel=0)
+  File "C:\Users\adsingh\AppData\Local\Programs\Python\Python312\Lib\logging\__init__.py", line 2183, in error
+    root.error(msg, *args, **kwargs)
+  File "C:\Users\adsingh\AppData\Local\Programs\Python\Python312\Lib\logging\__init__.py", line 1568, in error
+    self._log(ERROR, msg, args, **kwargs)
+  File "C:\Users\adsingh\AppData\Local\Programs\Python\Python312\Lib\logging\__init__.py", line 1672, in _log
+    fn, lno, func, sinfo = self.findCaller(stack_info, stacklevel)
+  File "C:\Users\adsingh\AppData\Local\Programs\Python\Python312\Lib\logging\__init__.py", line 1639, in findCaller
+    traceback.print_stack(f, file=sio)
+2024-10-26 19:31:23,036 - INFO -  /auth/login - 403: Invalid username or password format  
+2024-10-26 19:31:26,006 - ERROR -  /auth/login - 500: Internal Server Error 
+Stack (most recent call last):
+  File "C:\Users\adsingh\AppData\Local\Programs\Python\Python312\Lib\threading.py", line 1032, in _bootstrap
+    self._bootstrap_inner()
+  File "C:\Users\adsingh\AppData\Local\Programs\Python\Python312\Lib\threading.py", line 1075, in _bootstrap_inner
+    self.run()
+  File "C:\Users\adsingh\PycharmProjects\pythonProject\.venv\Lib\site-packages\anyio\_backends\_asyncio.py", line 914, in run
+    result = context.run(func, *args)
+  File "C:\Users\adsingh\PycharmProjects\Wallet\routers\auth_router.py", line 127, in login
+    logging.error(f' {request.url.path} - {str(err)}',stack_info=True,stacklevel=0)
+  File "C:\Users\adsingh\AppData\Local\Programs\Python\Python312\Lib\logging\__init__.py", line 2183, in error
+    root.error(msg, *args, **kwargs)
+  File "C:\Users\adsingh\AppData\Local\Programs\Python\Python312\Lib\logging\__init__.py", line 1568, in error
+    self._log(ERROR, msg, args, **kwargs)
+  File "C:\Users\adsingh\AppData\Local\Programs\Python\Python312\Lib\logging\__init__.py", line 1672, in _log
+    fn, lno, func, sinfo = self.findCaller(stack_info, stacklevel)
+  File "C:\Users\adsingh\AppData\Local\Programs\Python\Python312\Lib\logging\__init__.py", line 1639, in findCaller
+    traceback.print_stack(f, file=sio)
+2024-10-26 19:31:29,610 - ERROR -  /auth/login - 500: Internal Server Error 
+Stack (most recent call last):
+  File "C:\Users\adsingh\AppData\Local\Programs\Python\Python312\Lib\threading.py", line 1032, in _bootstrap
+    self._bootstrap_inner()
+  File "C:\Users\adsingh\AppData\Local\Programs\Python\Python312\Lib\threading.py", line 1075, in _bootstrap_inner
+    self.run()
+  File "C:\Users\adsingh\PycharmProjects\pythonProject\.venv\Lib\site-packages\anyio\_backends\_asyncio.py", line 914, in run
+    result = context.run(func, *args)
+  File "C:\Users\adsingh\PycharmProjects\Wallet\routers\auth_router.py", line 127, in login
+    logging.error(f' {request.url.path} - {str(err)}',stack_info=True,stacklevel=0)
+  File "C:\Users\adsingh\AppData\Local\Programs\Python\Python312\Lib\logging\__init__.py", line 2183, in error
+    root.error(msg, *args, **kwargs)
+  File "C:\Users\adsingh\AppData\Local\Programs\Python\Python312\Lib\logging\__init__.py", line 1568, in error
+    self._log(ERROR, msg, args, **kwargs)
+  File "C:\Users\adsingh\AppData\Local\Programs\Python\Python312\Lib\logging\__init__.py", line 1672, in _log
+    fn, lno, func, sinfo = self.findCaller(stack_info, stacklevel)
+  File "C:\Users\adsingh\AppData\Local\Programs\Python\Python312\Lib\logging\__init__.py", line 1639, in findCaller
+    traceback.print_stack(f, file=sio)
+2024-10-26 19:31:38,729 - INFO -  /auth/login - 403: Invalid username or password format  
+2024-10-26 19:31:42,190 - ERROR -  /auth/login - 500: Internal Server Error 
+Stack (most recent call last):
+  File "C:\Users\adsingh\AppData\Local\Programs\Python\Python312\Lib\threading.py", line 1032, in _bootstrap
+    self._bootstrap_inner()
+  File "C:\Users\adsingh\AppData\Local\Programs\Python\Python312\Lib\threading.py", line 1075, in _bootstrap_inner
+    self.run()
+  File "C:\Users\adsingh\PycharmProjects\pythonProject\.venv\Lib\site-packages\anyio\_backends\_asyncio.py", line 914, in run
+    result = context.run(func, *args)
+  File "C:\Users\adsingh\PycharmProjects\Wallet\routers\auth_router.py", line 127, in login
+    logging.error(f' {request.url.path} - {str(err)}',stack_info=True,stacklevel=0)
+  File "C:\Users\adsingh\AppData\Local\Programs\Python\Python312\Lib\logging\__init__.py", line 2183, in error
+    root.error(msg, *args, **kwargs)
+  File "C:\Users\adsingh\AppData\Local\Programs\Python\Python312\Lib\logging\__init__.py", line 1568, in error
+    self._log(ERROR, msg, args, **kwargs)
+  File "C:\Users\adsingh\AppData\Local\Programs\Python\Python312\Lib\logging\__init__.py", line 1672, in _log
+    fn, lno, func, sinfo = self.findCaller(stack_info, stacklevel)
+  File "C:\Users\adsingh\AppData\Local\Programs\Python\Python312\Lib\logging\__init__.py", line 1639, in findCaller
+    traceback.print_stack(f, file=sio)
+2024-10-27 07:19:00,051 - ERROR -  /auth/login - 500: Internal Server Error 
+Stack (most recent call last):
+  File "C:\Users\adsingh\AppData\Local\Programs\Python\Python312\Lib\threading.py", line 1032, in _bootstrap
+    self._bootstrap_inner()
+  File "C:\Users\adsingh\AppData\Local\Programs\Python\Python312\Lib\threading.py", line 1075, in _bootstrap_inner
+    self.run()
+  File "C:\Users\adsingh\PycharmProjects\pythonProject\.venv\Lib\site-packages\anyio\_backends\_asyncio.py", line 914, in run
+    result = context.run(func, *args)
+  File "C:\Users\adsingh\PycharmProjects\Wallet\routers\auth_router.py", line 127, in login
+    logging.error(f' {request.url.path} - {str(err)}',stack_info=True,stacklevel=0)
+  File "C:\Users\adsingh\AppData\Local\Programs\Python\Python312\Lib\logging\__init__.py", line 2183, in error
+    root.error(msg, *args, **kwargs)
+  File "C:\Users\adsingh\AppData\Local\Programs\Python\Python312\Lib\logging\__init__.py", line 1568, in error
+    self._log(ERROR, msg, args, **kwargs)
+  File "C:\Users\adsingh\AppData\Local\Programs\Python\Python312\Lib\logging\__init__.py", line 1672, in _log
+    fn, lno, func, sinfo = self.findCaller(stack_info, stacklevel)
+  File "C:\Users\adsingh\AppData\Local\Programs\Python\Python312\Lib\logging\__init__.py", line 1639, in findCaller
+    traceback.print_stack(f, file=sio)
+2024-10-27 07:19:04,883 - INFO -  /auth/signup - 201 - user: - [user41] - account created 
+2024-10-27 07:19:07,767 - INFO -  /wallet/balance - 200 - user: [user41]  
+2024-10-27 07:19:09,936 - INFO -  /wallet/ - 200 - user [user41]  
+2024-10-27 07:19:12,826 - INFO -  /wallet/send - 403: User wallet is empty! 
+2024-10-27 07:23:03,938 - INFO -  /auth/login - 201 - user : [ad1234] logged in   
+2024-10-27 07:25:28,087 - ERROR -  /auth/login - 400: Could not validate the credentials 
+2024-10-27 07:27:10,308 - INFO -  /auth/login - 201 - user : [ad123] logged in   
+2024-10-27 07:27:16,053 - INFO -  /wallet/balance - 200 - user: [ad123]  
+2024-10-27 07:27:19,022 - INFO -  /wallet/ - 200 - user [ad123]  
+2024-10-27 07:33:52,345 - INFO -  /wallet/balance - 200 - user: [ad123]  
+2024-10-27 07:33:54,757 - INFO -  /wallet/ - 200 - user [ad123]  
+2024-10-27 07:33:57,308 - INFO -  /wallet/send - 201 - user: [ad123] - amount: [100] - category:[pani] 
+2024-10-27 07:34:00,381 - INFO -  /transactions/show - 200 - user: [ad123]  
+2024-10-27 07:34:02,812 - INFO -  /transactions/11 - 200 - user: [ad123]  
+2024-10-27 07:34:05,355 - INFO -  /transactions/month - 200 - user: [ad123]  
+2024-10-27 07:38:43,285 - INFO -  /wallet/balance - 200 - user: [ad123]  
+2024-10-27 07:38:51,934 - INFO -  /wallet/balance - 200 - user: [ad123]  
+2024-10-27 07:46:27,294 - INFO -  /wallet/balance - 200 - user: [ad123]  
+2024-10-27 08:15:46,330 - INFO -  /auth/login - 201 - user : [ad123] logged in   
+2024-10-27 08:15:51,414 - INFO -  /wallet/balance - 200 - user: [ad123]  
+2024-10-27 08:15:54,648 - INFO -  /wallet/send - 201 - user: [ad123] - amount: [100] - category:[pani] 
+2024-10-27 08:15:59,567 - INFO -  /wallet/ - 200 - user [ad123]  
+2024-10-27 08:16:02,931 - INFO -  /transactions/show - 200 - user: [ad123]  
+2024-10-27 08:16:04,844 - INFO -  /transactions/11 - 200 - user: [ad123]  
+2024-10-27 08:16:07,107 - INFO -  /transactions/month - 200 - user: [ad123]  
+2024-10-27 08:16:11,815 - INFO -  /wallet/send - 201 - user: [ad123] - amount: [100] - category:[pani] 
+2024-10-27 08:24:01,750 - INFO -  /transactions/month - 200 - user: [ad123]  
+2024-10-27 08:24:05,548 - INFO -  /transactions/show - 200 - user: [ad123]  
+2024-10-27 08:28:05,727 - INFO -  /wallet/balance - 200 - user: [ad123]  
+2024-10-27 08:28:10,060 - INFO -  /wallet/ - 200 - user [ad123]  
+2024-10-27 08:28:13,911 - INFO -  /wallet/send - 201 - user: [ad123] - amount: [100] - category:[pani] 
+2024-10-27 08:28:21,355 - INFO -  /transactions/show - 200 - user: [ad123]  
+2024-10-27 08:28:24,645 - INFO -  /transactions/11 - 200 - user: [ad123]  
+2024-10-27 08:28:27,902 - INFO -  /transactions/month - 200 - user: [ad123]  
+2024-10-27 08:29:32,084 - INFO -  /wallet/send - 201 - user: [ad123] - amount: [100] - category:[pani] 
+2024-10-27 10:47:22,614 - INFO -  /wallet/send - 401: could not validate the credentials!    
+2024-10-27 10:47:27,459 - INFO -  /auth/login - 201 - user : [ad123] logged in   
+2024-10-27 10:47:32,760 - INFO -  /wallet/balance - 200 - user: [ad123]  
+2024-10-27 10:47:35,296 - INFO -  /wallet/ - 200 - user [ad123]  
+2024-10-27 11:11:17,942 - INFO -  /auth/login - 201 - user : [ad123] logged in   
+2024-10-27 11:11:25,535 - INFO -  /wallet/balance - 200 - user: [ad123]  
+2024-10-27 11:11:31,079 - INFO -  /wallet/ - 200 - user [ad123]  
+2024-10-27 11:11:33,588 - INFO -  /transactions/show - 200 - user: [ad123]  
+2024-10-27 11:11:55,367 - INFO -  /transactions/show - 200 - user: [ad123]  
+2024-10-27 11:13:22,835 - INFO -  /transactions/show - 200 - user: [ad123]  
+2024-10-27 12:27:47,144 - INFO -  /wallet/balance - 401: Could not validate the credentials 
+2024-10-27 12:27:55,297 - INFO -  /wallet/ - 401: could not validate the credentials!    
+2024-10-27 12:27:59,619 - INFO -  /auth/login - 201 - user : [ad123] logged in   
+2024-10-27 12:28:02,408 - INFO -  /auth/signup - 201 - user: - [user52] - account created 
+2024-10-27 12:28:23,920 - INFO -  /wallet/balance - 200 - user: [user52]  
+2024-10-27 12:28:25,905 - INFO -  /wallet/balance - 200 - user: [user52]  
+2024-10-27 12:28:28,251 - INFO -  /auth/login - 201 - user : [ad123] logged in   
+2024-10-27 12:28:30,298 - INFO -  /wallet/send - 201 - user: [ad123] - amount: [100] - category:[pani] 
+2024-10-27 12:28:33,252 - INFO -  /wallet/ - 200 - user [ad123]  
+2024-10-27 12:29:49,777 - INFO -  /wallet/ - 200 - user [ad123]  
+2024-10-27 12:29:55,360 - INFO -  /wallet/balance - 200 - user: [ad123]  
+2024-10-27 12:37:04,184 - INFO -  /wallet/balance - 200 - user: [ad123]  
+2024-10-27 12:37:19,599 - INFO -  /auth/login - 201 - user : [ad123] logged in   
+2024-10-27 12:37:26,736 - INFO -  /auth/signup - 201 - user: - [user53] - account created 
+2024-10-27 12:37:33,011 - INFO -  /wallet/balance - 200 - user: [user53]  
+2024-10-27 12:37:37,556 - INFO -  /auth/login - 201 - user : [ad123] logged in   
+2024-10-27 13:42:40,140 - INFO -  /auth/login - 201 - user : [ad123] logged in   
+2024-10-27 13:42:43,236 - INFO -  /wallet/balance - 200 - user: [ad123]  
+2024-10-27 13:42:45,806 - INFO -  /wallet/ - 200 - user [ad123]  
+2024-10-27 13:42:48,301 - INFO -  /wallet/send - 201 - user: [ad123] - amount: [100] - category:[pani] 
+2024-10-27 13:42:53,672 - INFO -  /transactions/show - 200 - user: [ad123]  
+2024-10-27 13:42:56,999 - INFO -  /transactions/11 - 200 - user: [ad123]  
+2024-10-27 13:44:00,482 - INFO -  /wallet/ - 200 - user [ad123]  
+2024-10-27 13:44:46,649 - INFO -  /wallet/ - 200 - user [ad123]  
+2024-10-27 13:45:29,578 - INFO -  /auth/login - 201 - user : [ad123] logged in   
+2024-10-27 13:45:32,785 - INFO -  /wallet/balance - 200 - user: [ad123]  
+2024-10-27 13:56:00,131 - INFO -  /wallet/balance - 200 - user: [ad123]  
+2024-10-27 13:56:03,288 - INFO -  /wallet/ - 200 - user [ad123]  
+2024-10-27 13:56:06,573 - INFO -  /wallet/send - 201 - user: [ad123] - amount: [100] - category:[pani] 
+2024-10-27 13:56:17,811 - INFO -  /wallet/balance - 200 - user: [ad123]  
+2024-10-27 13:56:27,399 - INFO -  /transactions/show - 200 - user: [ad123]  
+2024-10-27 13:56:33,110 - INFO -  /transactions/11 - 200 - user: [ad123]  
+2024-10-27 13:56:36,269 - INFO -  /transactions/month - 200 - user: [ad123]  
+2024-10-27 16:57:08,012 - INFO -  /auth/login - 201 - user : [ad123] logged in   
+2024-10-27 16:57:11,103 - INFO -  /wallet/balance - 200 - user: [ad123]  
+2024-10-27 16:57:14,960 - INFO -  /wallet/send - 201 - user: [ad123] - amount: [100] - category:[pani] 
+2024-10-27 16:57:19,212 - INFO -  /wallet/send - 201 - user: [ad123] - amount: [100] - category:[pani] 
+2024-10-27 16:57:27,974 - INFO -  /transactions/show - 200 - user: [ad123]  
+2024-10-27 16:57:32,047 - INFO -  /transactions/11 - 200 - user: [ad123]  
+2024-10-27 16:58:57,094 - INFO -  /wallet/send - 201 - user: [ad123] - amount: [100] - category:[pani] 
+2024-10-27 16:59:13,187 - INFO -  /wallet/send - 201 - user: [ad123] - amount: [100] - category:[pani] 
+2024-10-27 17:13:06,416 - INFO -  /wallet/send - 201 - user: [ad123] - amount: [100] - category:[pani] 
+2024-10-27 17:13:37,033 - INFO -  /wallet/send - 201 - user: [ad123] - amount: [100] - category:[pani] 
+2024-10-27 17:13:41,211 - INFO -  /transactions/11 - 200 - user: [ad123]  
+2024-10-27 17:13:47,041 - INFO -  /transactions/11 - 200 - user: [ad123]  
+2024-10-27 17:13:49,972 - INFO -  /wallet/send - 201 - user: [ad123] - amount: [100] - category:[pani] 
+2024-10-27 17:14:15,112 - INFO -  /wallet/send - 201 - user: [ad123] - amount: [100] - category:[pani] 
+2024-10-27 17:15:34,134 - INFO -  /transactions/11 - 200 - user: [ad123]  
+2024-10-27 17:15:37,686 - INFO -  /transactions/118 - 200: OK  
+2024-10-27 17:15:39,524 - INFO -  /transactions/118 - 200: OK  
+2024-10-27 17:15:46,043 - INFO -  /transactions/140 - 200: OK  
+2024-10-27 17:15:48,899 - INFO -  /transactions/190 - 200 - user: [ad123]  
+2024-10-27 17:16:38,889 - INFO -  /wallet/send - 201 - user: [ad123] - amount: [100] - category:[pani] 
+2024-10-27 17:23:18,167 - INFO -  /auth/login - 201 - user : [ad123] logged in   
+2024-10-27 17:23:21,958 - INFO -  /wallet/balance - 200 - user: [ad123]  
+2024-10-27 17:25:05,549 - INFO -  /wallet/balance - 200 - user: [ad123]  
+2024-10-27 17:25:08,995 - INFO -  /wallet/ - 200 - user [ad123]  
+2024-10-27 17:25:10,981 - INFO -  /wallet/send - 201 - user: [ad123] - amount: [100] - category:[pani] 
+2024-10-27 17:25:15,155 - INFO -  /transactions/show - 200 - user: [ad123]  
+2024-10-27 17:25:17,812 - INFO -  /transactions/208 - 200 - user: [ad123]  
+2024-10-27 17:25:21,519 - INFO -  /transactions/month - 200 - user: [ad123]  
+2024-10-27 17:32:28,475 - INFO -  /transactions/month - 200 - user: [ad123]  
+2024-10-27 17:32:35,212 - INFO -  /transactions/208 - 200 - user: [ad123]  
+2024-10-27 17:32:43,112 - INFO -  /wallet/send - 201 - user: [ad123] - amount: [100] - category:[pani] 
+2024-10-27 17:32:47,393 - INFO -  /transactions/209 - 200 - user: [ad123]  

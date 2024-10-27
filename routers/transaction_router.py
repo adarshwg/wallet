@@ -11,7 +11,6 @@ from utils.logger.logger import logging
 from datetime import datetime
 from utils.error_messages import ERROR_DETAILS
 router = APIRouter(
-    prefix='/transactions',
     tags=['transactions']
 )
 
@@ -29,12 +28,11 @@ oauth2_bearer = OAuth2PasswordBearer(tokenUrl='auth/login')
             }
             )
 async def get_transaction_by_month(request: Request,
-                                   token: Annotated[str, Depends(oauth2_bearer)],
                                    month: int = datetime.now().date().month,
                                    year: int = datetime.now().date().year
                                    ):
     try:
-        username = get_current_user(token)
+        username = request.state.username
         result = TransactionManager.get_transactions_by_month(month, year, username)
         logging.info(f' {request.url.path} - {status.HTTP_200_OK} - user: [{username}] ')
         return paginate(result)
@@ -72,12 +70,11 @@ async def get_transaction_by_month(request: Request,
             }
             )
 async def get_n_transactions(request: Request,
-                             token: Annotated[str, Depends(oauth2_bearer)],
                              mode: str = "last",
                              number: int = Query(gt=0)
                              ):
     try:
-        username = get_current_user(token)
+        username = request.state.username
         if mode == 'last':
             result = TransactionManager.get_last_n_transactions(username, number)
         elif mode == 'top':
@@ -121,10 +118,9 @@ async def get_n_transactions(request: Request,
             }
             )
 async def get_transaction_by_id(request: Request,
-                                token: Annotated[str, Depends(oauth2_bearer)],
                                 transaction_id: int = Path(gt=0)):
     try:
-        username = get_current_user(token)
+        username = request.state.username
         result = TransactionManager.get_transaction_by_id(transaction_id, username)
         logging.info(f' {request.url.path} - {status.HTTP_200_OK} - user: [{username}] ')
         return result

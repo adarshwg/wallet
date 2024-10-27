@@ -13,10 +13,7 @@ from tokens.tokens import get_current_user
 from utils.error_messages import ERROR_DETAILS
 
 
-router = APIRouter(
-    prefix="/wallet",
-    tags=['wallet']
-)
+router = APIRouter()
 
 
 def transaction_dictionary(transaction: Transaction, wallet: Wallet):
@@ -40,9 +37,9 @@ def create_wallet_from_username(username):
                 500: responses[500]
             }
             )
-async def show_user_wallet(request: Request, token: Annotated[str, Depends(oauth2_bearer)]):
+async def show_user_wallet(request: Request):
     try:
-        username = get_current_user(token)
+        username = request.state.username
         user_wallet = create_wallet_from_username(username)
         logging.info(f' {request.url.path} - {status.HTTP_200_OK} - user [{username}] ')
         return user_wallet
@@ -63,10 +60,9 @@ async def show_user_wallet(request: Request, token: Annotated[str, Depends(oauth
                 500: responses[500]
             }
             )
-async def get_wallet_balance(request: Request, token: Annotated[str, Depends(oauth2_bearer)]):
+async def get_wallet_balance(request: Request):
     try:
-        username = get_current_user(token)
-        print(username)
+        username = request.state.username
         if username is None:
             err = HTTPException(status_code=status.HTTP_401_UNAUTHORIZED,
                                 detail=ERROR_DETAILS[401]
@@ -102,12 +98,11 @@ async def get_wallet_balance(request: Request, token: Annotated[str, Depends(oau
              }
              )
 async def send_amount(request: Request,
-                      token: Annotated[str, Depends(oauth2_bearer)],
                       receiver: str, amount: int,
                       category: str = 'misc'
                       ):
     try:
-        username = get_current_user(token)
+        username = request.state.username
         user_wallet = create_wallet_from_username(username)
         if not Authentication.check_if_username_exists(receiver):
             err = HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail=ERROR_DETAILS['receiver_not_found'])

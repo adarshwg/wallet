@@ -14,7 +14,6 @@ from tokens.tokens import create_access_token
 from utils.error_messages import ERROR_DETAILS
 
 router = APIRouter(
-    prefix='/auth',
     tags=['auth']
 )
 
@@ -26,7 +25,7 @@ class Token(BaseModel):
 
 async def authenticate_user(username: str, password: str):
     try:
-        authorized = Authentication.login(username, password)
+        authorized = Authentication.login(username, password.encode('utf-8'))
     except UserNotFoundException:
         raise UserNotFoundException
     except InvalidPasswordException:
@@ -97,7 +96,7 @@ async def signup(request: Request, form_data: Annotated[OAuth2PasswordRequestFor
                  500: responses[500]
              }
              )
-def login(request: Request, form_data: Annotated[OAuth2PasswordRequestForm, Depends()]):
+async def login(request: Request, form_data: Annotated[OAuth2PasswordRequestForm, Depends()]):
     username = form_data.username
     password = form_data.password
     if not Authentication.check_username_and_password_format(username, password):
@@ -105,11 +104,11 @@ def login(request: Request, form_data: Annotated[OAuth2PasswordRequestForm, Depe
         logging.info(f' {request.url.path} - {str(err)} ')
         raise err
     try:
-        authenticate_user(username, password)
+        await authenticate_user(username, password)
         token = create_access_token(username, timedelta(minutes=20))
         logging.info(f' {request.url.path} - {status.HTTP_201_CREATED} - user : [{username}] logged in  ')
     except UserNotFoundException:
-        err = HTTPException(status_code=status.HTTP_401_BAD_REQUEST,
+        err = HTTPException(status_code=status.HTTP_400_BAD_REQUEST,
                             detail=ERROR_DETAILS[401])
         logging.error(f' {request.url.path} - {str(err)}')
         raise err
@@ -125,7 +124,8 @@ def login(request: Request, form_data: Annotated[OAuth2PasswordRequestForm, Depe
         err = HTTPException(status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
                             detail=ERROR_DETAILS[500]
                             )
-        logging.error(f' {request.url.path} - {str(err)} ')
+        logging.error(f' {request.url.path} - {str(err)}',stack_info=True,stacklevel=0)
+
         raise err
     except JWTError:
         err = HTTPException(status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,

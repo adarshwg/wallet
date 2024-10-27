@@ -1,9 +1,8 @@
 import sqlite3
-
 from business_layer.authentication import Authentication
 from business_layer.wallet import Wallet
 from utils.db import db_operations
-from utils.Exceptions import LowBalanceException, UserNotFoundException, InvalidPasswordException, WalletEmptyException,DatabaseException
+from utils.Exceptions import UserNotFoundException, InvalidPasswordException, WalletEmptyException,DatabaseException
 
 
 class User:
