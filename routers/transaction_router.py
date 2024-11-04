@@ -1,12 +1,10 @@
-from fastapi import APIRouter,HTTPException, Path, Depends, Request, Query
+from fastapi import APIRouter,HTTPException, Path, Request, Query
 from starlette import status
 from fastapi.security import OAuth2PasswordBearer
 from utils.Exceptions import *
 from business_layer.transaction_manager import TransactionManager
-from typing import Annotated
 from fastapi_pagination import Page, paginate
 from utils.error_codes import responses
-from tokens.tokens import get_current_user
 from utils.logger.logger import logging
 from datetime import datetime
 from utils.error_messages import ERROR_DETAILS

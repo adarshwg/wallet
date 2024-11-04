@@ -2,6 +2,7 @@ from fastapi import FastAPI
 from routers import auth_router, wallet_router, transaction_router
 from fastapi_pagination import add_pagination
 from middleware.auth_middleware import AuthMiddleware
+from fastapi.middleware.cors import CORSMiddleware
 
 app = FastAPI(
     title="Wallet Application",
@@ -14,6 +15,22 @@ app = FastAPI(
     version="1.0.0"
 )
 add_pagination(app)
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["http://127.0.0.1:5500"],
+    allow_methods=["GET", "POST"],
+    allow_headers=["*"]
+)
+
+
+@app.get('/', status_code=200)
+async def get_status():
+    return {
+        "status": 'up'
+    }
+
+
 app.add_middleware(AuthMiddleware)
 app.include_router(auth_router.router, prefix='/auth')
 app.include_router(wallet_router.router, prefix='/wallet')

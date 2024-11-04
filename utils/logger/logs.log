@@ -962,3 +962,91 @@ Stack (most recent call last):
 2024-10-27 17:32:35,212 - INFO -  /transactions/208 - 200 - user: [ad123]  
 2024-10-27 17:32:43,112 - INFO -  /wallet/send - 201 - user: [ad123] - amount: [100] - category:[pani] 
 2024-10-27 17:32:47,393 - INFO -  /transactions/209 - 200 - user: [ad123]  
+2024-10-27 19:50:52,352 - INFO -  /auth/login - 201 - user : [ad123] logged in   
+2024-10-27 19:50:55,528 - INFO -  /auth/signup - 201 - user: - [user54] - account created 
+2024-10-27 19:51:51,226 - INFO -  /auth/signup - 201 - user: - [user55] - account created 
+2024-10-28 07:41:06,580 - INFO -  /auth/login - 201 - user : [ad123] logged in   
+2024-10-28 07:41:09,041 - INFO -  /wallet/balance - 200 - user: [ad123]  
+2024-10-28 07:41:12,083 - INFO -  /wallet/ - 200 - user [ad123]  
+2024-10-28 07:41:14,190 - INFO -  /wallet/send - 201 - user: [ad123] - amount: [100] - category:[pani] 
+2024-10-28 07:41:18,567 - INFO -  /transactions/show - 200 - user: [ad123]  
+2024-10-28 07:41:21,220 - INFO -  /transactions/210 - 200 - user: [ad123]  
+2024-10-28 07:41:24,408 - INFO -  /transactions/show - 200 - user: [ad123]  
+2024-10-28 07:41:27,375 - INFO -  /transactions/210 - 200 - user: [ad123]  
+2024-10-28 07:41:28,861 - INFO -  /transactions/210 - 200 - user: [ad123]  
+2024-10-28 07:41:31,326 - INFO -  /transactions/month - 200 - user: [ad123]  
+2024-10-28 07:41:34,887 - INFO -  /wallet/send - 201 - user: [ad123] - amount: [100] - category:[pani] 
+2024-10-28 07:41:39,875 - INFO -  /transactions/211 - 200 - user: [ad123]  
+2024-10-28 07:41:42,423 - INFO -  /transactions/show - 200 - user: [ad123]  
+2024-11-03 13:11:51,537 - INFO -  /auth/login - 201 - user : [ad123] logged in   
+2024-11-03 13:11:54,833 - INFO -  /wallet/balance - 200 - user: [ad123]  
+2024-11-03 13:11:57,497 - INFO -  /wallet/ - 200 - user [ad123]  
+2024-11-03 13:12:00,376 - INFO -  /wallet/send - 201 - user: [ad123] - amount: [100] - category:[pani] 
+2024-11-03 13:12:04,229 - INFO -  /transactions/show - 200 - user: [ad123]  
+2024-11-03 13:12:07,052 - INFO -  /transactions/212 - 200 - user: [ad123]  
+2024-11-03 13:12:10,334 - INFO -  /transactions/month - 200 - user: [ad123]  
+2024-11-03 13:12:19,300 - INFO -  /wallet/send - 201 - user: [ad123] - amount: [100] - category:[pani] 
+2024-11-03 13:12:22,720 - INFO -  /transactions/213 - 200 - user: [ad123]  
+2024-11-03 13:12:23,934 - INFO -  /transactions/213 - 200 - user: [ad123]  
+2024-11-03 13:12:56,302 - INFO -  /wallet/send - 201 - user: [ad123] - amount: [100] - category:[pani] 
+2024-11-03 13:13:33,428 - INFO -  /wallet/send - 201 - user: [ad123] - amount: [100] - category:[pani] 
+2024-11-03 13:20:44,064 - INFO -  /wallet/send - 201 - user: [ad123] - amount: [100] - category:[pani] 
+2024-11-03 13:20:55,009 - INFO -  /wallet/send - 201 - user: [ad123] - amount: [100] - category:[pani] 
+2024-11-03 13:21:08,877 - INFO -  /wallet/send - 201 - user: [ad123] - amount: [100] - category:[pani] 
+2024-11-03 13:21:20,298 - INFO -  /wallet/send - 201 - user: [ad123] - amount: [100] - category:[pani] 
+2024-11-03 13:21:50,905 - INFO -  /transactions/219 - 200 - user: [ad123]  
+2024-11-03 13:22:06,426 - INFO -  /wallet/send - 201 - user: [ad123] - amount: [100] - category:[pani] 
+2024-11-03 13:22:12,971 - INFO -  /transactions/220 - 200 - user: [ad123]  
+2024-11-04 01:00:46,374 - INFO -  /auth/login - 201 - user : [ad123] logged in   
+2024-11-04 01:02:17,681 - INFO -  /auth/login - 201 - user : [ad123] logged in   
+2024-11-04 06:04:48,423 - INFO -  /auth/login - 201 - user : [ad123] logged in   
+2024-11-04 06:04:53,660 - INFO -  /wallet/balance - 200 - user: [ad123]  
+2024-11-04 06:05:23,369 - INFO -  /wallet/balance - 200 - user: [ad123]  
+2024-11-04 06:05:25,093 - INFO -  /wallet/balance - 200 - user: [ad123]  
+2024-11-04 06:05:30,923 - INFO -  /wallet/ - 200 - user [ad123]  
+2024-11-04 06:05:35,734 - INFO -  /wallet/send - 201 - user: [ad123] - amount: [100] - category:[pani] 
+2024-11-04 06:05:48,272 - INFO -  /wallet/send - 201 - user: [ad123] - amount: [100] - category:[pani] 
+2024-11-04 06:05:50,059 - INFO -  /wallet/send - 201 - user: [ad123] - amount: [100] - category:[pani] 
+2024-11-04 06:05:54,494 - INFO -  /wallet/ - 200 - user [ad123]  
+2024-11-04 06:06:24,006 - INFO -  /wallet/ - 200 - user [ad123]  
+2024-11-04 06:06:25,467 - INFO -  /wallet/ - 200 - user [ad123]  
+2024-11-04 06:06:47,117 - INFO -  /wallet/ - 200 - user [ad123]  
+2024-11-04 06:06:48,636 - INFO -  /wallet/ - 200 - user [ad123]  
+2024-11-04 06:06:53,418 - INFO -  /auth/login - 201 - user : [ad123] logged in   
+2024-11-04 06:06:58,196 - INFO -  /wallet/balance - 200 - user: [ad123]  
+2024-11-04 06:15:01,517 - INFO -  /wallet/balance - 200 - user: [ad123]  
+2024-11-04 06:15:02,921 - INFO -  /wallet/balance - 200 - user: [ad123]  
+2024-11-04 06:15:05,747 - INFO -  /wallet/ - 200 - user [ad123]  
+2024-11-04 06:15:11,745 - INFO -  /wallet/ - 200 - user [ad123]  
+2024-11-04 06:15:17,051 - INFO -  /wallet/ - 200 - user [ad123]  
+2024-11-04 06:15:20,254 - INFO -  /wallet/send - 201 - user: [ad123] - amount: [100] - category:[pani] 
+2024-11-04 06:15:28,070 - INFO -  /wallet/send - 201 - user: [ad123] - amount: [100] - category:[pani] 
+2024-11-04 06:15:32,514 - INFO -  /wallet/send - 201 - user: [ad123] - amount: [100] - category:[pani] 
+2024-11-04 06:19:19,232 - INFO -  /wallet/send - 201 - user: [ad123] - amount: [100] - category:[pani] 
+2024-11-04 09:32:33,260 - INFO -  /auth/login - 201 - user : [ad123] logged in   
+2024-11-04 09:32:35,708 - INFO -  /wallet/balance - 200 - user: [ad123]  
+2024-11-04 09:32:42,415 - INFO -  /wallet/ - 200 - user [ad123]  
+2024-11-04 09:32:46,063 - INFO -  /wallet/send - 201 - user: [ad123] - amount: [100] - category:[pani] 
+2024-11-04 09:33:48,963 - INFO -  /wallet/send - 201 - user: [ad123] - amount: [100] - category:[pani] 
+2024-11-04 09:33:52,025 - INFO -  /wallet/balance - 200 - user: [ad123]  
+2024-11-04 10:25:46,532 - INFO -  /auth/login - 201 - user : [ad123] logged in   
+2024-11-04 10:25:54,918 - INFO -  /wallet/balance - 200 - user: [ad123]  
+2024-11-04 10:26:08,151 - INFO -  /wallet/ - 200 - user [ad123]  
+2024-11-04 10:26:12,297 - INFO -  /wallet/send - 201 - user: [ad123] - amount: [100] - category:[pani] 
+2024-11-04 10:26:18,363 - INFO -  /transactions/show - 200 - user: [ad123]  
+2024-11-04 10:27:11,607 - INFO -  /transactions/show - 200 - user: [ad123]  
+2024-11-04 11:16:21,271 - INFO -  /auth/login - 201 - user : [ad123] logged in   
+2024-11-04 11:16:30,172 - INFO -  /auth/signup - 201 - user: - [user56] - account created 
+2024-11-04 11:16:36,153 - INFO -  /wallet/balance - 200 - user: [user56]  
+2024-11-04 11:16:39,110 - INFO -  /auth/login - 201 - user : [ad123] logged in   
+2024-11-04 14:07:17,738 - INFO -  /auth/signup - 403: Invalid username or password format 
+2024-11-04 14:07:38,732 - INFO -  /auth/login - 201 - user : [ad123] logged in   
+2024-11-04 14:07:42,533 - INFO -  /auth/signup - 201 - user: - [user59] - account created 
+2024-11-04 14:07:45,052 - INFO -  /wallet/balance - 200 - user: [user59]  
+2024-11-04 14:07:47,899 - INFO -  /wallet/ - 200 - user [user59]  
+2024-11-04 14:07:50,346 - INFO -  /auth/login - 201 - user : [ad123] logged in   
+2024-11-04 14:07:52,066 - INFO -  /wallet/send - 201 - user: [ad123] - amount: [100] - category:[pani] 
+2024-11-04 14:10:51,074 - INFO -  /auth/login - 201 - user : [ad123] logged in   
+2024-11-04 14:10:54,149 - INFO -  /wallet/ - 200 - user [ad123]  
+2024-11-04 14:10:56,194 - INFO -  /wallet/send - 201 - user: [ad123] - amount: [100] - category:[pani] 
+2024-11-04 14:10:59,249 - INFO -  /transactions/232 - 200 - user: [ad123]  

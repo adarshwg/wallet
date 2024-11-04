@@ -1,6 +1,5 @@
-from fastapi import HTTPException, APIRouter, Depends, Request
+from fastapi import HTTPException, APIRouter, Request
 from starlette import status
-from typing import Annotated
 from business_layer.wallet import Wallet
 from utils.Exceptions import SelfTransferException, WalletEmptyException, LowBalanceException, InvalidAmountException, \
     DatabaseException
@@ -8,12 +7,10 @@ from utils.error_codes import responses
 from utils.logger.logger import logging
 from business_layer.authentication import Authentication
 from business_layer.transaction import Transaction
-from tokens.tokens import oauth2_bearer
-from tokens.tokens import get_current_user
 from utils.error_messages import ERROR_DETAILS
 
 
-router = APIRouter()
+router = APIRouter(tags=['wallet'])
 
 
 def transaction_dictionary(transaction: Transaction, wallet: Wallet):
