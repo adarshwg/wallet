@@ -14,22 +14,16 @@ app = FastAPI(
                 "and provide them an overview of their transactions.",
     version="1.0.0"
 )
+#adding pagination to the fastapi app.
 add_pagination(app)
 
+#cross origin resource sharing
 app.add_middleware(
     CORSMiddleware,
     allow_origins=["http://127.0.0.1:5500"],
     allow_methods=["GET", "POST"],
     allow_headers=["*"]
 )
-
-
-@app.get('/', status_code=200)
-async def get_status():
-    return {
-        "status": 'up'
-    }
-
 
 app.add_middleware(AuthMiddleware)
 app.include_router(auth_router.router, prefix='/auth')
