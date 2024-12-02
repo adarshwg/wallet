@@ -7,6 +7,10 @@ def create_all_tables():
     create_table_wallets()
 
 
+def add_column():
+    cursor.execute("""alter table user add column mudra_pin integer""")
+    conn.commit()
+
 def create_table_transactions():
     cursor.execute(""" create table if not exists transactions 
     (
@@ -35,8 +39,8 @@ def create_table_user():
                    '('
                    'username text not null,'
                    'password text not null,'
-                    'email text not null,'
-                    'mudra_pin integer not null'
-                   ')'                   
+                   'email text not null,'
+                   'mudra_pin integer not null'
+                   ')'
                    )
     conn.commit()

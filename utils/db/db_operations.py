@@ -15,7 +15,7 @@ def check_if_user_email_exists(email_id):
 
 
 def get_user_mudra_pin(email_id):
-    cursor.execute('select mudra_pin from user where email_id=?', (email_id,))
+    cursor.execute('select mudra_pin from user where email =?', (email_id,))
     conn.commit()
     res = cursor.fetchall()
     if res:
@@ -45,7 +45,7 @@ def update_user_mudra_pin(username, new_mudra_pin):
 
 
 def get_user_email_id(username):
-    cursor.execute('select email_id from user where username=?', (username,))
+    cursor.execute('select email from user where username=?', (username,))
     conn.commit()
     res = cursor.fetchall()
     if res:
@@ -65,6 +65,7 @@ def create_user(username, password, email_id, mudra_pin):
         return
     cursor.execute('insert into user values (?,?,?,?)', (username, password, email_id, mudra_pin))
     conn.commit()
+    create_user_wallet(username)
 
 
 def get_hashed_user_password(username):

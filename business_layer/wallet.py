@@ -30,13 +30,18 @@ class Wallet(TransactionManager):
         except Exception:
             raise DatabaseException
 
-    def send_amount(self, receiver, amount, category='misc'):
+    def send_amount(self, receiver, amount, entered_mudra_pin, category='misc'):
+        user_mudra_pin = db_operations.get_user_mudra_pin(db_operations.get_user_email_id(self.username))
         if self.username == receiver:
             raise SelfTransferException('Cannot transfer to the same account wallet! ')
         if self.get_balance() <= 0:
             raise WalletEmptyException('User wallet is empty!!')
         elif self.get_balance() < amount:
             raise LowBalanceException('Your wallet balance is low for the transaction!')
+        elif user_mudra_pin != entered_mudra_pin:
+            #todo
+            raise Exception
+
         if amount <= 0:
             raise InvalidAmountException
         self.current_balance -= amount

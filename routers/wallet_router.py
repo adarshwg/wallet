@@ -9,8 +9,15 @@ from business_layer.authentication import Authentication
 from business_layer.transaction import Transaction
 from utils.error_messages import ERROR_DETAILS
 
-
 router = APIRouter(tags=['wallet'])
+from pydantic import BaseModel
+
+
+class SendAmountRequest(BaseModel):
+    receiver: str
+    amount: int
+    mudra_pin: int
+    category: str = 'misc'
 
 
 def transaction_dictionary(transaction: Transaction, wallet: Wallet):
@@ -84,62 +91,71 @@ async def get_wallet_balance(request: Request):
         logging.error(f' {request.url.path} - {str(err)} ')
         raise err
 
-
-@router.post("/send",
-             status_code=status.HTTP_201_CREATED,
-             responses={
-                 400: responses[400],
-                 401: responses[401],
-                 403: responses[404],
-                 500: responses[500]
-             }
-             )
-async def send_amount(request: Request,
-                      receiver: str, amount: int,
-                      category: str = 'misc'
-                      ):
+@router.post(
+    "/send",
+    status_code=status.HTTP_201_CREATED,
+    responses={
+        400: responses[400],
+        401: responses[401],
+        403: responses[404],
+        500: responses[500],
+    },
+)
+async def send_amount(
+    request: Request,
+    send_request: SendAmountRequest
+):
     try:
         username = request.state.username
+        print(send_request)
+        # Extract data from the request model
+        receiver = send_request.receiver
+        amount = send_request.amount
+        entered_mudra_pin = send_request.mudra_pin
+        category = send_request.category
+
         user_wallet = create_wallet_from_username(username)
-        if not Authentication.check_if_username_exists(receiver):
+
+        # Check if the receiver exists
+        if not Authentication.check_if_user_exists(receiver):
             err = HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail=ERROR_DETAILS['receiver_not_found'])
             logging.info(f' {request.url.path} - {str(err)} ')
             raise err
+
         receiver_wallet = create_wallet_from_username(receiver)
-        new_transaction = user_wallet.send_amount(receiver, amount, category)
+        new_transaction = user_wallet.send_amount(receiver, amount, entered_mudra_pin, category)
         receiver_wallet.receive_amount(username, amount)
+
         logging.info(f' {request.url.path} - {status.HTTP_201_CREATED} - user: [{username}] '
                      f'- amount: [{amount}] - category:[{category}]')
         return transaction_dictionary(new_transaction, user_wallet)
+
     except SelfTransferException:
-        err = HTTPException(status_code=status.HTTP_403_FORBIDDEN,
-                            detail=ERROR_DETAILS['self_transfer'])
+        err = HTTPException(status_code=status.HTTP_403_FORBIDDEN, detail=ERROR_DETAILS['self_transfer'])
         logging.info(f' {request.url.path} - {str(err)} ')
         raise err
 
     except WalletEmptyException:
-        err = HTTPException(status_code=status.HTTP_403_FORBIDDEN,
-                            detail=ERROR_DETAILS['wallet_empty']
-                            )
+        err = HTTPException(status_code=status.HTTP_403_FORBIDDEN, detail=ERROR_DETAILS['wallet_empty'])
         logging.info(f' {request.url.path} - {str(err)}')
         raise err
+
     except LowBalanceException:
-        err = HTTPException(status_code=status.HTTP_403_FORBIDDEN,
-                            detail=ERROR_DETAILS['low_user_balance'])
+        err = HTTPException(status_code=status.HTTP_403_FORBIDDEN, detail=ERROR_DETAILS['low_user_balance'])
         logging.info(f' {request.url.path} - {str(err)} ')
         raise err
+
     except InvalidAmountException:
-        err = HTTPException(status_code=status.HTTP_400_BAD_REQUEST,
-                            detail=ERROR_DETAILS['invalid_amount']
-                            )
+        err = HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail=ERROR_DETAILS['invalid_amount'])
         logging.info(f' {request.url.path} - {str(err)}')
         raise err
+
     except HTTPException as err:
         logging.info(f' {request.url.path} - {str(err)} ')
         raise err
+
     except DatabaseException:
-        err = HTTPException(status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
-                            detail=ERROR_DETAILS[500]
-                            )
+        err = HTTPException(status_code=status.HTTP_500_INTERNAL_SERVER_ERROR, detail=ERROR_DETAILS[500])
         logging.error(f' {request.url.path} - {str(err)} ')
         raise err
+

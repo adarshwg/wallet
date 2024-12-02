@@ -23,15 +23,9 @@ class Token(BaseModel):
     token_type: str
 
 
-async def authenticate_user(username: str, password: str):
-    """
-    Authenticates the user using the business layer's authentication mechanism
-    :param username: the unique username with which the user wants to sign in.
-    :param password: the password for that username
-    :return: None
-    """
+async def authenticate_user(username: str, password: str, mudra_pin: int):
     try:
-        authorized = Authentication.login(username, password.encode('utf-8'))
+        authorized = Authentication.login(username, password, mudra_pin)
     except UserNotFoundException:
         raise UserNotFoundException
     except InvalidPasswordException:
@@ -40,7 +34,7 @@ async def authenticate_user(username: str, password: str):
         raise DatabaseException(ERROR_DETAILS[500])
     if authorized:
         try:
-            user = User(username, password)
+            user = User(username)
         except DatabaseException:
             raise DatabaseException(ERROR_DETAILS[500])
         return user
@@ -60,30 +54,24 @@ async def authenticate_user(username: str, password: str):
              }
              )
 async def signup(request: Request, form_data: Annotated[OAuth2PasswordRequestForm, Depends()]):
-    """
-    This function is used to make the user sign up to the wallet application,
-    creates the user object, and simultaneously inserts the user details into the database.
-    :param request:
-    :param form_data:
-    :return:
-    """
     username = form_data.username
     password = form_data.password
+    mudra_pin = int(form_data.client_secret)
+    email_id = form_data.client_id
     if not Authentication.check_username_and_password_format(username, password):
         err = HTTPException(status_code=status.HTTP_403_FORBIDDEN,
                             detail=ERROR_DETAILS['invalid_credentials_format'])
         logging.info(f' {request.url.path} - {str(err)}')
         raise err
     try:
-        if Authentication.check_if_username_exists(username):
+        if Authentication.check_if_user_exists(username):
             err = HTTPException(status_code=status.HTTP_409_CONFLICT,
                                 detail=ERROR_DETAILS[409]
                                 )
             logging.info(f' {request.url.path} - {str(err)}')
             raise err
-        #todo here the user object is being created here which is wrong, for signup.
-        user = User(username, password)
-        token = create_access_token(user.username, timedelta(minutes=20))
+        Authentication.signup(username, password, email_id, mudra_pin)
+        token = create_access_token(username, timedelta(minutes=20))
         logging.info(f' {request.url.path} - {status.HTTP_201_CREATED} - user: - [{username}] - account created')
     except JWTError:
         err = HTTPException(status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
@@ -113,12 +101,15 @@ async def signup(request: Request, form_data: Annotated[OAuth2PasswordRequestFor
 async def login(request: Request, form_data: Annotated[OAuth2PasswordRequestForm, Depends()]):
     username = form_data.username
     password = form_data.password
+    mudra_pin = int(form_data.client_secret)
     if not Authentication.check_username_and_password_format(username, password):
         err = HTTPException(status_code=status.HTTP_403_FORBIDDEN, detail=ERROR_DETAILS['invalid_credentials_format'])
         logging.info(f' {request.url.path} - {str(err)} ')
         raise err
     try:
-        await authenticate_user(username, password)
+        print(111)
+        await authenticate_user(username, password, mudra_pin)
+
         token = create_access_token(username, timedelta(minutes=20))
         logging.info(f' {request.url.path} - {status.HTTP_201_CREATED} - user : [{username}] logged in  ')
     except UserNotFoundException:
@@ -138,7 +129,7 @@ async def login(request: Request, form_data: Annotated[OAuth2PasswordRequestForm
         err = HTTPException(status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
                             detail=ERROR_DETAILS[500]
                             )
-        logging.error(f' {request.url.path} - {str(err)}',stack_info=True,stacklevel=0)
+        logging.error(f' {request.url.path} - {str(err)}', stack_info=True, stacklevel=0)
 
         raise err
     except JWTError:

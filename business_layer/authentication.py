@@ -43,18 +43,19 @@ class Authentication:
             user_password = db_operations.get_hashed_user_password(username)
         except Exception:
             raise DatabaseException
-        result = bcrypt.checkpw(entered_password, user_password)
+        result = bcrypt.checkpw(entered_password.encode('utf-8'), user_password)
+        print(result, 'is the res')
         return result
 
     @staticmethod
     def match_mudra_pin(username, entered_mudra_pin):
-        try:
+        # try:
             email_id = db_operations.get_user_email_id(username)
             user_mudra_pin = db_operations.get_user_mudra_pin(email_id)
             return user_mudra_pin == entered_mudra_pin
-        except Exception as err:
-            #todo
-            raise err
+        # except Exception as err:
+        #     #todo
+        #     raise err
 
     @staticmethod
     def login(username, entered_password, entered_mudra_pin):
@@ -70,6 +71,9 @@ class Authentication:
                         and Authentication.match_mudra_pin(username, entered_mudra_pin):
                     return 1
                 else:
+                    print(entered_password)
+                    print(Authentication.match_password(username, entered_password))
+                    print(Authentication.match_mudra_pin(username, entered_mudra_pin))
                     raise InvalidPasswordException('Invalid password entered !')
             except DatabaseException:
                 raise DatabaseException

@@ -1053,3 +1053,26 @@ Stack (most recent call last):
 2024-11-04 15:45:34,270 - INFO -  /auth/login - 201 - user : [ad123] logged in   
 2024-11-04 15:50:08,905 - INFO -  /wallet/send - 201 - user: [ad123] - amount: [100] - category:[pani] 
 2024-11-04 15:50:26,550 - INFO -  /transactions/233 - 200 - user: [ad123]  
+2024-12-02 16:51:06,432 - INFO -  /auth/login - 401: Could not validate the credentials   
+2024-12-02 16:52:16,437 - INFO -  /auth/login - 401: Could not validate the credentials   
+2024-12-02 16:53:12,629 - INFO -  /auth/login - 401: Could not validate the credentials   
+2024-12-02 16:53:28,137 - INFO -  /auth/login - 401: Could not validate the credentials   
+2024-12-02 16:54:09,119 - INFO -  /auth/login - 401: Could not validate the credentials   
+2024-12-02 16:54:31,257 - INFO -  /auth/login - 401: Could not validate the credentials   
+2024-12-02 16:55:22,183 - INFO -  /auth/login - 401: Could not validate the credentials   
+2024-12-02 16:55:41,146 - INFO -  /auth/login - 401: Could not validate the credentials   
+2024-12-02 16:56:32,296 - INFO -  /auth/login - 401: Could not validate the credentials   
+2024-12-02 16:56:47,145 - INFO -  /auth/login - 401: Could not validate the credentials   
+2024-12-02 16:59:05,306 - INFO -  /auth/login - 401: Could not validate the credentials   
+2024-12-02 16:59:25,351 - INFO -  /auth/login - 401: Could not validate the credentials   
+2024-12-02 17:00:10,786 - INFO -  /auth/login - 401: Could not validate the credentials   
+2024-12-02 17:00:44,707 - INFO -  /auth/login - 201 - user : [ad123] logged in   
+2024-12-02 17:03:00,075 - INFO -  /auth/signup - 201 - user: - [user60] - account created 
+2024-12-02 17:03:27,756 - INFO -  /auth/signup - 201 - user: - [user61] - account created 
+2024-12-03 01:16:35,125 - INFO -  /auth/signup - 201 - user: - [user62] - account created 
+2024-12-03 01:18:10,968 - INFO -  /auth/login - 201 - user : [ad123] logged in   
+2024-12-03 01:18:26,199 - INFO -  /wallet/balance - 200 - user: [ad123]  
+2024-12-03 01:18:37,118 - INFO -  /wallet/ - 200 - user [ad123]  
+2024-12-03 01:39:11,106 - INFO -  /auth/login - 201 - user : [ad123] logged in   
+2024-12-03 01:39:15,369 - INFO -  /wallet/ - 200 - user [ad123]  
+2024-12-03 01:39:57,114 - INFO -  /auth/login - 201 - user : [ad123] logged in   

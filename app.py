@@ -1,10 +1,11 @@
 from business_layer.user import User
 from business_layer.authentication import Authentication
-from utils.db.create_tables import create_all_tables
+from utils.db.create_tables import create_all_tables, add_column
 from utils import input_handler
 # import getpass
 from datetime import datetime
 from utils.db.connection import conn
+from business_layer.wallet import Wallet
 
 auth_message = """
 Choose an option :
@@ -27,7 +28,6 @@ Choose an option :
 """
 
 create_all_tables()
-
 
 # def get_transaction_by_id(transaction_id, new_user):
 #     result = new_user.wallet.get_transaction_by_id(transaction_id, new_user.username)
@@ -259,3 +259,6 @@ create_all_tables()
 #         call_value = caller_function()
 #         if call_value == 1:
 #             break
+
+ad = Wallet('ad123')
+ad.send_amount('dv123',1000,100100)
