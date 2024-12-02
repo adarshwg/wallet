@@ -1,6 +1,8 @@
 class UserNotFoundException(Exception):
     pass
 
+class UserAlreadyExistsException(Exception):
+    pass
 
 class WalletEmptyException(Exception):
     pass

@@ -1050,3 +1050,6 @@ Stack (most recent call last):
 2024-11-04 14:10:54,149 - INFO -  /wallet/ - 200 - user [ad123]  
 2024-11-04 14:10:56,194 - INFO -  /wallet/send - 201 - user: [ad123] - amount: [100] - category:[pani] 
 2024-11-04 14:10:59,249 - INFO -  /transactions/232 - 200 - user: [ad123]  
+2024-11-04 15:45:34,270 - INFO -  /auth/login - 201 - user : [ad123] logged in   
+2024-11-04 15:50:08,905 - INFO -  /wallet/send - 201 - user: [ad123] - amount: [100] - category:[pani] 
+2024-11-04 15:50:26,550 - INFO -  /transactions/233 - 200 - user: [ad123]  

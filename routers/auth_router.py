@@ -24,6 +24,12 @@ class Token(BaseModel):
 
 
 async def authenticate_user(username: str, password: str):
+    """
+    Authenticates the user using the business layer's authentication mechanism
+    :param username: the unique username with which the user wants to sign in.
+    :param password: the password for that username
+    :return: None
+    """
     try:
         authorized = Authentication.login(username, password.encode('utf-8'))
     except UserNotFoundException:
@@ -54,6 +60,13 @@ async def authenticate_user(username: str, password: str):
              }
              )
 async def signup(request: Request, form_data: Annotated[OAuth2PasswordRequestForm, Depends()]):
+    """
+    This function is used to make the user sign up to the wallet application,
+    creates the user object, and simultaneously inserts the user details into the database.
+    :param request:
+    :param form_data:
+    :return:
+    """
     username = form_data.username
     password = form_data.password
     if not Authentication.check_username_and_password_format(username, password):
@@ -68,6 +81,7 @@ async def signup(request: Request, form_data: Annotated[OAuth2PasswordRequestFor
                                 )
             logging.info(f' {request.url.path} - {str(err)}')
             raise err
+        #todo here the user object is being created here which is wrong, for signup.
         user = User(username, password)
         token = create_access_token(user.username, timedelta(minutes=20))
         logging.info(f' {request.url.path} - {status.HTTP_201_CREATED} - user: - [{username}] - account created')

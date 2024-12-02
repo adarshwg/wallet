@@ -8,10 +8,62 @@ def check_if_user_exists(username):
     return cursor.fetchall() != []
 
 
-def create_user(username, password):
-    if check_if_user_exists(username):
+def check_if_user_email_exists(email_id):
+    cursor.execute('select * from user where email = ?', (email_id,))
+    conn.commit()
+    return cursor.fetchall() != []
+
+
+def get_user_mudra_pin(email_id):
+    cursor.execute('select mudra_pin from user where email_id=?', (email_id,))
+    conn.commit()
+    res = cursor.fetchall()
+    if res:
+        return res[0][0]
+    else:
+        #todo
+        raise Exception()
+
+
+def get_username_from_email_id(email_id):
+    cursor.execute('select username from user where email = ?', (email_id,))
+    conn.commit()
+    res = cursor.fetchall()
+    if res:
+        return res[0][0]
+    else:
+        #todo
+        raise Exception()
+
+
+def update_user_mudra_pin(username, new_mudra_pin):
+    if new_mudra_pin < 100000 or new_mudra_pin > 999999:
+        #todo
+        raise Exception()
+    cursor.execute('update user set mudra_pin = ? where username = ?', (new_mudra_pin, username))
+    conn.commit()
+
+
+def get_user_email_id(username):
+    cursor.execute('select email_id from user where username=?', (username,))
+    conn.commit()
+    res = cursor.fetchall()
+    if res:
+        return res[0][0]
+    else:
+        #todo
+        raise Exception()
+
+
+def update_user_email_id(new_email_id):
+    cursor.execute('update user set email_id = ? where email_id = ?', (new_email_id,))
+    conn.commit()
+
+
+def create_user(username, password, email_id, mudra_pin):
+    if check_if_user_exists(username) or check_if_user_email_exists(email_id):
         return
-    cursor.execute('insert into user values (?,?)', (username, password))
+    cursor.execute('insert into user values (?,?,?,?)', (username, password, email_id, mudra_pin))
     conn.commit()
 
 

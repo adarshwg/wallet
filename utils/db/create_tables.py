@@ -32,7 +32,11 @@ def create_table_wallets():
 
 def create_table_user():
     cursor.execute('create table if not exists user  '
-                   '(username text not null,'
-                   'password text not null)'
+                   '('
+                   'username text not null,'
+                   'password text not null,'
+                    'email text not null,'
+                    'mudra_pin integer not null'
+                   ')'                   
                    )
     conn.commit()

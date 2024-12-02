@@ -1,7 +1,8 @@
 from utils.db import db_operations
 import bcrypt
 import re
-from utils.Exceptions import UserNotFoundException, InvalidPasswordException, DatabaseException
+from utils.Exceptions import UserAlreadyExistsException, UserNotFoundException, InvalidPasswordException, \
+    DatabaseException
 
 
 class Authentication:
@@ -46,16 +47,27 @@ class Authentication:
         return result
 
     @staticmethod
-    def login(username, entered_password):
+    def match_mudra_pin(username, entered_mudra_pin):
+        try:
+            email_id = db_operations.get_user_email_id(username)
+            user_mudra_pin = db_operations.get_user_mudra_pin(email_id)
+            return user_mudra_pin == entered_mudra_pin
+        except Exception as err:
+            #todo
+            raise err
+
+    @staticmethod
+    def login(username, entered_password, entered_mudra_pin):
         try:
             user_exists = db_operations.check_if_user_exists(username)
-        except Exception :
+        except Exception:
             raise DatabaseException
         if not user_exists:
             raise UserNotFoundException('User not found !!')
         else:
             try:
-                if Authentication.match_password(username, entered_password):
+                if Authentication.match_password(username, entered_password) \
+                        and Authentication.match_mudra_pin(username, entered_mudra_pin):
                     return 1
                 else:
                     raise InvalidPasswordException('Invalid password entered !')
@@ -63,7 +75,33 @@ class Authentication:
                 raise DatabaseException
 
     @staticmethod
-    def check_if_username_exists(username):
+    def signup(entered_username, entered_password, entered_email, mudra_pin):
+        try:
+            user_exists = Authentication.check_if_user_exists(entered_username)
+            email_exists = Authentication.check_if_user_email_exists(entered_email)
+            hashed_password = Authentication.hash_password(entered_password)
+        except Exception:
+            raise DatabaseException
+        if user_exists:
+            raise UserAlreadyExistsException
+        elif email_exists:
+            #todo
+            raise Exception
+        else:
+            try:
+                db_operations.create_user(entered_username, hashed_password, entered_email, mudra_pin)
+            except Exception:
+                raise DatabaseException
+
+    @staticmethod
+    def check_if_user_email_exists(email_id):
+        try:
+            return db_operations.check_if_user_email_exists(email_id)
+        except Exception:
+            raise DatabaseException
+
+    @staticmethod
+    def check_if_user_exists(username):
         try:
             return db_operations.check_if_user_exists(username)
         except Exception:

@@ -17,7 +17,7 @@ app = FastAPI(
 #adding pagination to the fastapi app.
 add_pagination(app)
 
-#cross origin resource sharing
+#cross-origin resource sharing
 app.add_middleware(
     CORSMiddleware,
     allow_origins=["http://127.0.0.1:5500"],
