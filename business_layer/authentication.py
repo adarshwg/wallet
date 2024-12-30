@@ -2,7 +2,7 @@ from utils.db import db_operations
 import bcrypt
 import re
 from utils.Exceptions import UserAlreadyExistsException, UserNotFoundException, InvalidPasswordException, \
-    DatabaseException
+    DatabaseException, InvalidMudraPinException
 
 
 class Authentication:
@@ -15,6 +15,14 @@ class Authentication:
         salt = bcrypt.gensalt()
         hashed_pass = bcrypt.hashpw(byte_arr, salt)
         return hashed_pass
+
+    @staticmethod
+    def check_mudra_pin_format(mudra_pin):
+        if not isinstance(mudra_pin,int)\
+                or mudra_pin>999999\
+                or mudra_pin<100000:
+            return False
+        return True
 
     @staticmethod
     def check_username_format(username):
@@ -49,13 +57,9 @@ class Authentication:
 
     @staticmethod
     def match_mudra_pin(username, entered_mudra_pin):
-        # try:
-            email_id = db_operations.get_user_email_id(username)
-            user_mudra_pin = db_operations.get_user_mudra_pin(email_id)
-            return user_mudra_pin == entered_mudra_pin
-        # except Exception as err:
-        #     #todo
-        #     raise err
+        email_id = db_operations.get_user_email_id(username)
+        user_mudra_pin = db_operations.get_user_mudra_pin(email_id)
+        return user_mudra_pin == entered_mudra_pin
 
     @staticmethod
     def login(username, entered_password, entered_mudra_pin):

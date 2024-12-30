@@ -7,6 +7,7 @@ from utils.Exceptions import NoRecordsException, DatabaseException
 
 class Transaction:
     def __init__(self, amount, sender, receiver, category='misc', ):
+
         self.transaction_id = db_operations.get_current_transaction_id()
         self.amount = amount
         self.sender = sender
@@ -16,8 +17,12 @@ class Transaction:
         self.day = current_datetime.day
         self.month = current_datetime.month
         self.year = current_datetime.year
+        self.hours = datetime.now().time().hour
+        self.minutes = datetime.now().time().minute
+
         try:
-            db_operations.insert(amount, sender, receiver, self.month, self.year, category)
+            db_operations.create_transaction(amount, sender, receiver, self.hours, self.minutes, self.day, self.month,
+                                             self.year, category)
         except Exception:
             raise DatabaseException
 

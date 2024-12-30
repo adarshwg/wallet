@@ -2,6 +2,7 @@ ERROR_DETAILS = {
     401: 'Could not validate the credentials',
     409: 'Username already exists',
     500: 'Internal Server Error',
+    404: 'Requested resource could not be found',
     'wallet_empty': 'User wallet is empty!',
     'low_user_balance': 'User wallet balance is low for the transaction',
     'invalid_amount': 'Invalid amount entered! Please enter positive amount',

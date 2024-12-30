@@ -1,7 +1,8 @@
 from business_layer.transaction_manager import TransactionManager
+from business_layer.authentication import Authentication
 from utils.db import db_operations
 from utils.Exceptions import (WalletEmptyException, SelfTransferException, LowBalanceException,
-                              InvalidAmountException, DatabaseException)
+                              InvalidAmountException, DatabaseException,InvalidMudraPinException)
 
 
 class Wallet(TransactionManager):
@@ -31,16 +32,14 @@ class Wallet(TransactionManager):
             raise DatabaseException
 
     def send_amount(self, receiver, amount, entered_mudra_pin, category='misc'):
-        user_mudra_pin = db_operations.get_user_mudra_pin(db_operations.get_user_email_id(self.username))
+        if not Authentication.match_mudra_pin(self.username, entered_mudra_pin):
+            raise InvalidMudraPinException
         if self.username == receiver:
             raise SelfTransferException('Cannot transfer to the same account wallet! ')
         if self.get_balance() <= 0:
             raise WalletEmptyException('User wallet is empty!!')
         elif self.get_balance() < amount:
             raise LowBalanceException('Your wallet balance is low for the transaction!')
-        elif user_mudra_pin != entered_mudra_pin:
-            #todo
-            raise Exception
 
         if amount <= 0:
             raise InvalidAmountException

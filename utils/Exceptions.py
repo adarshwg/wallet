@@ -1,6 +1,9 @@
 class UserNotFoundException(Exception):
     pass
 
+class InvalidMudraPinException(Exception):
+    pass
+
 class UserAlreadyExistsException(Exception):
     pass
 

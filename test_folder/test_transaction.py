@@ -23,3 +23,6 @@ class TestTransaction(unittest.TestCase):
         result = transaction.Transaction.get_transaction_by_id(1, 'aman')
         assert result == [(1, 1000, 'aman', 'ad123', 8, 2024, 'misc')]
         mocked_get_transaction_by_id.assert_called_once_with(1, 'aman')
+
+    def test_method(self):
+        return 1

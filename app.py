@@ -1,12 +1,14 @@
 from business_layer.user import User
 from business_layer.authentication import Authentication
-from utils.db.create_tables import create_all_tables, add_column
+from utils.db.create_tables import create_all_tables
 from utils import input_handler
 # import getpass
+from utils.db.db_operations import get_all_transactions_for_contact
 from datetime import datetime
 from utils.db.connection import conn
+from business_layer.transaction_manager import TransactionManager
 from business_layer.wallet import Wallet
-
+from utils.db import db_operations
 auth_message = """
 Choose an option :
 1. Login to account
@@ -260,5 +262,5 @@ create_all_tables()
 #         if call_value == 1:
 #             break
 
-ad = Wallet('ad123')
-ad.send_amount('dv123',1000,100100)
+
+print(TransactionManager.get_all_transactions_for_contact('ad123','dv123'))

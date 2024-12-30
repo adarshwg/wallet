@@ -44,6 +44,12 @@ def update_user_mudra_pin(username, new_mudra_pin):
     conn.commit()
 
 
+def update_user_password(username, new_password):
+    cursor.execute('update user set password = ? where username = ?', (new_password, username))
+    conn.commit()
+    print('password changing was done here.............')
+
+
 def get_user_email_id(username):
     cursor.execute('select email from user where username=?', (username,))
     conn.commit()
@@ -56,7 +62,7 @@ def get_user_email_id(username):
 
 
 def update_user_email_id(new_email_id):
-    cursor.execute('update user set email_id = ? where email_id = ?', (new_email_id,))
+    cursor.execute('update user set email = ? where email = ?', (new_email_id,))
     conn.commit()
 
 
@@ -108,11 +114,12 @@ def update_user_wallet_balance(username: str, amount: int):
     conn.commit()
 
 
-def insert(amount: int, receiver: str, sender: str, month: int, year: int, category: str = 'misc') -> None:
+def create_transaction(amount: int, sender: str, receiver: str, hours: int, minutes: int, day: int, month: int,
+                       year: int, category: str = 'misc') -> None:
     if not category:
         category = 'misc'
-    cursor.execute('insert into transactions values (null,?,?,?,?,?,?)',
-                   (amount, receiver, sender, month, year, category))
+    cursor.execute('insert into transactions values (null,?,?,?,?,?,?,?,?,?)',
+                   (amount, receiver, sender, month, year, category, day, hours, minutes))
     conn.commit()
 
 
@@ -145,5 +152,19 @@ def get_last_n_transactions(username, requested_transactions=10):
 def get_transaction_by_month(month, year, username):
     cursor.execute('select * from transactions where month=? and year=? and (sender=? or receiver = ?)',
                    (month, year, username, username))
+    res = cursor.fetchall()
+    return res
+
+
+def get_top_ten_recent_contacts(username):
+    cursor.execute('select distinct receiver from transactions where (sender=?) order by id desc limit 10',
+                   (username,))
+    res = cursor.fetchall()
+    return res
+
+
+def get_all_transactions_for_contact(username, contact):
+    cursor.execute('select * from transactions where (sender=? and receiver=?) or (sender=? and receiver=?)',
+                   (username, contact, contact, username))
     res = cursor.fetchall()
     return res

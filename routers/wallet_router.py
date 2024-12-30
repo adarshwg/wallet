@@ -8,9 +8,9 @@ from utils.logger.logger import logging
 from business_layer.authentication import Authentication
 from business_layer.transaction import Transaction
 from utils.error_messages import ERROR_DETAILS
+from pydantic import BaseModel
 
 router = APIRouter(tags=['wallet'])
-from pydantic import BaseModel
 
 
 class SendAmountRequest(BaseModel):
@@ -22,12 +22,13 @@ class SendAmountRequest(BaseModel):
 
 def transaction_dictionary(transaction: Transaction, wallet: Wallet):
     return {
-        "Amount Sent ": transaction.amount,
-        "Receiver ": transaction.receiver,
-        "Date ": f'{transaction.day}/{transaction.month}/{transaction.year}',
-        "Category ": transaction.category,
-        "Transaction ID ": transaction.transaction_id,
-        "Remaining Balance ": wallet.get_balance()
+        "amountSent": transaction.amount,
+        "receiver": transaction.receiver,
+        "date": f'{transaction.day}/{transaction.month}/{transaction.year}',
+        "time": f'{transaction.hours} : {transaction.minutes}',
+        "category": transaction.category,
+        "transactionId": transaction.transaction_id,
+        "remainingBalance": wallet.get_balance()
     }
 
 
@@ -92,7 +93,7 @@ async def get_wallet_balance(request: Request):
         raise err
 
 @router.post(
-    "/send",
+    "/payment",
     status_code=status.HTTP_201_CREATED,
     responses={
         400: responses[400],
@@ -121,6 +122,7 @@ async def send_amount(
             err = HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail=ERROR_DETAILS['receiver_not_found'])
             logging.info(f' {request.url.path} - {str(err)} ')
             raise err
+
 
         receiver_wallet = create_wallet_from_username(receiver)
         new_transaction = user_wallet.send_amount(receiver, amount, entered_mudra_pin, category)
@@ -158,4 +160,3 @@ async def send_amount(
         err = HTTPException(status_code=status.HTTP_500_INTERNAL_SERVER_ERROR, detail=ERROR_DETAILS[500])
         logging.error(f' {request.url.path} - {str(err)} ')
         raise err
-

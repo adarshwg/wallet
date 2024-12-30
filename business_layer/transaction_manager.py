@@ -33,8 +33,11 @@ class TransactionManager:
         return {
             "transaction_id": result[0],
             "amount": result[1],
-            "sender": result[2],
-            "receiver": result[3],
+            "sender": result[3],
+            "receiver": result[2],
+            "hours": result[8],
+            "minutes": result[9],
+            "day": result[7],
             "month": result[4],
             "year": result[5],
             "category": result[6]
@@ -75,13 +78,32 @@ class TransactionManager:
             result_list = [TransactionManager.get_transaction_dictionary(result) for result in fetched_results]
         except Exception:
             raise DatabaseException
-        return result_list
+        return result_list[::-1]
 
     @staticmethod
     def get_current_month_transactions(username):
         current_datetime = datetime.now().date()
         try:
             return (TransactionManager.get_transactions_by_month
-                    (current_datetime.month, current_datetime.year, username))
+                    (current_datetime.month, current_datetime.year, username))[::-1]
         except DatabaseException:
             raise DatabaseException
+
+    @staticmethod
+    def get_top_ten_recent_contacts(username):
+        try:
+            fetched_results = db_operations.get_top_ten_recent_contacts(username)
+            recent_contacts = [user[0] for user in fetched_results]
+            return recent_contacts[::-1]
+        except DatabaseException:
+            raise DatabaseException
+
+    @staticmethod
+    def get_all_transactions_for_contact(username,contact):
+        try:
+            fetched_results = db_operations.get_all_transactions_for_contact(username,contact)
+            transactions = [TransactionManager.get_transaction_dictionary(result) for result in fetched_results]
+            return transactions
+        except DatabaseException:
+            raise DatabaseException
+

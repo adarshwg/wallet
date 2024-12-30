@@ -70,6 +70,7 @@ async def signup(request: Request, form_data: Annotated[OAuth2PasswordRequestFor
                                 )
             logging.info(f' {request.url.path} - {str(err)}')
             raise err
+        #todo user object is being created on signup without otp verification
         Authentication.signup(username, password, email_id, mudra_pin)
         token = create_access_token(username, timedelta(minutes=20))
         logging.info(f' {request.url.path} - {status.HTTP_201_CREATED} - user: - [{username}] - account created')
@@ -88,6 +89,7 @@ async def signup(request: Request, form_data: Annotated[OAuth2PasswordRequestFor
     return {'access_token': token, 'token_type': 'bearer'}
 
 
+
 @router.post("/login",
              response_model=Token,
              status_code=status.HTTP_201_CREATED,
@@ -102,6 +104,7 @@ async def login(request: Request, form_data: Annotated[OAuth2PasswordRequestForm
     username = form_data.username
     password = form_data.password
     mudra_pin = int(form_data.client_secret)
+    print(form_data.username, form_data.password, form_data.client_secret)
     if not Authentication.check_username_and_password_format(username, password):
         err = HTTPException(status_code=status.HTTP_403_FORBIDDEN, detail=ERROR_DETAILS['invalid_credentials_format'])
         logging.info(f' {request.url.path} - {str(err)} ')
@@ -139,3 +142,5 @@ async def login(request: Request, form_data: Annotated[OAuth2PasswordRequestForm
         logging.error(f' {request.url.path} - {str(err)}')
         raise err
     return {'access_token': token, 'token_type': 'bearer'}
+
+

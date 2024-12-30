@@ -7,9 +7,9 @@ def create_all_tables():
     create_table_wallets()
 
 
-def add_column():
-    cursor.execute("""alter table user add column mudra_pin integer""")
-    conn.commit()
+# def add_column():
+#     cursor.execute("""alter table transactions add column minutes integer""")
+#     conn.commit()
 
 def create_table_transactions():
     cursor.execute(""" create table if not exists transactions 
@@ -18,6 +18,7 @@ def create_table_transactions():
     amount integer,
     receiver text,
     sender text,
+    day integer,
     month integer,
     year integer,
     category text
