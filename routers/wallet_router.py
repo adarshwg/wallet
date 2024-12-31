@@ -92,6 +92,7 @@ async def get_wallet_balance(request: Request):
         logging.error(f' {request.url.path} - {str(err)} ')
         raise err
 
+
 @router.post(
     "/payment",
     status_code=status.HTTP_201_CREATED,
@@ -103,8 +104,8 @@ async def get_wallet_balance(request: Request):
     },
 )
 async def send_amount(
-    request: Request,
-    send_request: SendAmountRequest
+        request: Request,
+        send_request: SendAmountRequest
 ):
     try:
         username = request.state.username
@@ -119,10 +120,10 @@ async def send_amount(
 
         # Check if the receiver exists
         if not Authentication.check_if_user_exists(receiver):
+            print('user does not exist!!!!!!1')
             err = HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail=ERROR_DETAILS['receiver_not_found'])
             logging.info(f' {request.url.path} - {str(err)} ')
             raise err
-
 
         receiver_wallet = create_wallet_from_username(receiver)
         new_transaction = user_wallet.send_amount(receiver, amount, entered_mudra_pin, category)

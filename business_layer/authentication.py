@@ -18,9 +18,9 @@ class Authentication:
 
     @staticmethod
     def check_mudra_pin_format(mudra_pin):
-        if not isinstance(mudra_pin,int)\
-                or mudra_pin>999999\
-                or mudra_pin<100000:
+        if not isinstance(mudra_pin, int) \
+                or mudra_pin > 999999 \
+                or mudra_pin < 100000:
             return False
         return True
 
@@ -51,6 +51,7 @@ class Authentication:
             user_password = db_operations.get_hashed_user_password(username)
         except Exception:
             raise DatabaseException
+        print(entered_password, "is the password entered")
         result = bcrypt.checkpw(entered_password.encode('utf-8'), user_password)
         print(result, 'is the res')
         return result

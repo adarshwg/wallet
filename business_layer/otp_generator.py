@@ -13,6 +13,10 @@ def generate_otp():
     return otp
 
 
+def configure():
+    load_dotenv()
+
+
 def get_email_payload():
     configure()
     return {

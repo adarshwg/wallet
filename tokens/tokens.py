@@ -34,3 +34,28 @@ def get_current_user(token: Annotated[str, Depends(oauth2_bearer)]):
         raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED,
                             detail='could not validate the credentials!  '
                             )
+
+
+def create_otp_token(hashed_otp: str, expires_delta: timedelta):
+    try:
+        encode = {'sub': hashed_otp}
+        expires = datetime.now(timezone.utc) + expires_delta
+        encode.update({'exp': expires})
+        return jwt.encode(encode, SECRET_KEY, algorithm=ALGORITHM)
+    except JWTError:
+        raise JWTError('Token encoding failed')
+
+
+def decode_otp_token(token: str):
+    try:
+        payload = jwt.decode(token, SECRET_KEY, algorithms=[ALGORITHM])
+        hashed_otp: str = payload.get('sub')
+        if hashed_otp is None:
+            raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED,
+                                detail='could not validate the otp! '
+                                )
+        return hashed_otp
+    except JWTError:
+        raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED,
+                            detail='could not validate the otp!  '
+                            )
