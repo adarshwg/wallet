@@ -56,6 +56,7 @@ async def authenticate_user(username: str, password: str, mudra_pin: int):
 async def signup(request: Request, form_data: Annotated[OAuth2PasswordRequestForm, Depends()]):
     username = form_data.username
     password = form_data.password
+    print(form_data.client_secret)
     mudra_pin = int(form_data.client_secret)
     email_id = form_data.client_id
     if not Authentication.check_username_and_password_format(username, password):

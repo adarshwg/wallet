@@ -11,7 +11,7 @@ from jose import JWTError
 class AuthMiddleware(BaseHTTPMiddleware):
     async def dispatch(self, request: Request, call_next):
         print(request.headers, '.................................................')
-        if request.url.path in ['/', '/auth/login', '/auth/signup','/otp/']:
+        if request.url.path in ['/', '/auth/login', '/auth/signup','/otp/','/otp/verify']:
             return await call_next(request)
         auth_header = request.headers.get('Authorization')
         if not auth_header:
